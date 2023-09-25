@@ -4,11 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Тесты для юр.лиц с особыми задачами</title>
+  <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+  <div class="block-number-question">
+    <p class="num-quest" id="num-quest-current"></p>
+  </div>
 
+  <div class="wrapper-test">
+    <div class="block-question">
+      <p class="question-text" id="questionText"></p>
+    </div>
+    <ul class="block-answers">
+      <li>
+        <label>
+          <input class="radio" type="radio" name="q1">
+          <span class="answer" id="answer"></span>
+        </label>
+      </li>
+      <li>
+        <label>
+          <input class="radio" type="radio" name="q1">
+          <span class="answer" id="answer2"></span>
+        </label>
+      </li>
+      <li>
+        <label>
+          <input class="radio" type="radio" name="q1">
+          <span class="answer" id="answer3"></span>
+        </label>
+      </li>
+    </ul>
+
+    <button class="btn" id="btn-next">Далее</button>
+    <button class="btn btn-result" id="btn-result">Результат</button>
+    <button class="btn btn-restart" id="btn-restart">Заново</button>
+
+    <div class="field-result">
+      <p class="final-text" id="final-score"></p>
+    </div>
+    
+  </div>
 
   <script type="module" src="js/module.js"></script>
   
