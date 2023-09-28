@@ -1,4 +1,4 @@
-import {tacticalSpecialtyTraining} from './questions.js';
+import {tacticalSpecialtyTraining10, useOfSpecialTools20, firstAid50} from './questions.js';
 
 const fieldNumQuest = document.querySelector('#num-quest-current');
 const fieldFinalScore = document.querySelector('#final-score');
@@ -12,31 +12,35 @@ let numQuest = 1; // номер вопросса
 let indexQuest = 0; // индекс вопросса
 let recordedAnswer = ''; // устонавливает true или false
 let countCorrectAnswers = 0; // количество правельных ответов
+let questionSection = firstAid50; // устонавливает вопроссы из определенной секции
 
 /* присвваеваем текст к вопроссу и ответам */
 function fillsQAWithText() {
-  questionText.textContent = tacticalSpecialtyTraining[indexQuest].question;
+  questionText.textContent = questionSection[indexQuest].question;
   colletionAnswers.forEach((elem, index) => {
-    elem.textContent = tacticalSpecialtyTraining[indexQuest].answers[index].value;
+    elem.textContent = questionSection[indexQuest].answers[index].value;
   });
 }
 /* устонавливает стартовое значение для номера вопросса */
 function startQuestNum() {
-  fieldNumQuest.textContent = `${numQuest}/${tacticalSpecialtyTraining.length}`;
+  fieldNumQuest.textContent = `${numQuest}/${questionSection.length}`;
 }
 /* посчитывает количество правельных ответов */
 function scoreCalc() {
-  if (numQuest == tacticalSpecialtyTraining.length+1) return;
-  else if(recordedAnswer == true) {
+  if(recordedAnswer == true) {
     countCorrectAnswers++;
   }
+  else if (numQuest == questionSection.length+1) {
+    return;
+  }
+  console.log(recordedAnswer)
   console.log(countCorrectAnswers)
 }
 /* показывает номер вопросса */
 function showQuestionNumber() {
   numQuest++;
-  if (numQuest <= 10) {
-    fieldNumQuest.textContent = `${numQuest}/${tacticalSpecialtyTraining.length}`;
+  if (numQuest <= questionSection.length) {
+    fieldNumQuest.textContent = `${numQuest}/${questionSection.length}`;
   }
 }
 /* убирает состояние checked с каждого элемента */
@@ -48,12 +52,12 @@ function checkedOff() {
 /* при нажатии на кнопку далее */
 function moveNextQuestion() {
   indexQuest++;
-  
   showQuestionNumber();
   checkedOff();
   fillsQAWithText();
   scoreCalc();
-  if (numQuest == tacticalSpecialtyTraining.length) {
+  recordedAnswer = ''; // очищает переменную ()
+  if (numQuest == questionSection.length) {
     btnNext.style.display = 'none';
     btnResult.style.display = 'block';
     return;
@@ -91,11 +95,11 @@ window.addEventListener('load', startQuestNum);
 window.addEventListener('load', fillsQAWithText);
 colletionAnswers.forEach((elem, index) => {
   elem.addEventListener('click', () => {
-    recordedAnswer = tacticalSpecialtyTraining[indexQuest].answers[index].correct;
+    recordedAnswer = questionSection[indexQuest].answers[index].correct;
   })
 });
 btnNext.addEventListener('click', moveNextQuestion);
 btnResult.addEventListener('click', moveResult);
 btnRestart.addEventListener('click', restartResults);
 
-console.log(tacticalSpecialtyTraining[0].question);
+console.log(questionSection[0].question);
