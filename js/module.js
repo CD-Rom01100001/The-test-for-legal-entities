@@ -1,4 +1,4 @@
-import {tacticalSpecialtyTraining10, useOfSpecialTools20, firstAid50} from './questions.js';
+import {legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84} from './questions.js';
 
 const fieldNumQuest = document.querySelector('#num-quest-current');
 const fieldFinalScore = document.querySelector('#final-score');
@@ -12,7 +12,7 @@ let numQuest = 1; // номер вопросса
 let indexQuest = 0; // индекс вопросса
 let recordedAnswer = ''; // устонавливает true или false
 let countCorrectAnswers = 0; // количество правельных ответов
-let questionSection = firstAid50; // устонавливает вопроссы из определенной секции
+let questionSection = legalTraining80; // устонавливает вопроссы из определенной секции
 
 /* присвваеваем текст к вопроссу и ответам */
 function fillsQAWithText() {
