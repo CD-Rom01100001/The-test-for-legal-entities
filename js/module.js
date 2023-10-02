@@ -1,9 +1,9 @@
 import {legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84} from './questions.js';
 
 const fieldNumQuest = document.querySelector('#num-quest-current');
-const fieldFinalScore = document.querySelector('#final-score');
-const colletionAnswers = document.querySelectorAll('.answer');
-const colletionRadio = document.querySelectorAll('.radio');
+const fieldFinalScore = document.querySelector('#final-result');
+const colletionAnswers = document.querySelectorAll('.question-answers__answers-answer');
+const colletionRadio = document.querySelectorAll('.question-answers__answers-radio');
 const btnNext = document.querySelector('#btn-next');
 const btnResult = document.querySelector('#btn-result');
 const btnRestart = document.querySelector('#btn-restart');
@@ -12,7 +12,7 @@ let numQuest = 1; // номер вопросса
 let indexQuest = 0; // индекс вопросса
 let recordedAnswer = ''; // устонавливает true или false
 let countCorrectAnswers = 0; // количество правельных ответов
-let questionSection = legalTraining80; // устонавливает вопроссы из определенной секции
+let questionSection = tacticalSpecialtyTraining10; // устонавливает вопроссы из определенной секции
 
 /* присвваеваем текст к вопроссу и ответам */
 function fillsQAWithText() {

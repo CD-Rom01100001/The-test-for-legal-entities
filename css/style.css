@@ -1,4 +1,13 @@
-.btn-result,
-.btn-restart {
+.staff-training {
+  width: 100%;
+}
+.staff-training__body {
+  width: 102.4rem;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #f6f6f6;
+}
+
+.btn-score__btn--display--none {
   display: none;
 }

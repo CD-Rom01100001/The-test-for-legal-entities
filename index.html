@@ -9,43 +9,61 @@
 </head>
 <body>
 
-  <div class="block-number-question">
-    <p class="num-quest" id="num-quest-current"></p>
-  </div>
+  <div class="staff-training">
+    <div class="staff-training__body">
 
-  <div class="wrapper-test">
-    <div class="block-question">
-      <p class="question-text" id="questionText"></p>
+      <div class="tests">
+        <div class="test__body">
+
+          <!-- number question -->
+          <div class="tests__number-question">
+            <p class="tests__number-question-number" id="num-quest-current"></p>
+          </div>
+          <!-- questions and answers -->
+          <div class="tests__question-answers question-answers">
+            <div class="question-answers__body">
+              <div class="question-answers__question">
+                <p class="question-answers__question-text" id="questionText"></p>
+              </div>
+              <ul class="question-answers__answers">
+                <li>
+                  <label>
+                    <input class="question-answers__answers-radio" type="radio" name="q1">
+                    <span class="question-answers__answers-answer" id="answer"></span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input class="question-answers__answers-radio" type="radio" name="q1">
+                    <span class="question-answers__answers-answer" id="answer2"></span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input class="question-answers__answers-radio" type="radio" name="q1">
+                    <span class="question-answers__answers-answer" id="answer3"></span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- buttons and score -->
+          <div class="tests__btn-score btn-score">
+            <div class="btn-score__body">
+              <button class="btn-score__btn" id="btn-next">Далее</button>
+              <button class="btn-score__btn btn-score__btn--display--none" id="btn-result">Результат</button>
+              <button class="btn-score__btn btn-score__btn--display--none" id="btn-restart">Заново</button>
+            
+              <div class="btn-score__field-result">
+                <p class="btn-score__field-result-result" id="final-result"></p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
     </div>
-    <ul class="block-answers">
-      <li>
-        <label>
-          <input class="radio" type="radio" name="q1">
-          <span class="answer" id="answer"></span>
-        </label>
-      </li>
-      <li>
-        <label>
-          <input class="radio" type="radio" name="q1">
-          <span class="answer" id="answer2"></span>
-        </label>
-      </li>
-      <li>
-        <label>
-          <input class="radio" type="radio" name="q1">
-          <span class="answer" id="answer3"></span>
-        </label>
-      </li>
-    </ul>
-
-    <button class="btn" id="btn-next">Далее</button>
-    <button class="btn btn-result" id="btn-result">Результат</button>
-    <button class="btn btn-restart" id="btn-restart">Заново</button>
-
-    <div class="field-result">
-      <p class="final-text" id="final-score"></p>
-    </div>
-    
   </div>
 
   <script type="module" src="js/module.js"></script>
