@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'agora';
+  font-style: normal;
+  font-weight: 300;
+  src: 
+  local('PFAgoraSansPro Light'),
+  url(../assets/fonts/PFAgoraSansProLight.woff) format('woff');
+}
+@font-face {
+  font-family: 'agora';
+  font-style: normal;
+  font-weight: 400;
+  src: 
+  local('PFAgoraSansPro Regular'),
+  url(../assets/fonts/PFAgoraSansProRegular.woff) format('woff');
+}
+@font-face {
+  font-family: 'agora';
+  font-style: normal;
+  font-weight: 500;
+  src: 
+  local('PFAgoraSansPro Medium'),
+  url(../assets/fonts/PFAgoraSansProMedium.woff) format('woff');
+}
+@font-face {
+  font-family: 'agora';
+  font-style: normal;
+  font-weight: 700;
+  src: 
+  local('PFAgoraSansPro Black'),
+  url(../assets/fonts/PFAgoraSansProBlack.woff) format('woff');
+}

@@ -1,14 +1,80 @@
+h1, h2, h3, h4, h5, h6, p, a, span, li {
+  font-family: 'agora';
+  color: #1d1d1e;
+}
+
+.links {
+  font-weight: 500;
+  color: #0064b1;
+  transition: .3s;
+}
+
+.links:hover {
+  color: #0091ff;
+}
+
 .staff-training {
   width: 100%;
 
   &__body {
-    width: 102.4rem;
+    max-width: 102.4rem;
     margin: 0 auto;
-    padding: 2rem;
-    background: #f6f6f6;
+    padding: 3rem;
   }
+
+  &__logo {
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__title-text {
+    font: 500 2.4rem/2.4rem 'agora';
+    margin-bottom: 3rem;
+  }
+
+  &__descriotion-text {
+    margin-bottom: 1.5rem;
+    font: 400 1.6rem/2rem 'agora';
+    text-align: justify;
+    text-indent: 2rem;
+  }
+
+  .questions-list {
+    margin-bottom: 2rem;
+
+		&__body {
+		}
+
+		&__title {
+      margin-bottom: 0.5rem;
+      font: 500 1.8rem/2rem 'agora';
+		}
+
+		&__item {
+      margin: 0 0 0.5rem 4rem;
+      list-style: disc;
+      cursor: pointer;
+      transition: .3s;
+		}
+    &__item--list-style--none {
+      margin-left: 0;
+      list-style: none;
+    }
+  }
+
+  .field-questions {
+    width: 100%;
+  }
+
 }
 
+.tests {
+  display: none;
+}
 .btn-score {
 
   &__body {
@@ -26,4 +92,8 @@
 
   &__field-result-result {
   }
+}
+
+.quest-answ-wrap {
+  margin-bottom: 2rem;
 }

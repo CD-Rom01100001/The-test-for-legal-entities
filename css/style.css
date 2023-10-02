@@ -1,13 +1,71 @@
+h1, h2, h3, h4, h5, h6, p, a, span, li {
+  font-family: "agora";
+  color: #1d1d1e;
+}
+
+.links {
+  font-weight: 500;
+  color: #0064b1;
+  transition: 0.3s;
+}
+
+.links:hover {
+  color: #0091ff;
+}
+
 .staff-training {
   width: 100%;
 }
 .staff-training__body {
-  width: 102.4rem;
+  max-width: 102.4rem;
   margin: 0 auto;
-  padding: 2rem;
-  background: #f6f6f6;
+  padding: 3rem;
+}
+.staff-training__logo {
+  margin-bottom: 2rem;
+}
+.staff-training__title {
+  display: flex;
+  justify-content: center;
+}
+.staff-training__title-text {
+  font: 500 2.4rem/2.4rem "agora";
+  margin-bottom: 3rem;
+}
+.staff-training__descriotion-text {
+  margin-bottom: 1.5rem;
+  font: 400 1.6rem/2rem "agora";
+  text-align: justify;
+  text-indent: 2rem;
+}
+.staff-training .questions-list {
+  margin-bottom: 2rem;
+}
+.staff-training .questions-list__title {
+  margin-bottom: 0.5rem;
+  font: 500 1.8rem/2rem "agora";
+}
+.staff-training .questions-list__item {
+  margin: 0 0 0.5rem 4rem;
+  list-style: disc;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.staff-training .questions-list__item--list-style--none {
+  margin-left: 0;
+  list-style: none;
+}
+.staff-training .field-questions {
+  width: 100%;
+}
+
+.tests {
+  display: none;
 }
 
 .btn-score__btn--display--none {
   display: none;
+}
+.quest-answ-wrap {
+  margin-bottom: 2rem;
 }

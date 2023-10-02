@@ -1693,7 +1693,7 @@ const tacticalSpecialtyTraining10 = [
       },
       {
         id: '2.1.2',
-        value: '2. Возможность избежать поражения противником из-за самой способности пулирикошетировать от препятствий.',
+        value: '2. Возможность избежать поражения противником из-за самой способности пули рикошетировать от препятствий.',
         correct: true,
       },
       {
@@ -5136,7 +5136,5 @@ const firearmsTraining84 = [
     ]
   },
 ]
-
-
 
 export {legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84};
