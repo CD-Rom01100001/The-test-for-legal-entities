@@ -1,19 +1,15 @@
 import {legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84} from './questions.js';
-import {questioning} from './questionStudy.js';
+import {questioning, fieldQuestions} from './questionStudy.js';
 
 const fieldNumQuest = document.querySelector('#num-quest-current');
 const fieldFinalScore = document.querySelector('#final-result');
-const colletionAnswers = document.querySelectorAll('.question-answers__answers-answer');
-const colletionRadio = document.querySelectorAll('.question-answers__answers-radio');
+const collectionAnswers = document.querySelectorAll('.question-answers__answers-answer');
+const collectionRadio = document.querySelectorAll('.question-answers__answers-radio');
 const btnNext = document.querySelector('#btn-next');
 const btnResult = document.querySelector('#btn-result');
 const btnRestart = document.querySelector('#btn-restart');
 
-const btnLegalTraining80 = document.querySelector('#legal-training-80');
-const btnTactical10 = document.querySelector('#tactical-specialty-training-10');
-const btnFirstAid50 = document.querySelector('#first-aid-50');
-const btnSpecialTools20 = document.querySelector('#use-of-special-tools-20');
-const btnFirearms84 = document.querySelector('#firearms-training-84');
+const collectionSectionLinks = document.querySelectorAll('.section-link')
 
 let numQuest = 1; // номер вопросса
 let indexQuest = 0; // индекс вопросса
@@ -24,7 +20,7 @@ let questionSection = tacticalSpecialtyTraining10; // устонавливает
 /* присвваеваем текст к вопроссу и ответам */
 function fillsQAWithText() {
   questionText.textContent = questionSection[indexQuest].question;
-  colletionAnswers.forEach((elem, index) => {
+  collectionAnswers.forEach((elem, index) => {
     elem.textContent = questionSection[indexQuest].answers[index].value;
   });
 }
@@ -52,7 +48,7 @@ function showQuestionNumber() {
 }
 /* убирает состояние checked с каждого элемента */
 function checkedOff() {
-  colletionRadio.forEach((elem) => {
+  collectionRadio.forEach((elem) => {
     elem.checked = false;
   });
 }
@@ -100,7 +96,7 @@ function restartResults() {
 
 window.addEventListener('load', startQuestNum);
 window.addEventListener('load', fillsQAWithText);
-colletionAnswers.forEach((elem, index) => {
+collectionAnswers.forEach((elem, index) => {
   elem.addEventListener('click', () => {
     recordedAnswer = questionSection[indexQuest].answers[index].correct;
   })
@@ -108,6 +104,32 @@ colletionAnswers.forEach((elem, index) => {
 btnNext.addEventListener('click', moveNextQuestion);
 btnResult.addEventListener('click', moveResult);
 btnRestart.addEventListener('click', restartResults);
-btnTactical10.addEventListener('click', questioning);
+collectionSectionLinks.forEach(elem => {
+  if (elem.id == 'legal-training-80') {
+    elem.addEventListener('click', () => {
+      fieldQuestions.innerHTML = '';
+      questioning(legalTraining80);
+    })
+  }else if (elem.id == 'tactical-specialty-training-10') {
+    elem.addEventListener('click', () => {
+      fieldQuestions.innerHTML = '';
+      questioning(tacticalSpecialtyTraining10)})
+  }else if (elem.id == 'first-aid-50') {
+    elem.addEventListener('click', () => {
+      fieldQuestions.innerHTML = '';
+      questioning(firstAid50);
+    })
+  }else if (elem.id == 'use-of-special-tools-20') {
+    elem.addEventListener('click', () => {
+      fieldQuestions.innerHTML = '';
+      questioning(useOfSpecialTools20);
+    })
+  }else if (elem.id == 'firearms-training-84') {
+    elem.addEventListener('click', () => {
+      fieldQuestions.innerHTML = '';
+      questioning(firearmsTraining84);
+    })
+  }
+})
 
 console.log(questionSection[0].question);

@@ -2,10 +2,10 @@ import {legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTo
 
 const fieldQuestions = document.querySelector('#field-questions');
 
-const questioning = () => {
+const questioning = (section) => {
   let count = 0;
 
-  tacticalSpecialtyTraining10.forEach((elem) => {
+  section.forEach((elem) => {
     count++;
 
     const questAnswWrap = document.createElement('div');
@@ -30,4 +30,4 @@ const questioning = () => {
 
 
 
-export {questioning}
+export {questioning, fieldQuestions}

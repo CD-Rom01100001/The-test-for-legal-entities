@@ -74,25 +74,29 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
 .tests {
   display: none;
+
+  .btn-score {
+
+    &__body {
+    }
+  
+    &__btn {
+    }
+  
+    &__btn--display--none {
+      display: none;
+    }
+  
+    &__field-result {
+    }
+  
+    &__field-result-result {
+    }
+  }
+  
 }
-.btn-score {
 
-  &__body {
-  }
 
-  &__btn {
-  }
-
-  &__btn--display--none {
-    display: none;
-  }
-
-  &__field-result {
-  }
-
-  &__field-result-result {
-  }
-}
 
 .quest-answ-wrap {
   margin-bottom: 2rem;
