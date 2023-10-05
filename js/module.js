@@ -9,7 +9,7 @@ const btnNext = document.querySelector('#btn-next');
 const btnResult = document.querySelector('#btn-result');
 const btnRestart = document.querySelector('#btn-restart');
 
-const collectionSectionLinks = document.querySelectorAll('.section-link')
+const collectionSectionLinks = document.querySelectorAll('.questions-list__section-link');
 
 let numQuest = 1; // номер вопросса
 let indexQuest = 0; // индекс вопросса
@@ -105,31 +105,35 @@ btnNext.addEventListener('click', moveNextQuestion);
 btnResult.addEventListener('click', moveResult);
 btnRestart.addEventListener('click', restartResults);
 collectionSectionLinks.forEach(elem => {
-  if (elem.id == 'legal-training-80') {
+  if (elem.id == 'legal-training-80') { 
     elem.addEventListener('click', () => {
       fieldQuestions.innerHTML = '';
       questioning(legalTraining80);
+      document.querySelector('.field-questions__body-section-title').textContent = `Вопроссы ${elem.textContent}`;
     })
   }else if (elem.id == 'tactical-specialty-training-10') {
     elem.addEventListener('click', () => {
-      fieldQuestions.innerHTML = '';
-      questioning(tacticalSpecialtyTraining10)})
+      console.log(elem);fieldQuestions.innerHTML = '';
+      questioning(tacticalSpecialtyTraining10);
+      document.querySelector('.field-questions__body-section-title').textContent = `Вопроссы ${elem.textContent}`;
+    })
   }else if (elem.id == 'first-aid-50') {
     elem.addEventListener('click', () => {
       fieldQuestions.innerHTML = '';
       questioning(firstAid50);
+      document.querySelector('.field-questions__body-section-title').textContent = `Вопроссы ${elem.textContent}`;
     })
   }else if (elem.id == 'use-of-special-tools-20') {
     elem.addEventListener('click', () => {
       fieldQuestions.innerHTML = '';
       questioning(useOfSpecialTools20);
+      document.querySelector('.field-questions__body-section-title').textContent = `Вопроссы ${elem.textContent}`;
     })
   }else if (elem.id == 'firearms-training-84') {
     elem.addEventListener('click', () => {
       fieldQuestions.innerHTML = '';
       questioning(firearmsTraining84);
+      document.querySelector('.field-questions__body-section-title').textContent = `Вопроссы ${elem.textContent}`;
     })
   }
 })
-
-console.log(questionSection[0].question);

@@ -25,6 +25,14 @@
 @font-face {
   font-family: 'agora';
   font-style: normal;
+  font-weight: 600;
+  src: 
+  local('PFAgoraSansPro Bold'),
+  url(../assets/fonts/PFAgoraSansProBold.woff) format('woff');
+}
+@font-face {
+  font-family: 'agora';
+  font-style: normal;
   font-weight: 700;
   src: 
   local('PFAgoraSansPro Black'),

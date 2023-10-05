@@ -6,6 +6,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 .links {
   font-weight: 500;
   color: #0064b1;
+  cursor: pointer;
   transition: .3s;
 }
 
@@ -57,17 +58,19 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 		&__item {
       margin: 0 0 0.5rem 4rem;
       list-style: disc;
-      cursor: pointer;
       transition: .3s;
 		}
+
+    &__section-link {
+      display: inline-block;
+    }
+
     &__item--list-style--none {
-      margin-left: 0;
+      display: flex;
+      justify-content: space-between;
+      margin: 2rem 0 0 0;
       list-style: none;
     }
-  }
-
-  .field-questions {
-    width: 100%;
   }
 
 }
@@ -93,11 +96,68 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     &__field-result-result {
     }
   }
+
+}
+
+.field-questions {
+
+  &__body {
+    display: none;
+    width: 100%;
+    // max-height: 80rem;
+    padding: 0 2rem;
+    background: #f0f0f0;
+    border-top: 2rem solid #f0f0f0;
+    border-bottom: 2rem solid #f0f0f0;
+    border-radius: 0.5rem;
+    overflow: auto;  
+  }
+
+  /* Chrome, Edge and Safari */
+  &__body::-webkit-scrollbar {
+    width: 8px;
+  }
+  &__body::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
+    background-color: #dadada;
+  }
+  &__body::-webkit-scrollbar-thumb:hover {
+    background-color: #C1C1C1;
+    cursor: pointer;
+  }
+  /* ------------------------ */
+
+  &__body-section-title {
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  &__body-quest-answ-wrap {
+    margin-bottom: 2rem;
+  }
+
+  &__body-question {
+    margin-bottom: 1rem;
+    color: #000;
+    font-weight: 600;
+  }
+
+  &__body-answer {
+    margin: 0 0 0.5rem 2rem;
+    font-weight: 400;
+    color: #29292b;
+  }
+
+  &__body-answer--answer--correct {
+    border: 0.2rem solid #8a8a8a3f;
+    border-radius: 0.5rem;
+    background: #73ff5d2f;
+  }
   
 }
 
 
 
-.quest-answ-wrap {
-  margin-bottom: 2rem;
-}
+
