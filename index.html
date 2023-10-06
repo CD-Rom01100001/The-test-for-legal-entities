@@ -10,108 +10,131 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
   <div class="staff-training">
     <div class="staff-training__body">
 
-      <div class="staff-training__logo">
+      <header class="staff-training__logo" id="top">
         <img src="assets/images/logo.png" alt="logo GCSS" class="staff-training__logo-image">
-      </div>
+      </header>
 
-      <div class="staff-training__title">
+      <div class="staff-training__title staff-training__title--margin-bottom">
         <h2 class="staff-training__title-text">Обучение сотрудников ФГУП ГЦСС:</h2>
       </div>
 
-      <div class="staff-training__descriotion">
-        <p class="staff-training__descriotion-text">Для проверки теоретических знаний нормативных правовых актов Российской Федерации, регулирующих деятельность юридических лиц с особыми уставными задачами, оборот оружия и (или) специальных средств, а также устанавливающих особенности, запреты и ограничения на их применение в ходе периодических проверок на пригодность к действиям в условиях, связанных с применением огнестрельного оружия и специальных средств разработаны 244 вопроса для юридических лиц с особыми уставными задачами.</p>
-        <p class="staff-training__descriotion-text">Перечень вопросов и варианты ответов на них утверждены Главным управлением государственного контроля и лицензионно-разрешительной работы Федеральной службы войск национальной гвардии Российской Федерации.</p>
-      </div>
+      <div class="staff-training__main-nav-wrap">
 
-      <div class="questions-list">
-        <div class="questions-list__body">
-          <h3 class="questions-list__title">Всего 244 вопроса:</h3>
+        <nav class="staff-training__nav navigation">
+          <p class="navigation__questions nav-link nav-link--active" id="navigation__questions">Вопросы</p>
+          <p class="navigation__training nav-link" id="navigation__training">Обучение</p>
+          <p class="navigation__exam nav-link" id="navigation__exam">Экзамен</p>
+        </nav>
 
-          <ul>
-            <li class="questions-list__item">
-              <p class="questions-list__section-link links" id="legal-training-80">по правовой подготовке (80)</p>
-            </li>
-            <li class="questions-list__item">
-              <p class="questions-list__section-link links" id="tactical-specialty-training-10">по тактико-специальной подготовке (10)</p>
-            </li>
-            <li class="questions-list__item">
-              <p class="questions-list__section-link links" id="first-aid-50">по первой помощи (50)</p>
-            </li>
-            <li class="questions-list__item">
-              <p class="questions-list__section-link links" id="use-of-special-tools-20">по использованию специальных средств (20)</p>
-            </li>
-            <li class="questions-list__item">
-              <p class="questions-list__section-link links" id="firearms-training-84">по огневой подготовке (84)</p>
-            </li>
-            <li class="questions-list__item questions-list__item--list-style--none">
-              <p>Все они утверждены <a class="questions-list__order-link links" href="https://rosguard.gov.ru/document/article/prikaz-federalnoj-sluzhby-vojsk-nacionalnoj-gvardii-rossijskoj-federacii-ot-25112019--387" target="_blank">Приказом Росгвардии от 25.11.2019 N 387</a></p> 
-              <a class="questions-list__link-pdf-file links" href="assets/txt-files/voprosy_i_otvety_dlya_yuridicheskih_lic_s_osobymi_zadachami2021.pdf" download="voprosy_i_otvety_dlya_yuridicheskih_lic_s_osobymi_zadachami2021.pdf">Скачать вопросы с ответами</a>
-            </li>
-          </ul>
+        <main class="staff-training__main main">
 
-        </div>
-      </div>
-
-      <div class="field-questions">
-        <div class="field-questions__body" id="field-questions"></div>
-      </div>
-
-      <div class="tests">
-        <div class="test__body">
-
-          <!-- number question -->
-          <div class="tests__number-question">
-            <p class="tests__number-question-number" id="num-quest-current"></p>
+          <div class="staff-training__title">
+            <h3 class="staff-training__title-text" id="title-section">Вопросы</h3>
           </div>
-          <!-- questions and answers -->
-          <div class="tests__question-answers question-answers">
-            <div class="question-answers__body">
-              <div class="question-answers__question">
-                <p class="question-answers__question-text" id="questionText"></p>
-              </div>
-              <ul class="question-answers__answers">
-                <li>
-                  <label>
-                    <input class="question-answers__answers-radio" type="radio" name="q1">
-                    <span class="question-answers__answers-answer" id="answer"></span>
-                  </label>
+    
+          <div class="staff-training__descriotion">
+            <p class="staff-training__descriotion-text">Для проверки теоретических знаний нормативных правовых актов Российской Федерации, регулирующих деятельность юридических лиц с особыми уставными задачами, оборот оружия и (или) специальных средств, а также устанавливающих особенности, запреты и ограничения на их применение в ходе периодических проверок на пригодность к действиям в условиях, связанных с применением огнестрельного оружия и специальных средств разработаны 244 вопроса для юридических лиц с особыми уставными задачами.</p>
+            <p class="staff-training__descriotion-text">Перечень вопросов и варианты ответов на них утверждены Главным управлением государственного контроля и лицензионно-разрешительной работы Федеральной службы войск национальной гвардии Российской Федерации.</p>
+            <p class="staff-training__descriotion-text staff-training__descriotion-text--display--none">На экзамене будут использоваться билеты, в каждом из которых будет приведено по 10 вопросов из общего списка. На тестирование отведено 15 минут. Для успешной сдачи экзамена вам необходимо уложиться в данный промежуток времени, а также разрешается допустить не более 1 ошибки.</p>
+          </div>
+    
+          <div class="questions-list">
+            <div class="questions-list__body">
+              <h3 class="questions-list__title">Всего 244 вопроса:</h3>
+    
+              <ul>
+                <li class="questions-list__item">
+                  <p class="questions-list__section-link links" id="legal-training-80">по правовой подготовке (80)</p>
                 </li>
-                <li>
-                  <label>
-                    <input class="question-answers__answers-radio" type="radio" name="q1">
-                    <span class="question-answers__answers-answer" id="answer2"></span>
-                  </label>
+                <li class="questions-list__item">
+                  <p class="questions-list__section-link links" id="tactical-specialty-training-10">по тактико-специальной подготовке (10)</p>
                 </li>
-                <li>
-                  <label>
-                    <input class="question-answers__answers-radio" type="radio" name="q1">
-                    <span class="question-answers__answers-answer" id="answer3"></span>
-                  </label>
+                <li class="questions-list__item">
+                  <p class="questions-list__section-link links" id="first-aid-50">по первой помощи (50)</p>
+                </li>
+                <li class="questions-list__item">
+                  <p class="questions-list__section-link links" id="use-of-special-tools-20">по использованию специальных средств (20)</p>
+                </li>
+                <li class="questions-list__item">
+                  <p class="questions-list__section-link links" id="firearms-training-84">по огневой подготовке (84)</p>
+                </li>
+                <li class="questions-list__item questions-list__item--list-style--none">
+                  <p>Все они утверждены <a class="questions-list__order-link links" href="https://rosguard.gov.ru/document/article/prikaz-federalnoj-sluzhby-vojsk-nacionalnoj-gvardii-rossijskoj-federacii-ot-25112019--387" target="_blank">Приказом Росгвардии от 25.11.2019 N 387</a></p> 
+                  <a class="questions-list__link-pdf-file links" href="assets/txt-files/voprosy_i_otvety_dlya_yuridicheskih_lic_s_osobymi_zadachami2021.pdf" download="voprosy_i_otvety_dlya_yuridicheskih_lic_s_osobymi_zadachami2021.pdf">Скачать вопросы с ответами</a>
                 </li>
               </ul>
+    
             </div>
           </div>
-          <!-- buttons and score -->
-          <div class="tests__btn-score btn-score">
-            <div class="btn-score__body">
-              <button class="btn-score__btn" id="btn-next">Далее</button>
-              <button class="btn-score__btn btn-score__btn--display--none" id="btn-result">Результат</button>
-              <button class="btn-score__btn btn-score__btn--display--none" id="btn-restart">Заново</button>
-            
-              <div class="btn-score__field-result">
-                <p class="btn-score__field-result-result" id="final-result"></p>
+    
+          <div class="field-questions field-questions--margin--top">
+            <div class="field-questions__body" id="field-questions"></div>
+          </div>
+    
+          <div class="tests tests--display--none" id="field-tests">
+            <div class="test__body">
+    
+              <!-- number question -->
+              <div class="tests__number-question">
+                <p class="tests__number-question-number" id="num-quest-current"></p>
               </div>
+              <!-- questions and answers -->
+              <div class="tests__question-answers question-answers">
+                <div class="question-answers__body">
+                  <div class="question-answers__question">
+                    <p class="question-answers__question-text" id="questionText"></p>
+                  </div>
+                  <ul class="question-answers__answers">
+                    <li>
+                      <label>
+                        <input class="question-answers__answers-radio" type="radio" name="q1">
+                        <span class="question-answers__answers-answer" id="answer"></span>
+                      </label>
+                    </li>
+                    <li>
+                      <label>
+                        <input class="question-answers__answers-radio" type="radio" name="q1">
+                        <span class="question-answers__answers-answer" id="answer2"></span>
+                      </label>
+                    </li>
+                    <li>
+                      <label>
+                        <input class="question-answers__answers-radio" type="radio" name="q1">
+                        <span class="question-answers__answers-answer" id="answer3"></span>
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- buttons and score -->
+              <div class="tests__btn-score btn-score">
+                <div class="btn-score__body">
+                  <button class="btn-score__btn" id="btn-next">Далее</button>
+                  <button class="btn-score__btn btn-score__btn--display--none" id="btn-result">Результат</button>
+                  <button class="btn-score__btn btn-score__btn--display--none" id="btn-restart">Заново</button>
+                
+                  <div class="btn-score__field-result">
+                    <p class="btn-score__field-result-result" id="final-result"></p>
+                  </div>
+                </div>
+              </div>
+    
             </div>
           </div>
+  
+        </main>
 
-        </div>
       </div>
+      
       
     </div>
   </div>
+
+  <a href="#top" class="arrow-top" id="arrow-top" title="В начало страницы">&#11165;</a>
 
   <script type="module" src="js/module.js"></script>
   
