@@ -34,7 +34,7 @@ const styleLinksNav = (link) => {
 const questionContent = () => {
   titleSection.textContent = 'Вопросы';
   descriptionSectionCollection.forEach((elem, index) => {
-    if (index != 0) {
+    if (index == 2) {
       elem.classList.add('staff-training__descriotion-text--display--none');
     } else {
       elem.classList.remove('staff-training__descriotion-text--display--none')

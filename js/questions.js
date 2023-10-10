@@ -3076,7 +3076,7 @@ const useOfSpecialTools20 = [
   },
   /* вопрос 4.7   2*/
   {
-    question: 'Перед надеванием наручников на правонарушителянеобходимо:',
+    question: 'Перед надеванием наручников на правонарушителя необходимо:',
     answers: [
       {
         id: '4.7.1',
@@ -5137,4 +5137,12 @@ const firearmsTraining84 = [
   },
 ]
 
-export {legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84};
+const arrayQuestions = [
+  legalTraining80, 
+  tacticalSpecialtyTraining10, 
+  firstAid50, 
+  useOfSpecialTools20, 
+  firearmsTraining84
+];
+
+export {arrayQuestions, legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84};

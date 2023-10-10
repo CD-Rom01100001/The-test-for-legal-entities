@@ -1,4 +1,4 @@
-import {legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84} from './questions.js';
+import {arrayQuestions, legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84} from './questions.js';
 
 
 //* -------------------- CONSTANTS -------------------- */
@@ -19,38 +19,71 @@ let numQuest = 1; // номер вопросса
 let indexQuest = 0; // индекс вопросса
 let recordedAnswer = ''; // устонавливает true или false
 let countCorrectAnswers = 0; // количество правельных ответов
-let questionSection = useOfSpecialTools20; // устонавливает вопроссы из определенной секции
+let randomQuestions = []; // устонавливает вопроссы из определенной секции
 //* --------------------------------------------------- */
-
+ 
 
 //* -------------------- FUNCTIONS -------------------- */
+/* рандомно вытаскивает два вопросса */
+const randomQuest = (num) => {
+  let newArr = Array(num).fill().map((e, i) => i)
+  for (let i = newArr.length - 1; i > 0; i--) {
+     let j = Math.floor(Math.random() * (i + 1));
+     [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+   }
+  return newArr.splice(0, 2)
+}
+/* перемешивает массив */
+const shuffle = (newArr) => {
+  for (let i = newArr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+  }
+  return newArr;
+}
+/* формирует десять вопросов (по два из каждого раздела) и перемешивает их в случайном порядке */
+const generation10QuestionsFromAllSections = () => {
+  let questionSection = [];
+
+  for (let i = 0; i < arrayQuestions.length; i++) {
+    let arrLength = arrayQuestions[i].length;
+    let quest = randomQuest(arrLength);
+    console.log(quest);
+    console.log(quest[0]);
+    console.log(quest[1]);
+    questionSection.push(arrayQuestions[i][quest[0]]);
+    questionSection.push(arrayQuestions[i][quest[1]]);
+  }
+
+  randomQuestions = shuffle(questionSection);
+}
 /* присвваеваем текст к вопроссу и ответам */
 const fillsQAWithText = () => {
-  questionText.textContent = questionSection[indexQuest].question;
+  questionText.textContent = randomQuestions[indexQuest].question;
   collectionAnswers.forEach((elem, index) => {
-    elem.textContent = questionSection[indexQuest].answers[index].value;
+    elem.textContent = randomQuestions[indexQuest].answers[index].value;
   });
 }
 /* устонавливает стартовое значение для номера вопросса */
 const startQuestNum = () => {
-  fieldNumQuest.textContent = `${numQuest}/${questionSection.length}`;
+  fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
 }
 /* посчитывает количество правельных ответов */
 const scoreCalc = () => {
   if(recordedAnswer == true) {
     countCorrectAnswers++;
   }
-  else if (numQuest == questionSection.length+1) {
+  else if (numQuest == randomQuestions.length+1) {
     return;
   }
-  console.log(recordedAnswer)
-  console.log(countCorrectAnswers)
+  // console.log(recordedAnswer)
+  // console.log(countCorrectAnswers)
 }
 /* показывает номер вопросса */
 const showQuestionNumber = () => {
   numQuest++;
-  if (numQuest <= questionSection.length) {
-    fieldNumQuest.textContent = `${numQuest}/${questionSection.length}`;
+  if (numQuest <= randomQuestions.length) {
+    fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
   }
 }
 /* убирает состояние checked с каждого элемента */
@@ -67,7 +100,7 @@ const moveNextQuestion = () => {
   fillsQAWithText();
   scoreCalc();
   recordedAnswer = ''; // очищает переменную ()
-  if (numQuest == questionSection.length) {
+  if (numQuest == randomQuestions.length) {
     btnNext.style.display = 'none';
     btnResult.style.display = 'block';
     return;
@@ -89,6 +122,8 @@ const moveResult = () => {
 }
 /* сбрасывает все результаты */
 const restartResults = () => {
+  randomQuestions = []; // сбрасывает ранее заполненный массив с вопросами
+  generation10QuestionsFromAllSections(); // формирует десять вопросов (по два из каждого раздела) и перемешивает их в случайном порядке
   btnNext.style.display = 'block';
   btnResult.style.display = 'none';
   btnRestart.style.display = 'none';
@@ -96,25 +131,25 @@ const restartResults = () => {
   numQuest = 0; // номер вопросса
   indexQuest = 0; // индекс вопросса
   countCorrectAnswers = 0; // количество правельных ответов
-  showQuestionNumber();
-  checkedOff();
-  fillsQAWithText();
+  showQuestionNumber(); // показывает номер вопросса
+  checkedOff(); // убирает состояние checked с каждого элемента
+  fillsQAWithText(); // присвваеваем текст к вопроссу и ответам
 }
 //* --------------------------------------------------- */
 
 
 //*---------------------- EVENTS ---------------------- */
+window.addEventListener('load', generation10QuestionsFromAllSections);
 window.addEventListener('load', fillsQAWithText);
 window.addEventListener('load', startQuestNum);
 collectionAnswers.forEach((elem, index) => {
   elem.addEventListener('click', () => {
-    recordedAnswer = questionSection[indexQuest].answers[index].correct;
+    recordedAnswer = randomQuestions[indexQuest].answers[index].correct;
   })
 });
 btnNext.addEventListener('click', moveNextQuestion);
 btnResult.addEventListener('click', moveResult);
 btnRestart.addEventListener('click', restartResults);
 //* --------------------------------------------------- */
-
 
 export {fieldTests};
