@@ -44,38 +44,28 @@ const questioning = (section) => {
     fieldQuestions.append(questAnswWrap);
   })
 }
+
+/* заполнение выбранными вопросами */
+const fillQuest = (elem, section) => {
+  elem.addEventListener('click', () => {
+    fieldQuestions.innerHTML = '';
+    questioning(legalTraining80);
+    document.querySelector('.field-questions__body-section-title').textContent = `Вопроссы ${elem.textContent}`;
+  })
+}
+
 /* в зависимости от того какая ссылка нажата заполняет соответствующими вопросами */
 const fillQuestionSection = (elem) => {
-  if (elem.id == 'legal-training-80') { 
-    elem.addEventListener('click', () => {
-      fieldQuestions.innerHTML = '';
-      questioning(legalTraining80);
-      document.querySelector('.field-questions__body-section-title').textContent = `Вопроссы ${elem.textContent}`;
-    })
+  if (elem.id == 'legal-training-80') {
+    fillQuest(elem, legalTraining80);
   }else if (elem.id == 'tactical-specialty-training-10') {
-    elem.addEventListener('click', () => {
-      fieldQuestions.innerHTML = '';
-      questioning(tacticalSpecialtyTraining10);
-      document.querySelector('.field-questions__body-section-title').textContent = `Вопроссы ${elem.textContent}`;
-    })
+    fillQuest(elem, tacticalSpecialtyTraining10)
   }else if (elem.id == 'first-aid-50') {
-    elem.addEventListener('click', () => {
-      fieldQuestions.innerHTML = '';
-      questioning(firstAid50);
-      document.querySelector('.field-questions__body-section-title').textContent = `Вопроссы ${elem.textContent}`;
-    })
+    fillQuest(elem, firstAid50)
   }else if (elem.id == 'use-of-special-tools-20') {
-    elem.addEventListener('click', () => {
-      fieldQuestions.innerHTML = '';
-      questioning(useOfSpecialTools20);
-      document.querySelector('.field-questions__body-section-title').textContent = `Вопроссы ${elem.textContent}`;
-    })
+    fillQuest(elem, useOfSpecialTools20)
   }else if (elem.id == 'firearms-training-84') {
-    elem.addEventListener('click', () => {
-      fieldQuestions.innerHTML = '';
-      questioning(firearmsTraining84);
-      document.querySelector('.field-questions__body-section-title').textContent = `Вопроссы ${elem.textContent}`;
-    })
+    fillQuest(elem, firearmsTraining84)
   }
 }
 //* --------------------------------------------------- */

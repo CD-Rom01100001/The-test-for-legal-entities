@@ -6,6 +6,7 @@ const fieldTests = document.querySelector('#field-tests');
 const fieldNumQuest = document.querySelector('#num-quest-current');
 const questionText = document.querySelector('#questionText');
 const fieldFinalScore = document.querySelector('#final-result');
+const nameSectionText = document.querySelector('#name-section-text');
 const collectionAnswers = document.querySelectorAll('.question-answers__answers-answer');
 const collectionRadio = document.querySelectorAll('.question-answers__answers-radio');
 const btnNext = document.querySelector('#btn-next');
@@ -25,13 +26,13 @@ let randomQuestions = []; // устонавливает вопроссы из о
 
 //* -------------------- FUNCTIONS -------------------- */
 /* рандомно вытаскивает два вопросса */
-const randomQuest = (num) => {
+const randomQuest = (num, num2) => {
   let newArr = Array(num).fill().map((e, i) => i)
   for (let i = newArr.length - 1; i > 0; i--) {
      let j = Math.floor(Math.random() * (i + 1));
      [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
    }
-  return newArr.splice(0, 2)
+  return newArr.splice(0, num2)
 }
 /* перемешивает массив */
 const shuffle = (newArr) => {
@@ -47,19 +48,36 @@ const generation10QuestionsFromAllSections = () => {
 
   for (let i = 0; i < arrayQuestions.length; i++) {
     let arrLength = arrayQuestions[i].length;
-    let quest = randomQuest(arrLength);
+    let quest = [];
+    if (arrLength <= 20) {
+      quest = randomQuest(arrLength, 1)
+      for (let j = 0; j < 1; j++) {
+        questionSection.push(arrayQuestions[i][quest[j]]);
+      }
+    }
+    if (arrLength > 20 && arrLength <= 50) {
+      quest = randomQuest(arrLength, 2)
+      for (let j = 0; j < 2; j++) {
+        questionSection.push(arrayQuestions[i][quest[j]]);
+      }
+    }
+    if (arrLength > 50) {
+      quest = randomQuest(arrLength, 3)
+      for (let j = 0; j < 3; j++) {
+        questionSection.push(arrayQuestions[i][quest[j]]);
+      }
+    }
     console.log(quest);
     console.log(quest[0]);
     console.log(quest[1]);
-    questionSection.push(arrayQuestions[i][quest[0]]);
-    questionSection.push(arrayQuestions[i][quest[1]]);
   }
 
   randomQuestions = shuffle(questionSection);
 }
-/* присвваеваем текст к вопроссу и ответам */
+/* присвваеваем текст к названию секции, вопроссу и ответам */
 const fillsQAWithText = () => {
   questionText.textContent = randomQuestions[indexQuest].question;
+  nameSectionText.textContent = randomQuestions[indexQuest].answers[0].id;
   collectionAnswers.forEach((elem, index) => {
     elem.textContent = randomQuestions[indexQuest].answers[index].value;
   });
