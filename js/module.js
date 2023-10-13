@@ -1,6 +1,6 @@
 import {legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84} from './questions.js';
 import {fieldQuestionsMain, fieldQuestionList} from './questionSection.js';
-import {fieldTests} from './examSection.js';
+import {fieldTests, fieldStartExam} from './examSection.js';
 
 
 //* -------------------- CONSTANTS -------------------- */
@@ -42,7 +42,7 @@ const questionContent = () => {
   });
   fieldQuestionsMain.classList.remove('field-questions--display--none');
   fieldQuestionList.classList.remove('questions-list--display--none');
-  fieldTests.classList.add('tests--display--none');
+  fieldStartExam.classList.remove('field-start-exam--display--block');
 }
 /* меняет содержимое на экзамены */
 const examsContent = () => {
@@ -56,7 +56,10 @@ const examsContent = () => {
   });
   fieldQuestionsMain.classList.add('field-questions--display--none');
   fieldQuestionList.classList.add('questions-list--display--none');
-  fieldTests.classList.remove('tests--display--none');
+  /* если тест запущен то кнопка "Начать экзамен" больше не появится */
+  if (fieldTests.classList.contains('tests--display--block') == false) {
+    fieldStartExam.classList.add('field-start-exam--display--block');
+  }
 }
 //* --------------------------------------------------- */
 

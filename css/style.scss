@@ -184,9 +184,50 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 }
 
 .tests {
-  &--display--none {
-    display: none;
+  display: none;
+
+  &--display--block {
+    display: block;
   }
+
+  .question-answers {
+
+		&__answers {
+		}
+
+		&__answers-body {
+      display: block;
+      margin: 0 0 1rem 0;
+      padding: 0.5rem;
+      font-weight: 400;
+      color: #29292b;
+      background: #f5f5f5;
+      border: 0.2rem solid #8a8a8a3f;
+      border-radius: 0.5rem;
+      cursor: pointer;
+		}
+
+    &__answers-body:hover {
+      color: #000;
+      background: #0064b152;
+    }
+
+    &__answers-body:active {
+      color: #000;
+      background: #0064b10c;
+    }
+
+    &__answers-body--active {
+      background: #0064b127;
+    }
+
+		&__answers-body-radio {
+		}
+
+		&__answers-body-answer {
+		}
+  }
+
 
   .btn-score {
 
@@ -207,6 +248,46 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     }
   }
 
+}
+
+.field-start-exam {
+  display: none;
+
+  &--display--block {
+    display: block;
+  }
+
+  &__body {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__button {
+  }
+}
+
+.pre-start-countdown {
+  position: relative;
+  // display: none;
+  justify-content: center;
+  height: 6rem;
+
+  &--display--block {
+    display: flex;
+  }
+
+  &__num {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: .3s;
+  }
 }
 
 
@@ -263,15 +344,19 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   }
 
   &__body-answer {
-    margin: 0 0 0.5rem 2rem;
+    margin: 0 0 1rem 2rem;
+    padding: 0.5rem;
     font-weight: 400;
     color: #29292b;
+    background: #f5f5f5;
+    border: 0.2rem solid #8a8a8a3f;
+    border-radius: 0.5rem;
   }
 
   &__body-answer--answer--correct {
+    background: #73ff5d2f;
     border: 0.2rem solid #8a8a8a3f;
     border-radius: 0.5rem;
-    background: #73ff5d2f;
   }
   
 }

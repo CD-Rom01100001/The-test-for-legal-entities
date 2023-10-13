@@ -155,12 +155,68 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   list-style: none;
 }
 
-.tests--display--none {
+.tests {
   display: none;
+}
+.tests--display--block {
+  display: block;
+}
+.tests .question-answers__answers-body {
+  display: block;
+  margin: 0 0 1rem 0;
+  padding: 0.5rem;
+  font-weight: 400;
+  color: #29292b;
+  background: #f5f5f5;
+  border: 0.2rem solid rgba(138, 138, 138, 0.2470588235);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.tests .question-answers__answers-body:hover {
+  color: #000;
+  background: rgba(0, 100, 177, 0.3215686275);
+}
+.tests .question-answers__answers-body:active {
+  color: #000;
+  background: rgba(0, 100, 177, 0.0470588235);
+}
+.tests .question-answers__answers-body--active {
+  background: rgba(0, 100, 177, 0.1529411765);
 }
 .tests .btn-score__btn--display--none {
   display: none;
 }
+.field-start-exam {
+  display: none;
+}
+.field-start-exam--display--block {
+  display: block;
+}
+.field-start-exam__body {
+  display: flex;
+  justify-content: center;
+}
+.pre-start-countdown {
+  position: relative;
+  justify-content: center;
+  height: 6rem;
+}
+.pre-start-countdown--display--block {
+  display: flex;
+}
+.pre-start-countdown__num {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 4rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: 0.3s;
+}
+
 .field-questions {
   /* ---------------- scroll ---------------- */
   /* ---------------------------------------- */
@@ -208,14 +264,18 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   font-weight: 600;
 }
 .field-questions__body-answer {
-  margin: 0 0 0.5rem 2rem;
+  margin: 0 0 1rem 2rem;
+  padding: 0.5rem;
   font-weight: 400;
   color: #29292b;
-}
-.field-questions__body-answer--answer--correct {
+  background: #f5f5f5;
   border: 0.2rem solid rgba(138, 138, 138, 0.2470588235);
   border-radius: 0.5rem;
+}
+.field-questions__body-answer--answer--correct {
   background: rgba(115, 255, 93, 0.1843137255);
+  border: 0.2rem solid rgba(138, 138, 138, 0.2470588235);
+  border-radius: 0.5rem;
 }
 
 .field-questions--margin--top {

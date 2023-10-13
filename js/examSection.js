@@ -3,12 +3,15 @@ import {arrayQuestions, legalTraining80, tacticalSpecialtyTraining10, firstAid50
 
 //* -------------------- CONSTANTS -------------------- */
 const fieldTests = document.querySelector('#field-tests');
+const btnStartTest = document.querySelector('#button-start-exam');
+const fieldStartExam = document.querySelector('.field-start-exam');
 const fieldNumQuest = document.querySelector('#num-quest-current');
 const questionText = document.querySelector('#questionText');
 const fieldFinalScore = document.querySelector('#final-result');
 const nameSectionText = document.querySelector('#name-section-text');
-const collectionAnswers = document.querySelectorAll('.question-answers__answers-answer');
-const collectionRadio = document.querySelectorAll('.question-answers__answers-radio');
+const collectionAnswersBody = document.querySelectorAll('.question-answers__answers-body');
+const collectionAnswers = document.querySelectorAll('.question-answers__answers-body-answer');
+const collectionRadio = document.querySelectorAll('.question-answers__answers-body-radio');
 const btnNext = document.querySelector('#btn-next');
 const btnResult = document.querySelector('#btn-result');
 const btnRestart = document.querySelector('#btn-restart');
@@ -21,10 +24,41 @@ let indexQuest = 0; // индекс вопросса
 let recordedAnswer = ''; // устонавливает true или false
 let countCorrectAnswers = 0; // количество правельных ответов
 let randomQuestions = []; // устонавливает вопроссы из определенной секции
+let reportMin = document.querySelector('#min');
+let reportSec = document.querySelector('#sec');
 //* --------------------------------------------------- */
  
 
 //* -------------------- FUNCTIONS -------------------- */
+/* при нажатии на кнопку "Начать зкзамен" открывается поле с тестом */
+const startExam = () => {
+  fieldTests.classList.add('tests--display--block');
+  fieldStartExam.classList.remove('field-start-exam--display--block');
+  testTimeReport();
+}
+/* отчет времени на прохождение теста */
+const testTimeReport = () => {
+  let min = 14;
+  let sec = 59;
+  reportMin.textContent = `15`;
+  reportSec.textContent = `00`;
+
+  let dd = setInterval(() => {
+    reportMin.textContent = `${min}`;
+    reportSec.textContent = `${sec}`;
+    if (min < 10) reportMin.textContent = `0${min}`;
+    if (sec < 10) reportSec.textContent = `0${sec}`;
+    sec--;
+    if (sec < 0) {
+      min--;
+      sec = 59;
+    }
+  }, 1000);
+  setTimeout(() => {
+    clearInterval(dd);
+    
+  }, 900000);
+}
 /* рандомно вытаскивает два вопросса */
 const randomQuest = (num, num2) => {
   let newArr = Array(num).fill().map((e, i) => i)
@@ -67,9 +101,7 @@ const generation10QuestionsFromAllSections = () => {
         questionSection.push(arrayQuestions[i][quest[j]]);
       }
     }
-    console.log(quest);
-    console.log(quest[0]);
-    console.log(quest[1]);
+
   }
 
   randomQuestions = shuffle(questionSection);
@@ -104,11 +136,24 @@ const showQuestionNumber = () => {
     fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
   }
 }
+/* стилизует выбранный ответ */
+const styleSelectedAnswer = (e) => {
+  collectionAnswersBody.forEach(elem => {
+    elem.classList.remove('question-answers__answers-body--active');
+  })
+  e.classList.add('question-answers__answers-body--active');
+}
 /* убирает состояние checked с каждого элемента */
 const checkedOff = () => {
   collectionRadio.forEach((elem) => {
     elem.checked = false;
   });
+}
+/* сбрасывает стили ответов */
+const slyleResetAnswer = () => {
+  collectionAnswersBody.forEach(elem => {
+    elem.classList.remove('question-answers__answers-body--active');
+  })
 }
 /* при нажатии на кнопку далее */
 const moveNextQuestion = () => {
@@ -117,6 +162,7 @@ const moveNextQuestion = () => {
   checkedOff();
   fillsQAWithText();
   scoreCalc();
+  slyleResetAnswer(); //сбрасывает стили ответов
   recordedAnswer = ''; // очищает переменную ()
   if (numQuest == randomQuestions.length) {
     btnNext.style.display = 'none';
@@ -152,6 +198,7 @@ const restartResults = () => {
   showQuestionNumber(); // показывает номер вопросса
   checkedOff(); // убирает состояние checked с каждого элемента
   fillsQAWithText(); // присвваеваем текст к вопроссу и ответам
+  slyleResetAnswer(); // сбрасывает стили ответов
 }
 //* --------------------------------------------------- */
 
@@ -160,14 +207,17 @@ const restartResults = () => {
 window.addEventListener('load', generation10QuestionsFromAllSections);
 window.addEventListener('load', fillsQAWithText);
 window.addEventListener('load', startQuestNum);
-collectionAnswers.forEach((elem, index) => {
+btnStartTest.addEventListener('click', startExam);
+collectionAnswersBody.forEach((elem, index) => {
   elem.addEventListener('click', () => {
+    styleSelectedAnswer(elem);
     recordedAnswer = randomQuestions[indexQuest].answers[index].correct;
   })
 });
+
 btnNext.addEventListener('click', moveNextQuestion);
 btnResult.addEventListener('click', moveResult);
 btnRestart.addEventListener('click', restartResults);
 //* --------------------------------------------------- */
 
-export {fieldTests};
+export {fieldTests, fieldStartExam};

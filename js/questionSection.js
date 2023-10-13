@@ -49,7 +49,7 @@ const questioning = (section) => {
 const fillQuest = (elem, section) => {
   elem.addEventListener('click', () => {
     fieldQuestions.innerHTML = '';
-    questioning(legalTraining80);
+    questioning(section);
     document.querySelector('.field-questions__body-section-title').textContent = `Вопроссы ${elem.textContent}`;
   })
 }

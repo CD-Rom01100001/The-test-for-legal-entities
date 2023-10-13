@@ -75,7 +75,13 @@
             <div class="field-questions__body" id="field-questions"></div>
           </div>
     
-          <div class="tests tests--display--none" id="field-tests">
+          <div class="field-start-exam">
+            <div class="field-start-exam__body">
+              <button class="field-start-exam__button" id="button-start-exam">Начать экзамен</button>
+            </div>
+          </div>
+
+          <div class="tests" id="field-tests">
             <div class="test__body">
     
               <!-- number question -->
@@ -86,32 +92,34 @@
               <div class="tests__name-section">
                 <p class="tests__name-section-text" id="name-section-text"></p>
               </div>
+              <!-- time -->
+              <div class="tests__time-exam">
+                <p class="test__time-exam-num"><span id="min"></span> : <span id="sec"></span></p>
+              </div>
               <!-- questions and answers -->
               <div class="tests__question-answers question-answers">
                 <div class="question-answers__body">
                   <div class="question-answers__question">
                     <p class="question-answers__question-text" id="questionText"></p>
                   </div>
-                  <ul class="question-answers__answers">
-                    <li>
-                      <label>
-                        <input class="question-answers__answers-radio" type="radio" name="q1">
-                        <span class="question-answers__answers-answer" id="answer"></span>
+                  <div class="question-answers__answers">
+             
+                      <label class="question-answers__answers-body">
+                        <input class="question-answers__answers-body-radio" type="radio" name="q1">
+                        <span class="question-answers__answers-body-answer" id="answer"></span>
                       </label>
-                    </li>
-                    <li>
-                      <label>
-                        <input class="question-answers__answers-radio" type="radio" name="q1">
-                        <span class="question-answers__answers-answer" id="answer2"></span>
+           
+                      <label class="question-answers__answers-body">
+                        <input class="question-answers__answers-body-radio" type="radio" name="q1">
+                        <span class="question-answers__answers-body-answer" id="answer2"></span>
                       </label>
-                    </li>
-                    <li>
-                      <label>
-                        <input class="question-answers__answers-radio" type="radio" name="q1">
-                        <span class="question-answers__answers-answer" id="answer3"></span>
+                   
+                      <label class="question-answers__answers-body">
+                        <input class="question-answers__answers-body-radio" type="radio" name="q1">
+                        <span class="question-answers__answers-body-answer" id="answer3"></span>
                       </label>
-                    </li>
-                  </ul>
+                 
+                  </div>
                 </div>
               </div>
               <!-- buttons and score -->
