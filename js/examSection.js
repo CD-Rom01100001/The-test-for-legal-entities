@@ -6,12 +6,14 @@ const fieldTests = document.querySelector('#field-tests');
 const btnStartTest = document.querySelector('#button-start-exam');
 const fieldStartExam = document.querySelector('.field-start-exam');
 const fieldNumQuest = document.querySelector('#num-quest-current');
+const fieldQuestionAnswer = document.querySelector('#field-question-answers');
 const questionText = document.querySelector('#questionText');
 const fieldFinalScore = document.querySelector('#final-result');
 const nameSectionText = document.querySelector('#name-section-text');
 const collectionAnswersBody = document.querySelectorAll('.question-answers__answers-body');
 const collectionAnswers = document.querySelectorAll('.question-answers__answers-body-answer');
 const collectionRadio = document.querySelectorAll('.question-answers__answers-body-radio');
+const btnPrev = document.querySelector('#btn-prev');
 const btnNext = document.querySelector('#btn-next');
 const btnResult = document.querySelector('#btn-result');
 const btnRestart = document.querySelector('#btn-restart');
@@ -26,24 +28,26 @@ let countCorrectAnswers = 0; // количество правельных отв
 let randomQuestions = []; // устонавливает вопроссы из определенной секции
 let reportMin = document.querySelector('#min');
 let reportSec = document.querySelector('#sec');
+let timeReportVar = Object;
+let arrayAnswer = [];
 //* --------------------------------------------------- */
  
 
 //* -------------------- FUNCTIONS -------------------- */
-/* при нажатии на кнопку "Начать зкзамен" открывается поле с тестом */
+//* при нажатии на кнопку "Начать зкзамен" открывается поле с тестом */
 const startExam = () => {
   fieldTests.classList.add('tests--display--block');
   fieldStartExam.classList.remove('field-start-exam--display--block');
   testTimeReport();
 }
-/* отчет времени на прохождение теста */
+//* отчет времени на прохождение теста */
 const testTimeReport = () => {
   let min = 14;
   let sec = 59;
   reportMin.textContent = `15`;
   reportSec.textContent = `00`;
 
-  let dd = setInterval(() => {
+  timeReportVar = setInterval(() => {
     reportMin.textContent = `${min}`;
     reportSec.textContent = `${sec}`;
     if (min < 10) reportMin.textContent = `0${min}`;
@@ -55,11 +59,11 @@ const testTimeReport = () => {
     }
   }, 1000);
   setTimeout(() => {
-    clearInterval(dd);
-    
+    clearInterval(timeReportVar);
+
   }, 900000);
 }
-/* рандомно вытаскивает два вопросса */
+//* рандомно вытаскивает два вопросса */
 const randomQuest = (num, num2) => {
   let newArr = Array(num).fill().map((e, i) => i)
   for (let i = newArr.length - 1; i > 0; i--) {
@@ -68,7 +72,7 @@ const randomQuest = (num, num2) => {
    }
   return newArr.splice(0, num2)
 }
-/* перемешивает массив */
+//* перемешивает массив */
 const shuffle = (newArr) => {
   for (let i = newArr.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
@@ -76,7 +80,7 @@ const shuffle = (newArr) => {
   }
   return newArr;
 }
-/* формирует десять вопросов (по два из каждого раздела) и перемешивает их в случайном порядке */
+//* формирует десять вопросов (по два из каждого раздела) и перемешивает их в случайном порядке */
 const generation10QuestionsFromAllSections = () => {
   let questionSection = [];
 
@@ -106,19 +110,20 @@ const generation10QuestionsFromAllSections = () => {
 
   randomQuestions = shuffle(questionSection);
 }
-/* присвваеваем текст к названию секции, вопроссу и ответам */
+//* присвваеваем текст к названию секции, вопроссу и ответам */
 const fillsQAWithText = () => {
+  // console.log(indexQuest);
   questionText.textContent = randomQuestions[indexQuest].question;
   nameSectionText.textContent = randomQuestions[indexQuest].answers[0].id;
   collectionAnswers.forEach((elem, index) => {
     elem.textContent = randomQuestions[indexQuest].answers[index].value;
   });
 }
-/* устонавливает стартовое значение для номера вопросса */
+//* устонавливает стартовое значение для номера вопросса */
 const startQuestNum = () => {
   fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
 }
-/* посчитывает количество правельных ответов */
+//* посчитывает количество правельных ответов */
 const scoreCalc = () => {
   if(recordedAnswer == true) {
     countCorrectAnswers++;
@@ -127,56 +132,111 @@ const scoreCalc = () => {
     return;
   }
   // console.log(recordedAnswer)
-  // console.log(countCorrectAnswers)
+  console.log(countCorrectAnswers)
 }
-/* показывает номер вопросса */
+//* показывает номер вопросса */
 const showQuestionNumber = () => {
   numQuest++;
   if (numQuest <= randomQuestions.length) {
     fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
   }
 }
-/* стилизует выбранный ответ */
+//* стилизует выбранный ответ */
 const styleSelectedAnswer = (e) => {
   collectionAnswersBody.forEach(elem => {
     elem.classList.remove('question-answers__answers-body--active');
   })
   e.classList.add('question-answers__answers-body--active');
 }
-/* убирает состояние checked с каждого элемента */
+//* убирает состояние checked с каждого элемента */
 const checkedOff = () => {
   collectionRadio.forEach((elem) => {
     elem.checked = false;
   });
 }
-/* сбрасывает стили ответов */
+//* сбрасывает стили ответов */
 const slyleResetAnswer = () => {
   collectionAnswersBody.forEach(elem => {
     elem.classList.remove('question-answers__answers-body--active');
   })
 }
-/* при нажатии на кнопку далее */
-const moveNextQuestion = () => {
-  indexQuest++;
-  showQuestionNumber();
-  checkedOff();
-  fillsQAWithText();
-  scoreCalc();
+//* при нажатии на кнопку назад */
+const movePrevQuestion = () => {
+  /* делает все ответы активными */
+  collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});
+  /* убавляет и показывает номер вопросса */
+  if (numQuest > 1) {
+    numQuest--;
+    fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
+  } 
+  /* убирает кнопку "назад" */
+  if (numQuest == 1) {
+    btnPrev.style.display = 'none';
+  }
+  /* показывает кнопку "далее" и убирает кнопку "результат" */
+  if (numQuest < randomQuestions.length) {
+    btnNext.style.display = 'block';
+    btnResult.style.display = 'none';
+  }
+
+  /* уменьшает индекс вопроса */
+  indexQuest--;
+  fillsQAWithText(); // присвваеваем текст к названию секции, вопроссу и ответам
   slyleResetAnswer(); //сбрасывает стили ответов
-  recordedAnswer = ''; // очищает переменную ()
+}
+//* при нажатии на кнопку далее */
+const moveNextQuestion = () => {
+  /* делает все ответы активными */
+  collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});
+  /* прибавляет и показывает номер вопросса */
+  if (numQuest < randomQuestions.length) {
+    numQuest++;
+    fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
+  }
+  /* показывает кнопку "назад" */
+  if (numQuest > 1) {
+    btnPrev.style.display = 'block';
+  }
+  /* показывает кнопку "результат" и убирает кнопку "далее" */
   if (numQuest == randomQuestions.length) {
     btnNext.style.display = 'none';
     btnResult.style.display = 'block';
-    return;
   }
   
-}
-/* при нажатии на кнопку результат */
-const moveResult = () => {
+  /* прибавляет индекс вопроса */
   indexQuest++;
+  fillsQAWithText(); // присвваеваем текст к названию секции, вопроссу и ответам
+  scoreCalc(); // посчитывает количество правельных ответов
+  slyleResetAnswer(); //сбрасывает стили ответов
+  recordedAnswer = ''; // очищает переменную ()
+
+  //! showQuestionNumber(); // показывает номер вопросса
+  //! console.log(numQuest);
+  //! indexQuest++;  
+  // checkedOff(); // убирает состояние checked с каждого элемента
+  //! fillsQAWithText(); // присвваеваем текст к названию секции, вопроссу и ответам
+  // scoreCalc(); // посчитывает количество правельных ответов
+  // slyleResetAnswer(); //сбрасывает стили ответов
+  // recordedAnswer = ''; // очищает переменную ()
+  //! if (numQuest == randomQuestions.length) {
+  //!  btnNext.style.display = 'none';
+  //!  btnResult.style.display = 'block';
+  //!  return;
+  //! }
+  
+}
+
+//* при нажатии на кнопку результат */
+const moveResult = () => {
   scoreCalc();
   btnRestart.style.display = 'block';
   btnResult.style.display = 'none';
+  btnPrev.style.display = 'none';
+  clearInterval(timeReportVar);
+  fieldQuestionAnswer.style.pointerEvents = 'none';
+  fieldQuestionAnswer.style.opacity = '0.2';
+  /* делает все ответы не активными */
+  collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'none';});
   if (countCorrectAnswers >= 9) {
     fieldFinalScore.textContent = `Вы прошли! Ваша оценка: ${countCorrectAnswers}`;
   } 
@@ -184,7 +244,7 @@ const moveResult = () => {
     fieldFinalScore.textContent = `Вы не прошли! Ваша оценка: ${countCorrectAnswers}`;
   }
 }
-/* сбрасывает все результаты */
+//* сбрасывает все результаты */
 const restartResults = () => {
   randomQuestions = []; // сбрасывает ранее заполненный массив с вопросами
   generation10QuestionsFromAllSections(); // формирует десять вопросов (по два из каждого раздела) и перемешивает их в случайном порядке
@@ -192,6 +252,11 @@ const restartResults = () => {
   btnResult.style.display = 'none';
   btnRestart.style.display = 'none';
   fieldFinalScore.textContent = '';
+  fieldQuestionAnswer.style.pointerEvents = 'auto';
+  fieldQuestionAnswer.style.opacity = '1';
+  /* делает все ответы активными */
+  collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});
+  arrayAnswer = [];
   numQuest = 0; // номер вопросса
   indexQuest = 0; // индекс вопросса
   countCorrectAnswers = 0; // количество правельных ответов
@@ -199,6 +264,7 @@ const restartResults = () => {
   checkedOff(); // убирает состояние checked с каждого элемента
   fillsQAWithText(); // присвваеваем текст к вопроссу и ответам
   slyleResetAnswer(); // сбрасывает стили ответов
+  testTimeReport(); // запускает время тестат заново
 }
 //* --------------------------------------------------- */
 
@@ -212,9 +278,23 @@ collectionAnswersBody.forEach((elem, index) => {
   elem.addEventListener('click', () => {
     styleSelectedAnswer(elem);
     recordedAnswer = randomQuestions[indexQuest].answers[index].correct;
+    
+    /* что бы нельзя было нажимать на уже выбранный ответ */
+    if (elem.classList.contains('question-answers__answers-body--active')) {
+      /* делает все ответы активными */
+      collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});
+      /* делает текущий элемент не активным */
+      elem.style.pointerEvents = 'none';
+    } 
+    /* при выборе другого ответа, предыдущий удаляется и присваивается текущий. Происходит с учетом текущего вопроса */
+    if (arrayAnswer != undefined) {
+      arrayAnswer.splice(indexQuest, 1, index)
+    }
+    console.log(arrayAnswer);
   })
 });
 
+btnPrev.addEventListener('click', movePrevQuestion);
 btnNext.addEventListener('click', moveNextQuestion);
 btnResult.addEventListener('click', moveResult);
 btnRestart.addEventListener('click', restartResults);

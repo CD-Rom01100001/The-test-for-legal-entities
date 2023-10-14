@@ -190,7 +190,28 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     display: block;
   }
 
+  &__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50rem;
+    padding: 2rem 0;
+  }
+
   .question-answers {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+
+    &__question {
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    &__question-text {
+
+    }
 
 		&__answers {
 		}
@@ -209,7 +230,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
     &__answers-body:hover {
       color: #000;
-      background: #0064b152;
+      background: #0064b127;
     }
 
     &__answers-body:active {
@@ -228,10 +249,10 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 		}
   }
 
-
   .btn-score {
 
     &__body {
+      display: flex;
     }
   
     &__btn {

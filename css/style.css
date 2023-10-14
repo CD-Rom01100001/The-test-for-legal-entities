@@ -161,6 +161,23 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 .tests--display--block {
   display: block;
 }
+.tests__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50rem;
+  padding: 2rem 0;
+}
+.tests .question-answers {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}
+.tests .question-answers__question {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
 .tests .question-answers__answers-body {
   display: block;
   margin: 0 0 1rem 0;
@@ -174,7 +191,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 }
 .tests .question-answers__answers-body:hover {
   color: #000;
-  background: rgba(0, 100, 177, 0.3215686275);
+  background: rgba(0, 100, 177, 0.1529411765);
 }
 .tests .question-answers__answers-body:active {
   color: #000;
@@ -182,6 +199,9 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 }
 .tests .question-answers__answers-body--active {
   background: rgba(0, 100, 177, 0.1529411765);
+}
+.tests .btn-score__body {
+  display: flex;
 }
 .tests .btn-score__btn--display--none {
   display: none;
