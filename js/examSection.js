@@ -38,7 +38,8 @@ let arrayAnswer = [];
 const startExam = () => {
   fieldTests.classList.add('tests--display--block');
   fieldStartExam.classList.remove('field-start-exam--display--block');
-  testTimeReport();
+  // testTimeReport();
+  restartResults();
 }
 //* отчет времени на прохождение теста */
 const testTimeReport = () => {
@@ -225,7 +226,6 @@ const moveNextQuestion = () => {
   //! }
   
 }
-
 //* при нажатии на кнопку результат */
 const moveResult = () => {
   scoreCalc();
@@ -300,4 +300,4 @@ btnResult.addEventListener('click', moveResult);
 btnRestart.addEventListener('click', restartResults);
 //* --------------------------------------------------- */
 
-export {fieldTests, fieldStartExam};
+export {fieldTests, fieldStartExam, timeReportVar, restartResults, fieldFinalScore};
