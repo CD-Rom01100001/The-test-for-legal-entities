@@ -34,36 +34,8 @@ let arrayAnswer = [];
  
 
 //* -------------------- FUNCTIONS -------------------- */
-//* при нажатии на кнопку "Начать зкзамен" открывается поле с тестом */
-const startExam = () => {
-  fieldTests.classList.add('tests--display--block');
-  fieldStartExam.classList.remove('field-start-exam--display--block');
-  // testTimeReport();
-  restartResults();
-}
-//* отчет времени на прохождение теста */
-const testTimeReport = () => {
-  let min = 14;
-  let sec = 59;
-  reportMin.textContent = `15`;
-  reportSec.textContent = `00`;
 
-  timeReportVar = setInterval(() => {
-    reportMin.textContent = `${min}`;
-    reportSec.textContent = `${sec}`;
-    if (min < 10) reportMin.textContent = `0${min}`;
-    if (sec < 10) reportSec.textContent = `0${sec}`;
-    sec--;
-    if (sec < 0) {
-      min--;
-      sec = 59;
-    }
-  }, 1000);
-  setTimeout(() => {
-    clearInterval(timeReportVar);
-
-  }, 900000);
-}
+//* -------------- Формирование вопросов --------------- */
 //* рандомно вытаскивает два вопросса */
 const randomQuest = (num, num2) => {
   let newArr = Array(num).fill().map((e, i) => i)
@@ -111,6 +83,13 @@ const generation10QuestionsFromAllSections = () => {
 
   randomQuestions = shuffle(questionSection);
 }
+//* ---------------------------------------------------- */
+
+//* -------- Формирование контента на странице --------- */
+//* устонавливает стартовое значение для номера вопросса */
+const startQuestNum = () => {
+  fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
+}
 //* присвваеваем текст к названию секции, вопроссу и ответам */
 const fillsQAWithText = () => {
   // console.log(indexQuest);
@@ -120,21 +99,6 @@ const fillsQAWithText = () => {
     elem.textContent = randomQuestions[indexQuest].answers[index].value;
   });
 }
-//* устонавливает стартовое значение для номера вопросса */
-const startQuestNum = () => {
-  fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
-}
-//* посчитывает количество правельных ответов */
-const scoreCalc = () => {
-  if(recordedAnswer == true) {
-    countCorrectAnswers++;
-  }
-  else if (numQuest == randomQuestions.length+1) {
-    return;
-  }
-  // console.log(recordedAnswer)
-  console.log(countCorrectAnswers)
-}
 //* показывает номер вопросса */
 const showQuestionNumber = () => {
   numQuest++;
@@ -142,29 +106,54 @@ const showQuestionNumber = () => {
     fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
   }
 }
-//* стилизует выбранный ответ */
-const styleSelectedAnswer = (e) => {
-  collectionAnswersBody.forEach(elem => {
-    elem.classList.remove('question-answers__answers-body--active');
+//* отчет времени на прохождение теста */
+const testTimeReport = () => {
+  let min = 14;
+  let sec = 59;
+  reportMin.textContent = `15`;
+  reportSec.textContent = `00`;
+
+  timeReportVar = setInterval(() => {
+    reportMin.textContent = `${min}`;
+    reportSec.textContent = `${sec}`;
+    if (min < 10) reportMin.textContent = `0${min}`;
+    if (sec < 10) reportSec.textContent = `0${sec}`;
+    sec--;
+    if (sec < 0) {
+      min--;
+      sec = 59;
+    }
+  }, 1000);
+  setTimeout(() => {
+    clearInterval(timeReportVar);
+    moveResult(); // показывает результат
+  }, 900000);
+}
+//* ---------------------------------------------------- */
+
+const calcArrAnserScore = () => {
+  let score = 0;
+  arrayAnswer.forEach((elem) => {
+    if (elem.answer == true) score += 1;
   })
-  e.classList.add('question-answers__answers-body--active');
+  return score;
 }
-//* убирает состояние checked с каждого элемента */
-const checkedOff = () => {
-  collectionRadio.forEach((elem) => {
-    elem.checked = false;
-  });
+//* при нажатии на кнопку "Начать зкзамен" открывается поле с тестом */
+const startExam = () => {
+  fieldTests.classList.add('tests--display--block');
+  fieldStartExam.classList.remove('field-start-exam--display--block');
+  restartResults();
+  console.log(randomQuestions);
 }
-//* сбрасывает стили ответов */
-const slyleResetAnswer = () => {
-  collectionAnswersBody.forEach(elem => {
-    elem.classList.remove('question-answers__answers-body--active');
-  })
-}
-//* при нажатии на кнопку назад */
+//* при нажатии на кнопку НАЗАД */
 const movePrevQuestion = () => {
   /* делает все ответы активными */
-  collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});
+  collectionAnswersBody.forEach(elem => {
+    elem.style.pointerEvents = 'auto';
+  });
+
+  indexQuest--; // уменьшает индекс вопроса
+
   /* убавляет и показывает номер вопросса */
   if (numQuest > 1) {
     numQuest--;
@@ -180,12 +169,27 @@ const movePrevQuestion = () => {
     btnResult.style.display = 'none';
   }
 
-  /* уменьшает индекс вопроса */
-  indexQuest--;
   fillsQAWithText(); // присвваеваем текст к названию секции, вопроссу и ответам
+  // slyleResetAnswer(); //сбрасывает стили ответов
+  // arrayAnswer.forEach(elem => {
+  // console.log(elem);
+
+  //!---------------------------------------------------------------------------------
   slyleResetAnswer(); //сбрасывает стили ответов
+  console.log('длинна массива с выбраными ответами: ' + arrayAnswer.length);
+  console.log('индекс текущего вопросса: ' + indexQuest);
+  if (indexQuest <= arrayAnswer.length-1) {
+    collectionAnswersBody[arrayAnswer[indexQuest].indexAnswer].classList.add('question-answers__answers-body--active');
+  }
+  // if (arrayAnswer.length == indexQuest) {
+  //   console.log('выбраный ответ: ' + arrayAnswer[indexQuest].indexAnswer);
+  // }
+  // collectionAnswersBody[arrayAnswer[indexQuest].indexAnswer].classList.add('question-answers__answers-body--active');
+
+  //!---------------------------------------------------------------------------------
 }
-//* при нажатии на кнопку далее */
+
+//* при нажатии на кнопку ДАЛЕЕ */
 const moveNextQuestion = () => {
   /* делает все ответы активными */
   collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});
@@ -208,23 +212,51 @@ const moveNextQuestion = () => {
   indexQuest++;
   fillsQAWithText(); // присвваеваем текст к названию секции, вопроссу и ответам
   scoreCalc(); // посчитывает количество правельных ответов
-  slyleResetAnswer(); //сбрасывает стили ответов
-  recordedAnswer = ''; // очищает переменную ()
 
-  //! showQuestionNumber(); // показывает номер вопросса
-  //! console.log(numQuest);
-  //! indexQuest++;  
-  // checkedOff(); // убирает состояние checked с каждого элемента
-  //! fillsQAWithText(); // присвваеваем текст к названию секции, вопроссу и ответам
-  // scoreCalc(); // посчитывает количество правельных ответов
-  // slyleResetAnswer(); //сбрасывает стили ответов
-  // recordedAnswer = ''; // очищает переменную ()
-  //! if (numQuest == randomQuestions.length) {
-  //!  btnNext.style.display = 'none';
-  //!  btnResult.style.display = 'block';
-  //!  return;
-  //! }
-  
+  //!---------------------------------------------------------------------------------
+  slyleResetAnswer(); //сбрасывает стили ответов
+  // collectionAnswersBody[arrayAnswer[indexQuest].indexAnswer].classList.add('question-answers__answers-body--active');
+  console.log(arrayAnswer[indexQuest]);
+  console.log('длинна массива с выбраными ответами: ' + arrayAnswer.length);
+  console.log('индекс текущего вопросса: ' + indexQuest);
+
+  if (indexQuest <= arrayAnswer.length-1) {
+    collectionAnswersBody[arrayAnswer[indexQuest].indexAnswer].classList.add('question-answers__answers-body--active');
+  }
+  //!---------------------------------------------------------------------------------
+  recordedAnswer = ''; // очищает переменную ()
+}
+
+
+//* посчитывает количество правельных ответов */
+const scoreCalc = () => {
+  if(recordedAnswer == true) {
+    countCorrectAnswers++;
+  }
+  else if (numQuest == randomQuestions.length+1) {
+    return;
+  }
+  // console.log(recordedAnswer)
+  // console.log(countCorrectAnswers)
+}
+//* стилизует выбранный ответ */
+const styleSelectedAnswer = (e) => {
+  collectionAnswersBody.forEach(elem => {
+    elem.classList.remove('question-answers__answers-body--active');
+  })
+  e.classList.add('question-answers__answers-body--active');
+}
+//* сбрасывает стили ответов */
+const slyleResetAnswer = () => {
+  collectionAnswersBody.forEach(elem => {
+    elem.classList.remove('question-answers__answers-body--active');
+  })
+}
+//* убирает состояние checked с каждого элемента */
+const checkedOff = () => {
+  collectionRadio.forEach((elem) => {
+    elem.checked = false;
+  });
 }
 //* при нажатии на кнопку результат */
 const moveResult = () => {
@@ -237,11 +269,11 @@ const moveResult = () => {
   fieldQuestionAnswer.style.opacity = '0.2';
   /* делает все ответы не активными */
   collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'none';});
-  if (countCorrectAnswers >= 9) {
-    fieldFinalScore.textContent = `Вы прошли! Ваша оценка: ${countCorrectAnswers}`;
+  if (/* countCorrectAnswers */calcArrAnserScore() >= 9) {
+    fieldFinalScore.textContent = `Вы прошли! Ваша оценка: ${calcArrAnserScore()/* countCorrectAnswers */}`;
   } 
   else {
-    fieldFinalScore.textContent = `Вы не прошли! Ваша оценка: ${countCorrectAnswers}`;
+    fieldFinalScore.textContent = `Вы не прошли! Ваша оценка: ${calcArrAnserScore()/* countCorrectAnswers */}`;
   }
 }
 //* сбрасывает все результаты */
@@ -266,7 +298,7 @@ const restartResults = () => {
   slyleResetAnswer(); // сбрасывает стили ответов
   testTimeReport(); // запускает время тестат заново
 }
-//* --------------------------------------------------- */
+/* --------------------------------------------------- */
 
 
 //*---------------------- EVENTS ---------------------- */
@@ -274,10 +306,14 @@ window.addEventListener('load', generation10QuestionsFromAllSections);
 window.addEventListener('load', fillsQAWithText);
 window.addEventListener('load', startQuestNum);
 btnStartTest.addEventListener('click', startExam);
+btnPrev.addEventListener('click', movePrevQuestion);
+btnNext.addEventListener('click', moveNextQuestion);
+
 collectionAnswersBody.forEach((elem, index) => {
   elem.addEventListener('click', () => {
     styleSelectedAnswer(elem);
     recordedAnswer = randomQuestions[indexQuest].answers[index].correct;
+    console.log(recordedAnswer)
     
     /* что бы нельзя было нажимать на уже выбранный ответ */
     if (elem.classList.contains('question-answers__answers-body--active')) {
@@ -286,16 +322,28 @@ collectionAnswersBody.forEach((elem, index) => {
       /* делает текущий элемент не активным */
       elem.style.pointerEvents = 'none';
     } 
+  
     /* при выборе другого ответа, предыдущий удаляется и присваивается текущий. Происходит с учетом текущего вопроса */
-    if (arrayAnswer != undefined) {
-      arrayAnswer.splice(indexQuest, 1, index)
+    let iii = {
+      answer: recordedAnswer,
+      indexAnswer: index,
+      indexQuestion: indexQuest,
     }
+    if (arrayAnswer != undefined) {
+      arrayAnswer.splice(indexQuest, 1, iii);
+    }
+    
+    
+    // console.log(collectionAnswersBody[arrayAnswer[indexQuest]]);
+    // console.log(randomQuestions);
+    // console.log(randomQuestions[indexQuest].answers[arrayAnswer[indexQuest]]);
     console.log(arrayAnswer);
+    // console.log(arrayAnswer[indexQuest]);
+    console.log(calcArrAnserScore());
+    
   })
 });
 
-btnPrev.addEventListener('click', movePrevQuestion);
-btnNext.addEventListener('click', moveNextQuestion);
 btnResult.addEventListener('click', moveResult);
 btnRestart.addEventListener('click', restartResults);
 //* --------------------------------------------------- */

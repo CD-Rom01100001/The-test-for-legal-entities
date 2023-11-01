@@ -33,11 +33,11 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 .arrow-top:hover {
   box-shadow: 0 0 6px 2px rgba(22, 50, 110, 0.8235294118);
   background: rgba(22, 50, 110, 0.8235294118);
-  transform: scale(1.4);
+  transform: scale(1.2);
 }
 
 .arrow-top:active {
-  transform: scale(1.2);
+  transform: scale(1);
 }
 
 .arrow-top--show {
