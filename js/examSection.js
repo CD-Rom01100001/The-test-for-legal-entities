@@ -96,6 +96,7 @@ const fillsQAWithText = () => {
   questionText.textContent = randomQuestions[indexQuest].question;
   nameSectionText.textContent = randomQuestions[indexQuest].answers[0].id;
   collectionAnswers.forEach((elem, index) => {
+    if (index > 2) return;
     elem.textContent = randomQuestions[indexQuest].answers[index].value;
   });
 }
@@ -170,21 +171,24 @@ const movePrevQuestion = () => {
   }
 
   fillsQAWithText(); // присвваеваем текст к названию секции, вопроссу и ответам
-  // slyleResetAnswer(); //сбрасывает стили ответов
-  // arrayAnswer.forEach(elem => {
-  // console.log(elem);
 
   //!---------------------------------------------------------------------------------
   slyleResetAnswer(); //сбрасывает стили ответов
   console.log('длинна массива с выбраными ответами: ' + arrayAnswer.length);
   console.log('индекс текущего вопросса: ' + indexQuest);
+
   if (indexQuest <= arrayAnswer.length-1) {
     collectionAnswersBody[arrayAnswer[indexQuest].indexAnswer].classList.add('question-answers__answers-body--active');
+  } 
+  else {
+    let xxx = {
+      answer: false,
+      indexAnswer: 3,
+      indexQuestion: indexQuest,
+    }
+    arrayAnswer.splice(indexQuest, 1, xxx);
   }
-  // if (arrayAnswer.length == indexQuest) {
-  //   console.log('выбраный ответ: ' + arrayAnswer[indexQuest].indexAnswer);
-  // }
-  // collectionAnswersBody[arrayAnswer[indexQuest].indexAnswer].classList.add('question-answers__answers-body--active');
+  console.log(arrayAnswer);
 
   //!---------------------------------------------------------------------------------
 }
@@ -215,18 +219,27 @@ const moveNextQuestion = () => {
 
   //!---------------------------------------------------------------------------------
   slyleResetAnswer(); //сбрасывает стили ответов
-  // collectionAnswersBody[arrayAnswer[indexQuest].indexAnswer].classList.add('question-answers__answers-body--active');
+
   console.log(arrayAnswer[indexQuest]);
   console.log('длинна массива с выбраными ответами: ' + arrayAnswer.length);
   console.log('индекс текущего вопросса: ' + indexQuest);
 
   if (indexQuest <= arrayAnswer.length-1) {
     collectionAnswersBody[arrayAnswer[indexQuest].indexAnswer].classList.add('question-answers__answers-body--active');
+  } 
+  else {
+    let xxx = {
+      answer: false,
+      indexAnswer: 3,
+      indexQuestion: indexQuest,
+    }
+    arrayAnswer.splice(indexQuest, 1, xxx);
   }
+
+  console.log(arrayAnswer);
   //!---------------------------------------------------------------------------------
   recordedAnswer = ''; // очищает переменную ()
 }
-
 
 //* посчитывает количество правельных ответов */
 const scoreCalc = () => {

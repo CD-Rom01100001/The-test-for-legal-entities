@@ -209,13 +209,6 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
       font-weight: 600;
     }
 
-    &__question-text {
-
-    }
-
-		&__answers {
-		}
-
 		&__answers-body {
       display: block;
       margin: 0 0 1rem 0;
@@ -227,6 +220,10 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
       border-radius: 0.5rem;
       cursor: pointer;
 		}
+
+    &__answers-body--display--none {
+      display: none;
+    }
 
     &__answers-body:hover {
       color: #000;
@@ -242,11 +239,6 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
       background: #0064b127;
     }
 
-		&__answers-body-radio {
-		}
-
-		&__answers-body-answer {
-		}
   }
 
   .btn-score {
