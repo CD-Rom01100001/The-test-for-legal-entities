@@ -36,12 +36,15 @@
             <h3 class="staff-training__title-text" id="title-section">Вопросы</h3>
           </div>
     
+          <!-- описания рзделов (Вопросы, Обучение, Экзамен) -->
           <div class="staff-training__descriotion">
             <p class="staff-training__descriotion-text">Для проверки теоретических знаний нормативных правовых актов Российской Федерации, регулирующих деятельность юридических лиц с особыми уставными задачами, оборот оружия и (или) специальных средств, а также устанавливающих особенности, запреты и ограничения на их применение в ходе периодических проверок на пригодность к действиям в условиях, связанных с применением огнестрельного оружия и специальных средств разработаны 244 вопроса для юридических лиц с особыми уставными задачами.</p>
             <p class="staff-training__descriotion-text">Перечень вопросов и варианты ответов на них утверждены Главным управлением государственного контроля и лицензионно-разрешительной работы Федеральной службы войск национальной гвардии Российской Федерации.</p>
             <p class="staff-training__descriotion-text staff-training__descriotion-text--display--none">На экзамене будут использоваться билеты, в каждом из которых будет приведено по 10 вопросов из общего списка. На тестирование отведено 15 минут. Для успешной сдачи экзамена вам необходимо уложиться в данный промежуток времени, а также разрешается допустить не более 1 ошибки.</p>
+            <p class="staff-training__descriotion-text staff-training__descriotion-text--display--none">Раздел обучение преднозначен для поэтапного изучения всех вопросов категорий. Что-бы пройти обучение необходимо либо самостоятельно выбрать интерисующий Вас этап, либо нажать на кнопку "Пройти обучение", что-бы поочередно пройти все этапы.</p>
           </div>
     
+          <!-- блок списка разделов вопросов и ссылки -->
           <div class="questions-list">
             <div class="questions-list__body">
               <h3 class="questions-list__title">Всего 244 вопроса:</h3>
@@ -70,17 +73,87 @@
     
             </div>
           </div>
-    
+
+          <!-- блок списка вопросов выбранного раздела -->
           <div class="field-questions field-questions--margin--top">
             <div class="field-questions__body" id="field-questions"></div>
           </div>
+
+          <!-- блок прохождения обучения -->
+          <div class="training-main" if="field-training">
+            <div class="training__content"></div>
+            <div class="training" id="field-training">
+              <div class="training__body">
+      
+                <div class="training__indicators-field">
+                  <!-- number question -->
+                  <div class="training__number-question">
+                    <p class="training__number-question-number" id="training-num-quest-current"></p>
+                  </div>
+                  <!-- name section -->
+                  <div class="training__name-section">
+                    <p class="training__name-section-text" id="training-name-section-text"></p>
+                  </div>
+                  <!-- time -->
+                  <div class="training__time-exam">
+                    <p class="training__time-exam-num"><span id="training-min"></span> : <span id="training-sec"></span></p>
+                  </div>
+                </div>
+                <!-- questions and answers -->
+                <div class="training__question-answers training-question-answers" id="training-field-question-answers">
+                  <div class="training-question-answers__body">
+  
+                    <div class="training-question-answers__question">
+                      <p class="training-question-answers__question-text" id="training-questionText"></p>
+                    </div>
+  
+                    <div class="training-question-answers__answers">
+               
+                        <label class="training-question-answers__answers-body">
+                          <span class="training-question-answers__answers-body-answer" id="training-answer"></span>
+                        </label>
+             
+                        <label class="training-question-answers__answers-body">
+                          <span class="training-question-answers__answers-body-answer" id="training-answer2"></span>
+                        </label>
+                     
+                        <label class="training-question-answers__answers-body">
+                          <span class="training-question-answers__answers-body-answer" id="training-answer3"></span>
+                        </label>
+  
+                        <label class="training-question-answers__answers-body question-answers__answers-body--display--none">
+                          <span class="training-question-answers__answers-body-answer" id="answerHidden"></span>
+                        </label>
+                   
+                    </div>
+                  </div>
+                </div>
+                <!-- buttons and score -->
+                <div class="training__btn-score btn-score">
+                  <div class="training-btn-score__body">
+                    <button class="training-btn-score__btn btn-score__btn--display--none" id="training-btn-prev">Назад</button>
+                    <button class="training-btn-score__btn" id="training-btn-next">Далее</button>
+                    <button class="training-btn-score__btn btn-score__btn--display--none" id="training-btn-result">Результат</button>
+                    <button class="training-btn-score__btn btn-score__btn--display--none" id="training-btn-restart">Заново</button>
+                  
+                    <div class="training-btn-score__field-result">
+                      <p class="training-btn-score__field-result-result" id="training-final-result"></p>
+                    </div>
+                  </div>
+                </div>
+      
+              </div>
+            </div>
+          </div>
     
+          <!-- блок с кнопкой "Начать экзамен" -->
           <div class="field-start-exam">
             <div class="field-start-exam__body">
               <button class="field-start-exam__button" id="button-start-exam">Начать экзамен</button>
             </div>
           </div>
 
+          <!-- блок прохаждения экзамена -->
           <div class="tests" id="field-tests">
             <div class="tests__body">
     
@@ -109,17 +182,14 @@
                   <div class="question-answers__answers">
              
                       <label class="question-answers__answers-body">
-                        <!-- <input class="question-answers__answers-body-radio" type="radio" name="q1"> -->
                         <span class="question-answers__answers-body-answer" id="answer"></span>
                       </label>
            
                       <label class="question-answers__answers-body">
-                       <!--  <input class="question-answers__answers-body-radio" type="radio" name="q1"> -->
                         <span class="question-answers__answers-body-answer" id="answer2"></span>
                       </label>
                    
                       <label class="question-answers__answers-body">
-                        <!-- <input class="question-answers__answers-body-radio" type="radio" name="q1"> -->
                         <span class="question-answers__answers-body-answer" id="answer3"></span>
                       </label>
 

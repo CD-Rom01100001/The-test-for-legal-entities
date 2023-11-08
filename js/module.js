@@ -34,14 +34,30 @@ const styleLinksNav = (link) => {
 const questionContent = () => {
   titleSection.textContent = 'Вопросы';
   descriptionSectionCollection.forEach((elem, index) => {
-    if (index == 2) {
+    if (index != 0 && index != 1) {
+      elem.classList.add('staff-training__descriotion-text--display--none');
+    } else {
+      elem.classList.remove('staff-training__descriotion-text--display--none');
+    }
+  });
+  fieldQuestionsMain.classList.remove('field-questions--display--none');
+  fieldQuestionList.classList.remove('questions-list--display--none');
+  fieldStartExam.classList.remove('field-start-exam--display--block');
+  fieldTests.classList.remove('tests--display--block'); // закрывает блок с тестами
+  clearInterval(timeReportVar); // останавливает время в тестах
+}
+//* меняет содержимое на обучение
+const trainingContent = () => {
+  titleSection.textContent = 'Обучение';
+  descriptionSectionCollection.forEach((elem, index) => {
+    if (index != 3) {
       elem.classList.add('staff-training__descriotion-text--display--none');
     } else {
       elem.classList.remove('staff-training__descriotion-text--display--none')
     }
   });
-  fieldQuestionsMain.classList.remove('field-questions--display--none');
-  fieldQuestionList.classList.remove('questions-list--display--none');
+  fieldQuestionsMain.classList.add('field-questions--display--none');
+  fieldQuestionList.classList.add('questions-list--display--none');
   fieldStartExam.classList.remove('field-start-exam--display--block');
   fieldTests.classList.remove('tests--display--block'); // закрывает блок с тестами
   clearInterval(timeReportVar); // останавливает время в тестах
@@ -63,12 +79,12 @@ const examsContent = () => {
     fieldStartExam.classList.add('field-start-exam--display--block');
   }
 }
-//* при условии, что открыты тесты и не нажата кнопка "результаты" */
-const exitWarning = () => {
+//* при условии, что открыты тесты и не нажата кнопка "результат" */
+const exitWarning = (navLink) => {
   if (fieldTests.classList.contains('tests--display--block') && fieldFinalScore.textContent == 0) {
-    let warning = confirm("Если вы покините тест, то все результаты будут сброшены!\n Хотите продолжить?");
+    let warning = confirm("Если вы покините тест, то все результаты будут сброшены!\nХотите продолжить?");
     if (warning == true) {
-      questionContent();
+      navLink();
     } else {
       btnNavLinkCollection.forEach((elem, index) => {
         elem.classList.remove('nav-link--active');
@@ -76,8 +92,9 @@ const exitWarning = () => {
       })
       return;
     }
-  } else {
-    questionContent();
+  } 
+  else {
+    navLink();
   }
 }
 //* --------------------------------------------------- */
@@ -88,7 +105,7 @@ window.addEventListener("scroll", scrollTop);
 btnNavLinkCollection.forEach(elem => {
   elem.addEventListener('click', () => styleLinksNav(elem));
 })
-btnQuestionSection.addEventListener('click', exitWarning);
-btnTrainingSection.addEventListener('click', exitWarning);
+btnQuestionSection.addEventListener('click', () => exitWarning(questionContent));
+btnTrainingSection.addEventListener('click', () => exitWarning(trainingContent));
 btnExamSection.addEventListener('click', examsContent);
 //* --------------------------------------------------- */
