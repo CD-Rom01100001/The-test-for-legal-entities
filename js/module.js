@@ -1,5 +1,6 @@
 import {legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84} from './questions.js';
 import {fieldQuestionsMain, fieldQuestionList} from './questionSection.js';
+import { fieldTrainingMain } from './trainingSection.js';
 import {fieldTests, fieldStartExam, timeReportVar, fieldFinalScore} from './examSection.js';
 
 
@@ -42,6 +43,7 @@ const questionContent = () => {
   });
   fieldQuestionsMain.classList.remove('field-questions--display--none');
   fieldQuestionList.classList.remove('questions-list--display--none');
+  fieldTrainingMain.classList.add('training-main--display--none');
   fieldStartExam.classList.remove('field-start-exam--display--block');
   fieldTests.classList.remove('tests--display--block'); // закрывает блок с тестами
   clearInterval(timeReportVar); // останавливает время в тестах
@@ -53,11 +55,12 @@ const trainingContent = () => {
     if (index != 3) {
       elem.classList.add('staff-training__descriotion-text--display--none');
     } else {
-      elem.classList.remove('staff-training__descriotion-text--display--none')
+      elem.classList.remove('staff-training__descriotion-text--display--none');
     }
   });
   fieldQuestionsMain.classList.add('field-questions--display--none');
   fieldQuestionList.classList.add('questions-list--display--none');
+  fieldTrainingMain.classList.remove('training-main--display--none');
   fieldStartExam.classList.remove('field-start-exam--display--block');
   fieldTests.classList.remove('tests--display--block'); // закрывает блок с тестами
   clearInterval(timeReportVar); // останавливает время в тестах
@@ -74,6 +77,7 @@ const examsContent = () => {
   });
   fieldQuestionsMain.classList.add('field-questions--display--none');
   fieldQuestionList.classList.add('questions-list--display--none');
+  fieldTrainingMain.classList.add('training-main--display--none');
   /* если тест запущен то кнопка "Начать экзамен" больше не появится */
   if (fieldTests.classList.contains('tests--display--block') == false) {
     fieldStartExam.classList.add('field-start-exam--display--block');
