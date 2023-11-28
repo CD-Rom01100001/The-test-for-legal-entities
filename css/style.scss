@@ -184,7 +184,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 }
 
 .training-main {
-
+  font-size: 3rem;
 }
 
 .training-main--display--none {
@@ -385,6 +385,26 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   margin-top: 4rem;
 }
 
+.training__content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+
+  .preview-block {
+    width: 15rem;
+    height: 20rem;
+    padding: 0.5rem;
+    background: #fff;
+    border: 1px solid #E2E2E2;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+
+  .stage-block {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+}
 
 
 
