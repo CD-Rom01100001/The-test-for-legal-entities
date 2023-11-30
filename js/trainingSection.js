@@ -83,7 +83,7 @@ const setBlocked = (preview) => {
   preview.classList.add('inactive-status');
   const disabledBlock = document.createElement('img');
   disabledBlock.setAttribute('class', 'disabled-block');
-  disabledBlock.setAttribute('src', '../assets/images/lockblocked_122039.svg');
+  disabledBlock.setAttribute('src', 'assets/images/lockblocked_122039.svg');
   disabledBlock.setAttribute('alt', 'disabled');
   preview.append(disabledBlock);
 }
