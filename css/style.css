@@ -315,19 +315,46 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
 .training__content {
   display: flex;
+  justify-content: center;
+}
+.training__content .training__content-inner {
+  display: flex;
+  justify-content: start;
   flex-wrap: wrap;
   gap: 2rem;
+  max-width: 68rem;
 }
-.training__content .preview-block {
-  width: 15rem;
-  height: 20rem;
-  padding: 0.5rem;
+.training__content .training__content-inner .preview-block {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 33rem;
+  padding: 1rem;
+  line-height: 3rem;
   background: #fff;
   border: 1px solid #E2E2E2;
   border-radius: 0.5rem;
   cursor: pointer;
 }
-.training__content .stage-block {
+.training__content .training__content-inner .disabled-block {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  width: 3rem;
+  height: 4rem;
+}
+.training__content .training__content-inner .inactive-status {
+  opacity: 0.4;
+  cursor: default;
+}
+.training__content .training__content-inner .stage-block {
   text-align: center;
   margin-bottom: 1rem;
+}
+.training__content .training__content-inner .section-block {
+  min-height: 10rem;
+}
+.training__content .training__content-inner .all-quest-in-stage {
+  text-align: center;
 }
