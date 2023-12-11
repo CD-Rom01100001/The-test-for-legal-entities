@@ -385,55 +385,70 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   margin-top: 4rem;
 }
 
-.training__content {
-  display: flex;
-  justify-content: center;
+/* блок прохождения обучения */
+.training-main {
 
-  .training__content-inner {
+  /* блок с превьюшками */
+  .training__content {
     display: flex;
-    justify-content: start;
-    flex-wrap: wrap;
-    gap: 2rem;
-    max-width: 68rem;
+    justify-content: center;
+    padding-bottom: 2rem;
   
-    .preview-block {
-      position: relative;
+    .training__content-inner {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 33rem;
-      padding: 1rem;
-      line-height: 3rem;
-      background: #fff;
-      border: 1px solid #E2E2E2;
-      border-radius: 0.5rem;
-      cursor: pointer;
-    }
-
-    .disabled-block {
-      position: absolute;
-      right: 0.5rem;
-      top: 0.5rem;
-      width: 3rem;
-      height: 4rem;
-    }
-
-    .inactive-status {
-      opacity: 0.4;
-      cursor: default;
-    }
+      justify-content: start;
+      flex-wrap: wrap;
+      gap: 2rem;
+      max-width: 68rem;
+    
+      .preview-block {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 33rem;
+        padding: 1rem;
+        line-height: 3rem;
+        background: #fff;
+        border: 1px solid #E2E2E2;
+        border-radius: 0.5rem;
+        box-shadow: 1px 1px 0px 1px #83828231;
+        cursor: pointer;
+      }
   
-    .stage-block {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+      .disabled-block {
+        position: absolute;
+        right: 0.5rem;
+        top: 0.5rem;
+        width: 3rem;
+        height: 4rem;
+      }
   
-    .section-block {
-      min-height: 10rem;
-    }
-  
-    .all-quest-in-stage {
-      text-align: center;
+      .inactive-status {
+        box-shadow: 0 0 0 0;
+        opacity: 0.4;
+        cursor: default;
+      }
+    
+      .stage-block {
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+    
+      .section-block {
+        min-height: 10rem;
+      }
+    
+      .all-quest-in-stage {
+        text-align: center;
+      }
     }
   }
+
+  /* блок с прохождением обучения определеной секции */
+  .training {
+    display: none;
+  }
+
 }
+

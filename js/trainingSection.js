@@ -1,4 +1,5 @@
 import {arrayQuestions} from './questions.js';
+import {startTraining} from './trainingBlockQuest.js';
 
 const fieldTrainingMain = document.querySelector('#field-training');
 const trainingContentInner = document.querySelector('.training__content-inner');
@@ -11,15 +12,6 @@ let notFirstIteration = false;
 let counts = {};
 let countsKeyValue = '';
 let sectionArray = [];
-
-/* помещает все 244 вопроса со всех секций в массив allQuestions */
-const throughAllQuestions = () => {
-  arrayQuestions.forEach((section) => {
-    section.forEach((quest) => {
-      allQuestions.push(quest);
-    });
-  })
-}
 
 /* формирует превьюшки html теги на странице */
 const createStagePreviewBlock = (stage, section, allQuest) => {
@@ -41,7 +33,14 @@ const createStagePreviewBlock = (stage, section, allQuest) => {
   previewBlock.append(stageBlock, sectionBlock, allQuestInStage);
   trainingContentInner.append(previewBlock);
 }
-
+/* помещает все 244 вопроса со всех секций в массив allQuestions */
+const throughAllQuestions = () => {
+  arrayQuestions.forEach((section) => {
+    section.forEach((quest) => {
+      allQuestions.push(quest);
+    });
+  })
+} 
 /* заполняет превьюшки информацией сколько в каком этапе вопросов и к каким секциям они относятся */
 const previewCreation = () => {
   for (let i = 0; i < allQuestions.length; i++) {
@@ -87,17 +86,32 @@ const setBlocked = (preview) => {
   disabledBlock.setAttribute('alt', 'disabled');
   preview.append(disabledBlock);
 }
+/* проверяет условие, если оно истиное то разблокирует превьюшку */
+const includedPrewiew = () => {
+  collectionPrewiews.forEach((elem, index) => {
+    setBlocked(elem)
+    if (index == 0 || index == 2) {
+      elem.classList.remove('inactive-status');
+      document.querySelector('.disabled-block').style.display = 'none';
+    }
+  })
+}
+
+/* при нажатии на превьюшку если она разблокирована */
+const clickPrewiew = () => {
+  collectionPrewiews.forEach((elem) => {
+    elem.addEventListener('click', () => {
+      /* получает названия секций */
+      const sectionBlockTitle = elem.getElementsByClassName('section-block')[0].innerHTML;
+      if(!elem.classList.contains('inactive-status')) {
+        startTraining(sectionBlockTitle);
+      }
+    })
+  })
+}
+
+includedPrewiew();
+clickPrewiew();
 
 
-
-collectionPrewiews.forEach((elem, index) => {
-  setBlocked(elem)
-
-  if (index == 0) {
-    elem.classList.remove('inactive-status');
-    document.querySelector('.disabled-block').style.display = 'none';
-  }
-  
-})
-
-export {fieldTrainingMain};
+export {fieldTrainingMain, collectionPrewiews};

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html {
   scroll-behavior: smooth;
 }
@@ -313,18 +314,24 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   margin-top: 4rem;
 }
 
-.training__content {
+/* блок прохождения обучения */
+.training-main {
+  /* блок с превьюшками */
+  /* блок с прохождением обучения определеной секции */
+}
+.training-main .training__content {
   display: flex;
   justify-content: center;
+  padding-bottom: 2rem;
 }
-.training__content .training__content-inner {
+.training-main .training__content .training__content-inner {
   display: flex;
   justify-content: start;
   flex-wrap: wrap;
   gap: 2rem;
   max-width: 68rem;
 }
-.training__content .training__content-inner .preview-block {
+.training-main .training__content .training__content-inner .preview-block {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -335,26 +342,31 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   background: #fff;
   border: 1px solid #E2E2E2;
   border-radius: 0.5rem;
+  box-shadow: 1px 1px 0px 1px rgba(131, 130, 130, 0.1921568627);
   cursor: pointer;
 }
-.training__content .training__content-inner .disabled-block {
+.training-main .training__content .training__content-inner .disabled-block {
   position: absolute;
   right: 0.5rem;
   top: 0.5rem;
   width: 3rem;
   height: 4rem;
 }
-.training__content .training__content-inner .inactive-status {
+.training-main .training__content .training__content-inner .inactive-status {
+  box-shadow: 0 0 0 0;
   opacity: 0.4;
   cursor: default;
 }
-.training__content .training__content-inner .stage-block {
+.training-main .training__content .training__content-inner .stage-block {
   text-align: center;
   margin-bottom: 1rem;
 }
-.training__content .training__content-inner .section-block {
+.training-main .training__content .training__content-inner .section-block {
   min-height: 10rem;
 }
-.training__content .training__content-inner .all-quest-in-stage {
+.training-main .training__content .training__content-inner .all-quest-in-stage {
   text-align: center;
+}
+.training-main .training {
+  display: none;
 }
