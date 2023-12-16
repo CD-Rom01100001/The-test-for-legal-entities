@@ -1,6 +1,7 @@
 import {legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84} from './questions.js';
 import {fieldQuestionsMain, fieldQuestionList} from './questionSection.js';
-import { fieldTrainingMain } from './trainingSection.js';
+import {fieldTrainingMain} from './trainingSection.js';
+import { previewBlock, trainingBlock } from './trainingSection.js';
 import {fieldTests, fieldStartExam, timeReportVar, fieldFinalScore} from './examSection.js';
 
 
@@ -12,6 +13,7 @@ const btnExamSection = document.querySelector('#navigation__exam');
 const btnArrowTop = document.querySelector('#arrow-top');
 const titleSection = document.querySelector('#title-section');
 const descriptionSectionCollection = document.querySelectorAll('.staff-training__descriotion-text');
+const staffTrainingDescription = document.querySelector('.staff-training__descriotion');
 //* --------------------------------------------------- */
 
 
@@ -83,16 +85,33 @@ const examsContent = () => {
     fieldStartExam.classList.add('field-start-exam--display--block');
   }
 }
-//* при условии, что открыты тесты и не нажата кнопка "результат" */
+//* при условии, что открыты тесты и не нажата кнопка "результат" или что открыт блок обучение */
 const exitWarning = (navLink) => {
   if (fieldTests.classList.contains('tests--display--block') && fieldFinalScore.textContent == 0) {
     let warning = confirm("Если вы покините тест, то все результаты будут сброшены!\nХотите продолжить?");
     if (warning == true) {
       navLink();
-    } else {
+    } 
+    else {
       btnNavLinkCollection.forEach((elem, index) => {
         elem.classList.remove('nav-link--active');
         if (index == 2) elem.classList.add('nav-link--active');
+      })
+      return;
+    }
+  } 
+  if (trainingBlock.style.display == 'block') {
+    let warning = confirm("Если вы покините тест, то все результаты будут сброшены!\nХотите продолжить?");
+    if (warning == true) {
+      trainingBlock.style.display = 'none';
+      previewBlock.style.display = 'flex';
+      staffTrainingDescription.style.display = 'block';
+      navLink();
+    } 
+    else {
+      btnNavLinkCollection.forEach((elem, index) => {
+        elem.classList.remove('nav-link--active');
+        if (index == 1) elem.classList.add('nav-link--active');
       })
       return;
     }
@@ -101,6 +120,7 @@ const exitWarning = (navLink) => {
     navLink();
   }
 }
+
 //* --------------------------------------------------- */
 
 
@@ -111,5 +131,5 @@ btnNavLinkCollection.forEach(elem => {
 })
 btnQuestionSection.addEventListener('click', () => exitWarning(questionContent));
 btnTrainingSection.addEventListener('click', () => exitWarning(trainingContent));
-btnExamSection.addEventListener('click', examsContent);
+btnExamSection.addEventListener('click', () => exitWarning(examsContent));
 //* --------------------------------------------------- */

@@ -1,10 +1,15 @@
 import {arrayQuestions} from './questions.js';
-import {startTraining} from './trainingBlockQuest.js';
 
 const fieldTrainingMain = document.querySelector('#field-training');
 const trainingContentInner = document.querySelector('.training__content-inner');
+const btnExitBlockTraining = document.querySelector('.training__button-exit');
+const previewBlock = document.querySelector('.training__content');
+const trainingBlock = document.querySelector('#training');
+const nameSection = document.querySelector('#training-name-section-text');
+const staffTrainingDescription = document.querySelector('.staff-training__descriotion');
+const currentQuestionNumber = document.querySelector('#training-num-quest-current');
 
-let allQuestions = [];
+let allQuestions = [];// здесь формируются все 244 вопроса
 let stageOut = 1;
 let count = 1;
 let num = 1;
@@ -12,8 +17,11 @@ let notFirstIteration = false;
 let counts = {};
 let countsKeyValue = '';
 let sectionArray = [];
+let currentNumSection = 1;
+let currentIndexSection = 0;
+let timeReportVar = Object;
 
-/* формирует превьюшки html теги на странице */
+//* формирует превьюшки html теги на странице */
 const createStagePreviewBlock = (stage, section, allQuest) => {
   const previewBlock = document.createElement('div');
   previewBlock.setAttribute('class', `preview-block`);
@@ -33,15 +41,7 @@ const createStagePreviewBlock = (stage, section, allQuest) => {
   previewBlock.append(stageBlock, sectionBlock, allQuestInStage);
   trainingContentInner.append(previewBlock);
 }
-/* помещает все 244 вопроса со всех секций в массив allQuestions */
-const throughAllQuestions = () => {
-  arrayQuestions.forEach((section) => {
-    section.forEach((quest) => {
-      allQuestions.push(quest);
-    });
-  })
-} 
-/* заполняет превьюшки информацией сколько в каком этапе вопросов и к каким секциям они относятся */
+//* заполняет превьюшки информацией сколько в каком этапе вопросов и к каким секциям они относятся */
 const previewCreation = () => {
   for (let i = 0; i < allQuestions.length; i++) {
     sectionArray.push(allQuestions[i].answers[0].id)
@@ -71,13 +71,20 @@ const previewCreation = () => {
     num++;
   }
 }
-
-throughAllQuestions();
+//* помещает все 244 вопроса со всех секций в указаный массив */
+const throughAllQuestions = (from, into) => {
+  from.forEach((section) => {
+    section.forEach((quest) => {
+      into.push(quest);
+    });
+  })
+} 
+throughAllQuestions(arrayQuestions, allQuestions);
 previewCreation();
 
 const collectionPrewiews = document.querySelectorAll('.preview-block');
 
-/* добавляет замок и блокирует превьюшку */
+//* добавляет замок и блокирует превьюшку */
 const setBlocked = (preview) => {
   preview.classList.add('inactive-status');
   const disabledBlock = document.createElement('img');
@@ -86,32 +93,88 @@ const setBlocked = (preview) => {
   disabledBlock.setAttribute('alt', 'disabled');
   preview.append(disabledBlock);
 }
-/* проверяет условие, если оно истиное то разблокирует превьюшку */
+//* убирает замок и разблокирует превьюшку */
 const includedPrewiew = () => {
   collectionPrewiews.forEach((elem, index) => {
     setBlocked(elem)
-    if (index == 0 || index == 2) {
+    if (index == 0 || index == 6) {
       elem.classList.remove('inactive-status');
       document.querySelector('.disabled-block').style.display = 'none';
     }
   })
 }
-
-/* при нажатии на превьюшку если она разблокирована */
+//* при нажатии на превьюшку если она разблокирована */
 const clickPrewiew = () => {
-  collectionPrewiews.forEach((elem) => {
-    elem.addEventListener('click', () => {
+  collectionPrewiews.forEach((preview, index) => {
+    preview.addEventListener('click', () => {
+      currentIndexSection = index;
       /* получает названия секций */
-      const sectionBlockTitle = elem.getElementsByClassName('section-block')[0].innerHTML;
-      if(!elem.classList.contains('inactive-status')) {
+      const sectionBlockTitle = preview.getElementsByClassName('section-block')[0].innerHTML;
+      if(!preview.classList.contains('inactive-status')) {
         startTraining(sectionBlockTitle);
       }
     })
   })
 }
 
-includedPrewiew();
-clickPrewiew();
+/* ---------------------------- trainingSectionBlock -------------------------------- */
+const collectionAllNumQuest = document.querySelectorAll('.all-quest-in-stage');
+const trainingMin = document.querySelector('#training-min');
+const trainingSec = document.querySelector('#training-sec');
 
+const allNumQuest = (index) => {
+  return +collectionAllNumQuest[index].textContent.split(' ')[1];
+};
 
-export {fieldTrainingMain, collectionPrewiews};
+//* показывает номер вопроса */
+const showNumQuest = () => {
+  currentQuestionNumber.textContent = `${currentNumSection}/${allNumQuest(currentIndexSection)}`;
+}
+
+//* показывает время */
+const trainingTime = () => {
+  let min = 0;
+  let sec = 0;
+
+  timeReportVar = setInterval(() => {
+    sec++;
+    if (sec > 59) sec = 0;
+    if (sec < 10) {trainingSec.textContent = `0${sec}`}
+    else trainingSec.textContent = sec;
+    
+    
+    if (min < 10) trainingMin.textContent = `0${min}`;
+  }, 1000);
+  setTimeout(() => {
+    clearInterval(timeReportVar);
+  }, 70000);
+}
+
+//* закрывает блок с "превьюшками" и открывает блок "Обучение" */
+const startTraining = (numSection) => {
+  previewBlock.style.display = 'none';
+  staffTrainingDescription.style.display = 'none';
+  trainingBlock.style.display = 'block';
+  /* название секции */
+  nameSection.innerHTML = numSection;
+  /* номер текущего вопроса и общее количество вопросов в блоке */
+  showNumQuest();
+  /* показывает время */
+  trainingTime();
+}
+//* закрывает блок "Обученме" и oткрывает блок с превиюшками */
+const exitOfBlockTraining = () => {
+  let warning = confirm("Если вы покините тест, то все результаты будут сброшены!\nХотите продолжить?");
+  if (warning == true) {
+    previewBlock.style.display = 'flex';
+    staffTrainingDescription.style.display = 'block';
+    trainingBlock.style.display = 'none';
+  } 
+  return;
+}
+
+includedPrewiew();// убирает замок и разблокирует превьюшку
+clickPrewiew();// при нажатии на превьюшку если она разблокирована
+btnExitBlockTraining.addEventListener('click', exitOfBlockTraining)// закрывает блок "Обученме" и oткрывает блок с превьюшками
+
+export {fieldTrainingMain, collectionPrewiews, previewBlock, trainingBlock};
