@@ -92,7 +92,6 @@ const startQuestNum = () => {
 }
 //* присвваеваем текст к названию секции, вопроссу и ответам */
 const fillsQAWithText = () => {
-  // console.log(indexQuest);
   questionText.textContent = randomQuestions[indexQuest].question;
   nameSectionText.textContent = randomQuestions[indexQuest].answers[0].id;
   collectionAnswers.forEach((elem, index) => {

@@ -106,9 +106,10 @@
                   </div>
                   <!-- time -->
                   <div class="training__time-exam">
-                    <p class="training__time-exam-num"><span id="training-min">00</span> : <span id="training-sec">00</span></p>
+                    <p class="training__time-exam-num"><span id="training-min"></span> : <span id="training-sec"></span></p>
                   </div>
                 </div>
+
                 <!-- questions and answers -->
                 <div class="training__question-answers training-question-answers" id="training-field-question-answers">
                   <div class="training-question-answers__body">
@@ -138,17 +139,23 @@
                     </div>
                   </div>
                 </div>
+
                 <!-- buttons and score -->
                 <div class="training__btn-score btn-score">
                   <div class="training-btn-score__body">
-                    <button class="training-btn-score__btn btn-score__btn--display--none" id="training-btn-prev">Назад</button>
+
+                    <button class="training-btn-score__btn btn-score__btn--visibility--hidden" id="training-btn-prev">Назад</button>
+
                     <button class="training-btn-score__btn" id="training-btn-next">Далее</button>
-                    <button class="training-btn-score__btn btn-score__btn--display--none" id="training-btn-result">Результат</button>
-                    <button class="training-btn-score__btn btn-score__btn--display--none" id="training-btn-restart">Заново</button>
+
+                    <button class="training-btn-score__btn btn-score__btn--visibility--hidden" id="training-btn-result">Результат</button>
+
+                    <button class="training-btn-score__btn btn-score__btn--visibility--hidden" id="training-btn-restart">Заново</button>
                   
                     <div class="training-btn-score__field-result">
                       <p class="training-btn-score__field-result-result" id="training-final-result"></p>
                     </div>
+
                   </div>
                 </div>
       

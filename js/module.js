@@ -1,7 +1,7 @@
 import {legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84} from './questions.js';
 import {fieldQuestionsMain, fieldQuestionList} from './questionSection.js';
 import {fieldTrainingMain} from './trainingSection.js';
-import { previewBlock, trainingBlock } from './trainingSection.js';
+import { previewBlock, trainingBlock, restartResults } from './trainingSection.js';
 import {fieldTests, fieldStartExam, timeReportVar, fieldFinalScore} from './examSection.js';
 
 
@@ -107,6 +107,7 @@ const exitWarning = (navLink) => {
       previewBlock.style.display = 'flex';
       staffTrainingDescription.style.display = 'block';
       navLink();
+      restartResults();// сбрасывает все результаты в обучении
     } 
     else {
       btnNavLinkCollection.forEach((elem, index) => {
