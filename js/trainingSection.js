@@ -15,6 +15,7 @@ const btnRestart = document.querySelector('#training-btn-restart');
 
 let allQuestions = [];// здесь формируются все 244 вопроса
 let currentQuestionsArray = []; // устонавливает массив bp 35 вопроссов в соответствии с нажатой превьюшкой
+let recordedAnswer = ''; // устонавливает true или false
 let stageOut = 1;
 let count = 1;
 let num = 1;
@@ -22,9 +23,9 @@ let notFirstIteration = false;
 let counts = {};
 let countsKeyValue = '';
 let sectionArray = [];
-let currentNumAnswer = 1;
+let currentNumAnswer = 1;// номер текущего вопроса
 let currentIndexSection = 0;
-let indexQuestion = 0;
+let indexQuestion = 0;// индекс вопроса
 let testTimeReportVar = Object;
 
 //* формирует превьюшки html теги на странице */
@@ -121,6 +122,7 @@ const clickPrewiew = () => {
           startTraining(sectionBlockTitle);
         }
         currentQuestionsArray = questionsFromTo(index);// устонавливает массив из 35 вопроссов в соответствии с нажатой превьюшкой
+        console.log(currentQuestionsArray);
         fillsQuestAnswers(0);// присвваеваем текст к вопроссу и ответам в соответствии с нажатой превьюшкой
       }
     })
@@ -132,6 +134,8 @@ const collectionAllNumQuest = document.querySelectorAll('.all-quest-in-stage');
 const trainingMin = document.querySelector('#training-min');
 const trainingSec = document.querySelector('#training-sec');
 const trainingQuestionText = document.querySelector('#training-questionText');
+const fieldQuestionAnswer = document.querySelector('.training-question-answers__body');
+const trainingAnswersCollectionBody = document.querySelectorAll('.training-question-answers__answers-body');
 const trainingAnswersCollection = document.querySelectorAll('.training-question-answers__answers-body-answer');
 
 //* присвваеваем текст к вопроссу и ответам */
@@ -150,12 +154,12 @@ const movePrevQuestion = () => {
   }
   
   if (currentNumAnswer == 1) {
-    btnPrev.classList.add('btn-score__btn--visibility--hidden');
+    btnPrev.classList.add('btn-score__btn--display--none');
   }
 
   if (currentNumAnswer == currentQuestionsArray.length-1) {
-    btnNext.style.display = 'inline-block';
-    btnResult.classList.add('btn-score__btn--visibility--hidden');
+    btnNext.classList.remove('btn-score__btn--display--none');
+    btnResult.classList.add('btn-score__btn--display--none');
   }
 
   showNumQuest(currentNumAnswer);
@@ -170,24 +174,49 @@ const moveNextQuestion = () => {
   }
   
   if (currentNumAnswer == 2) {
-    btnPrev.classList.remove('btn-score__btn--visibility--hidden');
+    btnPrev.classList.remove('btn-score__btn--display--none');
   }
 
   if (currentNumAnswer == currentQuestionsArray.length) {
-    btnNext.style.display = 'none';
-    btnResult.classList.remove('btn-score__btn--visibility--hidden');
+    btnNext.classList.add('btn-score__btn--display--none');
+    btnResult.classList.remove('btn-score__btn--display--none');
   }
 
   showNumQuest(currentNumAnswer);
-  fillsQuestAnswers(indexQuestion);
+  fillsQuestAnswers(indexQuestion);// присвваеваем текст к вопроссу и ответам
 }
 
 //* при нажатии на кнопку РЕЗУЛЬТАТ */
 const moveResult = () => {
   clearInterval(testTimeReportVar);
-  btnRestart.classList.remove('btn-score__btn--visibility--hidden');
-  btnResult.style.display = 'none';
-  btnPrev.style.display = 'none';
+  btnRestart.classList.remove('btn-score__btn--display--none');
+  btnResult.classList.add('btn-score__btn--display--none');
+  btnPrev.classList.add('btn-score__btn--display--none');
+  fieldQuestionAnswer.style.pointerEvents = 'none';// делает курсор не активным во всем блоке
+  fieldQuestionAnswer.style.opacity = '0.2';
+}
+
+//* при нажатии на кнопку ЗАНОВО */
+const moveAgain = () => {
+  indexQuestion = 0;// индекс вопроса
+  fillsQuestAnswers(indexQuestion);// присвваеваем текст к вопроссу и ответам
+  currentNumAnswer = 1;// номер текущего вопроса
+  trainingTime()// показывает время
+  fieldQuestionAnswer.style.pointerEvents = 'auto';// деоает курсор активным во всем блоке
+  fieldQuestionAnswer.style.opacity = 1;
+  btnPrev.classList.add('btn-score__btn--display--none');
+  btnNext.classList.remove('btn-score__btn--display--none');
+  btnResult.classList.add('btn-score__btn--display--none');
+  btnRestart.classList.add('btn-score__btn--display--none');
+
+}
+
+//* стилизует выбранный ответ */
+const styleSelectedAnswer = (e) => {
+  trainingAnswersCollectionBody.forEach(elem => {
+    elem.classList.remove('training-question-answers__body--active');
+  })
+  e.classList.add('training-question-answers__body--active');
 }
 
 //* в зависимости от того на какую превьюшку нажато получает определенные вопросы */
@@ -284,21 +313,58 @@ const exitOfBlockTraining = () => {
   return;
 }
 
-//* сбрасывает все результаты */
+//* при нажатии на другие вкладки или на кнопку ВЫХОД  */
 const restartResults = () => {
   clearInterval(testTimeReportVar);
   currentNumAnswer = 1;
   indexQuestion = 0;
-  btnNext.style.display = 'inline-block';
-  btnResult.classList.add('btn-score__btn--visibility--hidden');
-  btnPrev.classList.add('btn-score__btn--visibility--hidden');
+  fieldQuestionAnswer.style.pointerEvents = 'auto';// деоает курсор активным во всем блоке
+  fieldQuestionAnswer.style.opacity = 1;
+  btnPrev.classList.add('btn-score__btn--display--none');
+  btnNext.classList.remove('btn-score__btn--display--none');
+  btnResult.classList.add('btn-score__btn--display--none');
+  btnRestart.classList.add('btn-score__btn--display--none');
 }
 
 btnNext.addEventListener('click', moveNextQuestion);
 btnPrev.addEventListener('click', movePrevQuestion);
 btnResult.addEventListener('click', moveResult);
+btnRestart.addEventListener('click', moveAgain);
 includedPrewiew();// убирает замок и разблокирует превьюшку
 clickPrewiew();// при нажатии на превьюшку если она разблокирована
 btnExitBlockTraining.addEventListener('click', exitOfBlockTraining)// закрывает блок "Обученме" и oткрывает блок с превьюшками
+trainingAnswersCollectionBody.forEach((elem, index) => {
+  elem.addEventListener('click', () => {
+    styleSelectedAnswer(elem);// стилизует выбранный ответ
+    recordedAnswer = currentQuestionsArray[indexQuestion].answers[index].correct;// устонавливает true или false
+    
+    /* что бы нельзя было нажимать на уже выбранный ответ */
+    if (elem.classList.contains('training-question-answers__body--active')) {
+      /* делает все ответы активными */
+      trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});
+      /* делает текущий элемент не активным */
+      elem.style.pointerEvents = 'none';
+    } 
+  
+    /* при выборе другого ответа, предыдущий удаляется и присваивается текущий. Происходит с учетом текущего вопроса */
+    let iii = {
+      answer: recordedAnswer,
+      indexAnswer: index,
+      indexQuestion: indexQuest,
+    }
+    if (arrayAnswer != undefined) {
+      arrayAnswer.splice(indexQuest, 1, iii);
+    }
+    
+    
+    // console.log(collectionAnswersBody[arrayAnswer[indexQuest]]);
+    // console.log(randomQuestions);
+    // console.log(randomQuestions[indexQuest].answers[arrayAnswer[indexQuest]]);
+    console.log(arrayAnswer);
+    // console.log(arrayAnswer[indexQuest]);
+    console.log(calcArrAnserScore());
+    
+  })
+});// три кнопки ответа
 
 export {fieldTrainingMain, collectionPrewiews, previewBlock, trainingBlock, restartResults};

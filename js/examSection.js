@@ -32,7 +32,6 @@ let timeReportVar = Object;
 let arrayAnswer = [];
 //* --------------------------------------------------- */
  
-
 //* -------------------- FUNCTIONS -------------------- */
 
 //* -------------- Формирование вопросов --------------- */
@@ -323,7 +322,6 @@ collectionAnswersBody.forEach((elem, index) => {
   elem.addEventListener('click', () => {
     styleSelectedAnswer(elem);
     recordedAnswer = randomQuestions[indexQuest].answers[index].correct;
-    console.log(recordedAnswer)
     
     /* что бы нельзя было нажимать на уже выбранный ответ */
     if (elem.classList.contains('question-answers__answers-body--active')) {
@@ -352,7 +350,7 @@ collectionAnswersBody.forEach((elem, index) => {
     console.log(calcArrAnserScore());
     
   })
-});
+});// три кнопки ответа
 
 btnResult.addEventListener('click', moveResult);
 btnRestart.addEventListener('click', restartResults);
