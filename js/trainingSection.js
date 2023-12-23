@@ -12,9 +12,10 @@ const btnPrev = document.querySelector('#training-btn-prev');
 const btnNext = document.querySelector('#training-btn-next');
 const btnResult = document.querySelector('#training-btn-result');
 const btnRestart = document.querySelector('#training-btn-restart');
+const result = document.querySelector('.training__result-text');
 
 let allQuestions = [];// здесь формируются все 244 вопроса
-let currentQuestionsArray = []; // устонавливает массив bp 35 вопроссов в соответствии с нажатой превьюшкой
+let currentQuestionsArray = []; // устонавливает массив из 35 вопроссов в соответствии с нажатой превьюшкой
 let recordedAnswer = ''; // устонавливает true или false
 let stageOut = 1;
 let count = 1;
@@ -26,6 +27,7 @@ let sectionArray = [];
 let currentNumAnswer = 1;// номер текущего вопроса
 let currentIndexSection = 0;
 let indexQuestion = 0;// индекс вопроса
+let arrayAnswer = [];// массив ответов
 let testTimeReportVar = Object;
 
 //* формирует превьюшки html теги на странице */
@@ -103,6 +105,7 @@ const setBlocked = (preview) => {
 //* убирает замок и разблокирует превьюшку */
 const includedPrewiew = () => {
   collectionPrewiews.forEach((elem, index) => {
+    console.log(elem);
     setBlocked(elem)
     if (index == 0) {
       elem.classList.remove('inactive-status');
@@ -122,6 +125,7 @@ const clickPrewiew = () => {
           startTraining(sectionBlockTitle);
         }
         currentQuestionsArray = questionsFromTo(index);// устонавливает массив из 35 вопроссов в соответствии с нажатой превьюшкой
+        console.log(indexQuestion);
         console.log(currentQuestionsArray);
         fillsQuestAnswers(0);// присвваеваем текст к вопроссу и ответам в соответствии с нажатой превьюшкой
       }
@@ -138,6 +142,15 @@ const fieldQuestionAnswer = document.querySelector('.training-question-answers__
 const trainingAnswersCollectionBody = document.querySelectorAll('.training-question-answers__answers-body');
 const trainingAnswersCollection = document.querySelectorAll('.training-question-answers__answers-body-answer');
 
+//* перемешивает массив */
+const shuffle = (newArr) => {
+  for (let i = newArr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+  }
+  return newArr;
+}
+
 //* присвваеваем текст к вопроссу и ответам */
 const fillsQuestAnswers = (quest) => {
   trainingQuestionText.textContent = currentQuestionsArray[quest].question;
@@ -148,6 +161,9 @@ const fillsQuestAnswers = (quest) => {
 
 //* при нажатии на кнопку НАЗАД */
 const movePrevQuestion = () => {
+
+  trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+
   if (currentNumAnswer > 1) {
     currentNumAnswer--;
     indexQuestion--;
@@ -163,11 +179,33 @@ const movePrevQuestion = () => {
   }
 
   showNumQuest(currentNumAnswer);
-  fillsQuestAnswers(indexQuestion);
+  fillsQuestAnswers(indexQuestion);// присвваеваем текст к вопроссу и ответам
+
+  //!---------------------------------------------------------------------------------
+  slyleResetAnswer(); //сбрасывает стили ответов
+  console.log('длинна массива с выбраными ответами: ' + arrayAnswer.length);
+  console.log('индекс текущего вопросса: ' + indexQuestion);
+
+  if (indexQuestion <= arrayAnswer.length-1) {
+    trainingAnswersCollectionBody[arrayAnswer[indexQuestion].indexAnswer].classList.add('training-question-answers__body--active');
+  } 
+  else {
+    let xxx = {
+      answer: false,
+      indexAnswer: 3,
+      indexQuest: indexQuestion,
+    }
+    arrayAnswer.splice(indexQuestion, 1, xxx);
+  }
+  console.log(arrayAnswer);
+  //!---------------------------------------------------------------------------------
 }
 
 //* при нажатии на кнопку ДАЛЕЕ */
 const moveNextQuestion = () => {
+
+  trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+
   if (currentNumAnswer < currentQuestionsArray.length) {
     currentNumAnswer++;
     indexQuestion++;
@@ -184,6 +222,28 @@ const moveNextQuestion = () => {
 
   showNumQuest(currentNumAnswer);
   fillsQuestAnswers(indexQuestion);// присвваеваем текст к вопроссу и ответам
+
+  //!---------------------------------------------------------------------------------
+  slyleResetAnswer();// сбрасывает стили ответов
+  console.log(arrayAnswer[indexQuestion]);
+  console.log('длинна массива с выбраными ответами: ' + arrayAnswer.length);
+  console.log('индекс текущего вопросса: ' + indexQuestion);
+
+  if (indexQuestion <= arrayAnswer.length-1) {
+    trainingAnswersCollectionBody[arrayAnswer[indexQuestion].indexAnswer].classList.add('training-question-answers__body--active');
+  } 
+  else {
+    let xxx = {
+      answer: false,
+      indexAnswer: 3,
+      indexQuest: indexQuestion,
+    }
+    arrayAnswer.splice(indexQuestion, 1, xxx);
+  }
+
+  console.log(arrayAnswer);
+  //!---------------------------------------------------------------------------------
+  recordedAnswer = ''; // очищает переменную ()
 }
 
 //* при нажатии на кнопку РЕЗУЛЬТАТ */
@@ -194,6 +254,14 @@ const moveResult = () => {
   btnPrev.classList.add('btn-score__btn--display--none');
   fieldQuestionAnswer.style.pointerEvents = 'none';// делает курсор не активным во всем блоке
   fieldQuestionAnswer.style.opacity = '0.2';
+  /* если меньше трех ошибок, то выведет сообщение, что все ОК */
+  if (calcArrAnserScore() >= currentQuestionsArray.length-3) {
+    result.textContent = `Вы прошли! Ваша оценка: ${calcArrAnserScore()}`;
+  } 
+  /* если больше трех ошибок, то выведет сообщение, что все NO */
+  else {
+    result.textContent = `Вы не прошли! Ваша оценка: ${calcArrAnserScore()}`;
+  }
 }
 
 //* при нажатии на кнопку ЗАНОВО */
@@ -208,7 +276,8 @@ const moveAgain = () => {
   btnNext.classList.remove('btn-score__btn--display--none');
   btnResult.classList.add('btn-score__btn--display--none');
   btnRestart.classList.add('btn-score__btn--display--none');
-
+  arrayAnswer = [];// массив ответов
+  slyleResetAnswer(); // сбрасывает стили ответов
 }
 
 //* стилизует выбранный ответ */
@@ -219,9 +288,26 @@ const styleSelectedAnswer = (e) => {
   e.classList.add('training-question-answers__body--active');
 }
 
-//* в зависимости от того на какую превьюшку нажато получает определенные вопросы */
+//* сбрасывает стили ответов */
+const slyleResetAnswer = () => {
+  trainingAnswersCollectionBody.forEach(elem => {
+    elem.classList.remove('training-question-answers__body--active');
+  })
+}
+
+//* при каждом вызове прибавляет 1 если true и аккамулирует итоговую оценку  */
+const calcArrAnserScore = () => {
+  let score = 0;
+  arrayAnswer.forEach((elem) => {
+    if (elem.answer == true) score += 1;
+  })
+  return score;
+}
+
+//* в зависимости от того на какую превьюшку нажато, получает определенные вопросы и ПЕРЕМЕШИВАЕТ их */
 const questionsFromTo = (index) => {
   let arr = [];
+  
   switch (index) {
     case 0:
       for (let i = 0; i < 35; i++) {arr.push(allQuestions[i])};
@@ -246,7 +332,7 @@ const questionsFromTo = (index) => {
       break;
   }
   
-  return arr;
+  return shuffle(arr);
 }
 
 //* вытаскивает число из текста "всего 35 вопросов" */
@@ -313,17 +399,19 @@ const exitOfBlockTraining = () => {
   return;
 }
 
-//* при нажатии на другие вкладки или на кнопку ВЫХОД  */
+//* при нажатии на другие ВКЛАДКИ или на кнопку ВЫХОД  */
 const restartResults = () => {
   clearInterval(testTimeReportVar);
   currentNumAnswer = 1;
   indexQuestion = 0;
-  fieldQuestionAnswer.style.pointerEvents = 'auto';// деоает курсор активным во всем блоке
+  fieldQuestionAnswer.style.pointerEvents = 'auto';// делает курсор активным во всем блоке
   fieldQuestionAnswer.style.opacity = 1;
   btnPrev.classList.add('btn-score__btn--display--none');
   btnNext.classList.remove('btn-score__btn--display--none');
   btnResult.classList.add('btn-score__btn--display--none');
   btnRestart.classList.add('btn-score__btn--display--none');
+  arrayAnswer = [];// массив ответов
+  slyleResetAnswer(); // сбрасывает стили ответов
 }
 
 btnNext.addEventListener('click', moveNextQuestion);
@@ -340,29 +428,23 @@ trainingAnswersCollectionBody.forEach((elem, index) => {
     
     /* что бы нельзя было нажимать на уже выбранный ответ */
     if (elem.classList.contains('training-question-answers__body--active')) {
-      /* делает все ответы активными */
-      trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});
-      /* делает текущий элемент не активным */
-      elem.style.pointerEvents = 'none';
+      trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+      elem.style.pointerEvents = 'none';// делает текущий элемент не активным
     } 
   
     /* при выборе другого ответа, предыдущий удаляется и присваивается текущий. Происходит с учетом текущего вопроса */
     let iii = {
       answer: recordedAnswer,
       indexAnswer: index,
-      indexQuestion: indexQuest,
+      indexQuest: indexQuestion,
     }
+
     if (arrayAnswer != undefined) {
-      arrayAnswer.splice(indexQuest, 1, iii);
+      arrayAnswer.splice(indexQuestion, 1, iii);
     }
-    
-    
-    // console.log(collectionAnswersBody[arrayAnswer[indexQuest]]);
-    // console.log(randomQuestions);
-    // console.log(randomQuestions[indexQuest].answers[arrayAnswer[indexQuest]]);
+
     console.log(arrayAnswer);
-    // console.log(arrayAnswer[indexQuest]);
-    console.log(calcArrAnserScore());
+    console.log(recordedAnswer);
     
   })
 });// три кнопки ответа
