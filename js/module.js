@@ -101,7 +101,7 @@ const exitWarning = (navLink) => {
     }
   } 
   if (trainingBlock.style.display == 'block') {
-    let warning = confirm("Если вы покините тест, то все результаты будут сброшены!\nХотите продолжить?");
+    let warning = confirm("Если вы покините \"Обучение\", то все результаты будут сброшены!\nХотите продолжить?");
     if (warning == true) {
       trainingBlock.style.display = 'none';
       previewBlock.style.display = 'flex';
