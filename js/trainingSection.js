@@ -31,6 +31,12 @@ let currentIndexSection = 0;
 let indexQuestion = 0;// индекс вопроса
 let arrayAnswer = [];// массив ответов
 let testTimeReportVar = Object;
+let locStorArrayOpenPrew = [];// массив с индексами открытых превью
+/* если в localStorage присутствует ключ 'openPreview' то все значения данного ключа переносятся в массив locStorArrayOpenPrew при загрузке сайта */
+if (localStorage.getItem('openPreview')) {
+  locStorArrayOpenPrew = JSON.parse(localStorage.getItem('openPreview'));
+}
+
 
 //* формирует превьюшки html теги на странице */
 const createStagePreviewBlock = (stage, section, allQuest) => {
@@ -281,8 +287,22 @@ const moveResult = () => {
     if (currentIndexPreview <= 5) {
       console.log('work');
       includedPrewiew(collectionPrewiews[currentIndexPreview+1], currentIndexPreview)
+
+      locStorArrayOpenPrew.push(currentIndexPreview+1);// помещает индекс нажатого превью в массив locStorArrayOpenPrew
+      localStorage.setItem('openPreview', JSON.stringify([... new Set(locStorArrayOpenPrew)]));// помещает в localStorage массив locStorArrayOpenPrew без повторяющихся значений(индеков)
     }
     return;
+  }
+}
+
+/* перебирает массив 'openPreview' находящийся в localStorage и при загрузки сайта разблокирует превьюшки с теми индексами которые есть в данном массиве  */
+const openPrewiewOnSiteLoad = () => {
+  if (localStorage.getItem("openPreview")) {
+    let numLS = JSON.parse(localStorage.getItem('openPreview'));
+    console.log(numLS);
+    numLS.forEach(index => {
+      includedPrewiew(collectionPrewiews[index], index-1)
+    })
   }
 }
 
@@ -443,6 +463,7 @@ const restartResults = () => {
   slyleResetAnswer(); // сбрасывает стили ответов
 }
 
+window.addEventListener('load', openPrewiewOnSiteLoad);// разблокирует превьюшки при загрузке сайта
 btnNext.addEventListener('click', moveNextQuestion);
 btnPrev.addEventListener('click', movePrevQuestion);
 btnResult.addEventListener('click', moveResult);

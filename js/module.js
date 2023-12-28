@@ -2,7 +2,8 @@ import {legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTo
 import {fieldQuestionsMain, fieldQuestionList} from './questionSection.js';
 import {fieldTrainingMain} from './trainingSection.js';
 import { previewBlock, trainingBlock, restartResults } from './trainingSection.js';
-import {fieldTests, fieldStartExam, timeReportVar, fieldFinalScore} from './examSection.js';
+import {fieldTests, fieldStartExam, timeReportVar, fieldFinalScore} from './examSection.js';// import * as say from './examSection.js' (say.fieldTests)
+
 
 
 //* -------------------- CONSTANTS -------------------- */
