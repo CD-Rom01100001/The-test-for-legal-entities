@@ -449,6 +449,27 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   .training {
     display: none;
 
+    /* индикаторы */
+    .training__indicators-field {
+      .training__block-indicator-answers {
+        display: flex;
+
+        .training__indicator-body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 3rem;
+          height: 3rem;
+          border: 1px solid #000;
+          border-radius: 0.3rem;
+
+          .training__indicator-number {
+            font-size: 1.6rem;
+          }
+        }
+      }
+    }
+
     /* вопрос, отваты */
     .training-question-answers__body {
 

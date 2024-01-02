@@ -369,8 +369,24 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 }
 .training-main .training {
   display: none;
+  /* индикаторы */
   /* вопрос, отваты */
   /* кнопки */
+}
+.training-main .training .training__indicators-field .training__block-indicator-answers {
+  display: flex;
+}
+.training-main .training .training__indicators-field .training__block-indicator-answers .training__indicator-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid #000;
+  border-radius: 0.3rem;
+}
+.training-main .training .training__indicators-field .training__block-indicator-answers .training__indicator-body .training__indicator-number {
+  font-size: 1.6rem;
 }
 .training-main .training .training-question-answers__body .training-question-answers__question {
   min-height: 5rem;

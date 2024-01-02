@@ -5,6 +5,7 @@ const trainingContentInner = document.querySelector('.training__content-inner');
 const btnExitBlockTraining = document.querySelector('.training__button-exit');
 const previewBlock = document.querySelector('.training__content');
 const trainingBlock = document.querySelector('#training');
+const blockIndicatorAnswers = document.querySelector('#block-indicator-answers')
 const nameStage = document.querySelector('#training-name-stage-text');
 const nameSection = document.querySelector('#training-name-section-text');
 const staffTrainingDescription = document.querySelector('.staff-training__descriotion');
@@ -112,7 +113,6 @@ const createLock = (preview) => {
   disabledBlock.setAttribute('alt', 'disabled');
   preview.append(disabledBlock);
 }
-
 //* добавляет замок и блокирует все превьюшки кроме первой */
 const setBlockedPreview = () => {
   collectionPrewiews.forEach((elem, i) => {
@@ -131,7 +131,6 @@ const includedPrewiew = (preview, numStage) => {
   }
   return;
 }
-
 //* при нажатии на превьюшку если она разблокирована */
 const clickPrewiew = () => {
   collectionPrewiews.forEach((preview, index) => {
@@ -147,7 +146,8 @@ const clickPrewiew = () => {
         currentQuestionsArray = questionsFromTo(index);// устонавливает массив из 35 вопроссов в соответствии с нажатой превьюшкой
         console.log(`текущее превью ${currentIndexPreview}`);
         console.log(currentQuestionsArray);
-        fillsQuestAnswers(0);// присвваеваем текст к вопроссу и ответам в соответствии с нажатой превьюшкой
+        setAnswerIndicators();// формирует индикаторы ответов
+        fillsQuestAnswers(0);// присваеваем текст к вопроссу и ответам в соответствии с нажатой превьюшкой
       }
     })
   })
@@ -170,6 +170,25 @@ const shuffle = (newArr) => {
     [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
   }
   return newArr;
+}
+
+//* формирует индикаторы ответов
+const setAnswerIndicators = () => {
+  let num = 1;
+
+  for (let i = 0; i < currentQuestionsArray.length; i++) {
+    const indicatorBody = document.createElement('div');
+    indicatorBody.setAttribute('class', 'training__indicator-body');
+
+    const indicatorNumber = document.createElement('div');
+    indicatorNumber.setAttribute('class', 'training__indicator-number');
+    indicatorNumber.setAttribute('id', 'indicator-number');
+
+    indicatorNumber.textContent = num;
+    indicatorBody.append(indicatorNumber);
+    blockIndicatorAnswers.append(indicatorBody);
+    num++;
+  }
 }
 
 //* присвваеваем текст к вопроссу и ответам */
