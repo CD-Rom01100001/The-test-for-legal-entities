@@ -453,6 +453,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     .training__indicators-field {
       .training__block-indicator-answers {
         display: flex;
+        gap: 0 0.2rem;
 
         .training__indicator-body {
           display: flex;
@@ -466,6 +467,19 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
           .training__indicator-number {
             font-size: 1.6rem;
           }
+        }
+
+        .training__indicator-body:hover {
+          cursor: pointer;
+          background: #0064b120;
+        }
+
+        .training__current-indicator {
+          box-shadow: 0px 0px 1px 1px #0064b1;
+        }
+
+        .training__set-answer {
+          background: #0064b127;
         }
       }
     }

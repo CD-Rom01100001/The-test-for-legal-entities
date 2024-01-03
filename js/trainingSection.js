@@ -32,6 +32,7 @@ let currentIndexSection = 0;
 let indexQuestion = 0;// индекс вопроса
 let arrayAnswer = [];// массив ответов
 let testTimeReportVar = Object;
+let collectionIndicators = Object;// коллекция индикаторов
 let locStorArrayOpenPrew = [];// массив с индексами открытых превью
 /* если в localStorage присутствует ключ 'openPreview' то все значения данного ключа переносятся в массив locStorArrayOpenPrew при загрузке сайта */
 if (localStorage.getItem('openPreview')) {
@@ -60,6 +61,23 @@ const createStagePreviewBlock = (stage, section, allQuest) => {
 
   previewBlock.append(stageBlock, sectionBlock, allQuestInStage);
   trainingContentInner.append(previewBlock);
+}
+//* формирует индикаторы ответов
+const setAnswerIndicators = () => {
+  let num = 1;
+
+  for (let i = 0; i < currentQuestionsArray.length; i++) {
+    const indicatorBody = document.createElement('div');
+    indicatorBody.setAttribute('class', 'training__indicator-body');
+
+    const indicatorNumber = document.createElement('div');
+    indicatorNumber.setAttribute('class', 'training__indicator-number');
+
+    indicatorNumber.textContent = num;
+    indicatorBody.append(indicatorNumber);
+    blockIndicatorAnswers.append(indicatorBody);
+    num++;
+  }
 }
 //* заполняет превьюшки информацией сколько в каком этапе вопросов и к каким секциям они относятся */
 const previewCreation = () => {
@@ -131,6 +149,22 @@ const includedPrewiew = (preview, numStage) => {
   }
   return;
 }
+
+//* стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
+const stylesNotStylesAnswers = () => {
+  slyleResetAnswer();// сбрасывает стили ответов
+  if (indexQuestion <= arrayAnswer.length-1) {
+    trainingAnswersCollectionBody[arrayAnswer[indexQuestion].indexAnswer].classList.add('training-question-answers__body--active');
+  } else {
+    let xxx = {
+      answer: false,
+      indexAnswer: 3,
+      indexQuest: indexQuestion,
+    }
+    arrayAnswer.splice(indexQuestion, 1, xxx);
+  }
+}
+
 //* при нажатии на превьюшку если она разблокирована */
 const clickPrewiew = () => {
   collectionPrewiews.forEach((preview, index) => {
@@ -146,8 +180,12 @@ const clickPrewiew = () => {
         currentQuestionsArray = questionsFromTo(index);// устонавливает массив из 35 вопроссов в соответствии с нажатой превьюшкой
         console.log(`текущее превью ${currentIndexPreview}`);
         console.log(currentQuestionsArray);
+        blockIndicatorAnswers.innerHTML = '';// очищает блок с индикаторами, что-бы они не дублирывались
         setAnswerIndicators();// формирует индикаторы ответов
+        collectionIndicators = document.querySelectorAll('.training__indicator-body');
         fillsQuestAnswers(0);// присваеваем текст к вопроссу и ответам в соответствии с нажатой превьюшкой
+        showCurrentActiveQuest()// показывает(стилизует) первый вопрос(индикатор)
+        navigatingQuestionsByindicator()// навигация по вопросам с помощью индикаторов
       }
     })
   })
@@ -163,6 +201,7 @@ const trainingAnswersCollectionBody = document.querySelectorAll('.training-quest
 const trainingAnswersCollection = document.querySelectorAll('.training-question-answers__answers-body-answer');
 const collectionNameStage = document.querySelectorAll('.stage-block');
 
+
 //* перемешивает массив */
 const shuffle = (newArr) => {
   for (let i = newArr.length - 1; i > 0; i--) {
@@ -172,23 +211,67 @@ const shuffle = (newArr) => {
   return newArr;
 }
 
-//* формирует индикаторы ответов
-const setAnswerIndicators = () => {
-  let num = 1;
+//* стилизует индикатор выбраного вопроса
+const styleQuestionIndicator = () => {
+  document.querySelectorAll('.training__indicator-body').forEach((indicator, i) => {
+    if (i == currentNumAnswer-1) {
+      indicator.classList.add('training__set-answer');
+    }
+  })
 
-  for (let i = 0; i < currentQuestionsArray.length; i++) {
-    const indicatorBody = document.createElement('div');
-    indicatorBody.setAttribute('class', 'training__indicator-body');
+} 
 
-    const indicatorNumber = document.createElement('div');
-    indicatorNumber.setAttribute('class', 'training__indicator-number');
-    indicatorNumber.setAttribute('id', 'indicator-number');
+//* показывает(стилизует) текущий активный индикатор (рамка вокруг индикатора)
+const showCurrentActiveQuest = () => {
+  document.querySelectorAll('.training__indicator-body').forEach((indicator, i) => {
+    indicator.classList.remove('training__current-indicator');
+  })
+  document.querySelectorAll('.training__indicator-body')[indexQuestion].classList.add('training__current-indicator');
+}
 
-    indicatorNumber.textContent = num;
-    indicatorBody.append(indicatorNumber);
-    blockIndicatorAnswers.append(indicatorBody);
-    num++;
-  }
+//* навигация по вопросам с помощью индикаторов
+const navigatingQuestionsByindicator = () => {
+  document.querySelectorAll('.training__indicator-body').forEach((indicator, i) => {
+    indicator.addEventListener('click', () => {
+      //todo: Когда выбираешь вопрос с помощью индикатора и щелкаешь на ответ, то стиль выбранного ответа не сохраняется, а присваивается ответу в другом вопросе и массив с объектами правельных, не правельных ответов формируется не корректно. Если-же используешь кнопку ДАЛЕЕ или прощелкиваешь все индикаторы друг за другом поочередно не перескакивая через один или нескалько (1,2,3,4,5...) то все работает корректно. Пока хз в чем причина, сделал так, что-бы все вопроссы перебирались заранее и формировался массив с объектами правельных, не правельных ответов и уже в сформировавшемся массиве все без проблем заменяется как и задумывалось. Очень не нравится данный костыль, но пока не пойму в чем проблема будет так :(
+      for (let i = 0; currentNumAnswer < currentQuestionsArray.length; i++) {
+        currentNumAnswer++;
+        indexQuestion++;
+        stylesNotStylesAnswers();
+      }
+
+      trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+
+      currentNumAnswer = indicator.firstElementChild.textContent;
+      indexQuestion = i;
+      
+      if (currentNumAnswer > 1) {
+        btnPrev.classList.remove('btn-score__btn--display--none');
+      } else btnPrev.classList.add('btn-score__btn--display--none');
+
+      if (currentNumAnswer == currentQuestionsArray.length) {
+        btnNext.classList.add('btn-score__btn--display--none');
+        btnResult.classList.remove('btn-score__btn--display--none');
+      } else {
+        btnNext.classList.remove('btn-score__btn--display--none');
+        btnResult.classList.add('btn-score__btn--display--none');
+      } 
+
+      showCurrentActiveQuest();// показывает(стилизует) текущий активный индикатор (рамка вокруг индикатора)
+      showNumQuest(currentNumAnswer);// присваевает номер текущего вопроса
+      fillsQuestAnswers(indexQuestion);// присвваеваем текст к вопроссу и ответам
+      stylesNotStylesAnswers();// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
+    })
+  })
+}
+
+//* если все индикаторы активны, то появляется кнопка РЕЗУЛЬТАТ
+const allIndicatorsActive = () => {
+  let quantityActiveIndicators = 0;
+  collectionIndicators.forEach(indicator => {
+    if (indicator.classList.contains('training__set-answer')) quantityActiveIndicators++;
+    if (quantityActiveIndicators == collectionIndicators.length) btnResult.classList.remove('btn-score__btn--display--none');
+  })
 }
 
 //* присвваеваем текст к вопроссу и ответам */
@@ -218,27 +301,12 @@ const movePrevQuestion = () => {
     btnResult.classList.add('btn-score__btn--display--none');
   }
 
+  showCurrentActiveQuest()// показывает(стилизует) текущий активный вопрос
+
   showNumQuest(currentNumAnswer);
   fillsQuestAnswers(indexQuestion);// присвваеваем текст к вопроссу и ответам
 
-  //!---------------------------------------------------------------------------------
-  slyleResetAnswer(); //сбрасывает стили ответов
-  console.log('длинна массива с выбраными ответами: ' + arrayAnswer.length);
-  console.log('индекс текущего вопросса: ' + indexQuestion);
-
-  if (indexQuestion <= arrayAnswer.length-1) {
-    trainingAnswersCollectionBody[arrayAnswer[indexQuestion].indexAnswer].classList.add('training-question-answers__body--active');
-  } 
-  else {
-    let xxx = {
-      answer: false,
-      indexAnswer: 3,
-      indexQuest: indexQuestion,
-    }
-    arrayAnswer.splice(indexQuestion, 1, xxx);
-  }
-  console.log(arrayAnswer);
-  //!---------------------------------------------------------------------------------
+  stylesNotStylesAnswers()// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
 }
 
 //* при нажатии на кнопку ДАЛЕЕ */
@@ -260,29 +328,12 @@ const moveNextQuestion = () => {
     btnResult.classList.remove('btn-score__btn--display--none');
   }
 
+  showCurrentActiveQuest()// показывает(стилизует) текущий активный индикатор (рамка вокруг индикатора)
+
   showNumQuest(currentNumAnswer);
   fillsQuestAnswers(indexQuestion);// присвваеваем текст к вопроссу и ответам
 
-  //!---------------------------------------------------------------------------------
-  slyleResetAnswer();// сбрасывает стили ответов
-  // console.log(arrayAnswer[indexQuestion]);
-  // console.log('длинна массива с выбраными ответами: ' + arrayAnswer.length);
-  // console.log('индекс текущего вопросса: ' + indexQuestion);
-
-  if (indexQuestion <= arrayAnswer.length-1) {
-    trainingAnswersCollectionBody[arrayAnswer[indexQuestion].indexAnswer].classList.add('training-question-answers__body--active');
-  } 
-  else {
-    let xxx = {
-      answer: false,
-      indexAnswer: 3,
-      indexQuest: indexQuestion,
-    }
-    arrayAnswer.splice(indexQuestion, 1, xxx);
-  }
-
-  // console.log(arrayAnswer);
-  //!---------------------------------------------------------------------------------
+  stylesNotStylesAnswers()// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
   recordedAnswer = ''; // очищает переменную ()
 }
 
@@ -294,14 +345,12 @@ const moveResult = () => {
   btnPrev.classList.add('btn-score__btn--display--none');
   fieldQuestionAnswer.style.pointerEvents = 'none';// делает курсор не активным во всем блоке
   fieldQuestionAnswer.style.opacity = '0.2';
+  blockIndicatorAnswers.style.pointerEvents = 'none';// делает курсор не активным в блоке с индикаторами
+  blockIndicatorAnswers.style.opacity = '0.2';
   /* если меньше трех ошибок, то выведет сообщение, что все ОК */
   if (calcArrAnswerScore() >= currentQuestionsArray.length-3) {
     result.textContent = `Вы прошли! Ваша оценка: ${calcArrAnswerScore()}`;
     // collectionPrewiews[currentIndexPreview+1]
-  } 
-  /* если больше трех ошибок, то выведет сообщение, что все NO */
-  else {
-    result.textContent = `Вы не прошли! Ваша оценка: ${calcArrAnswerScore()}`;
     /* что бы не вызывало ошибку после прохождения последнего этапа, поскольку код ниже срабатывает только для последующего этапа */
     if (currentIndexPreview <= 5) {
       console.log('work');
@@ -310,6 +359,10 @@ const moveResult = () => {
       locStorArrayOpenPrew.push(currentIndexPreview+1);// помещает индекс нажатого превью в массив locStorArrayOpenPrew
       localStorage.setItem('openPreview', JSON.stringify([... new Set(locStorArrayOpenPrew)]));// помещает в localStorage массив locStorArrayOpenPrew без повторяющихся значений(индеков)
     }
+  } 
+  /* если больше трех ошибок, то выведет сообщение, что все NO */
+  else {
+    result.textContent = `Вы не прошли! Ваша оценка: ${calcArrAnswerScore()}`;
     return;
   }
 }
@@ -333,12 +386,16 @@ const moveAgain = () => {
   trainingTime()// показывает время
   fieldQuestionAnswer.style.pointerEvents = 'auto';// деоает курсор активным во всем блоке
   fieldQuestionAnswer.style.opacity = 1;
+  blockIndicatorAnswers.style.pointerEvents = 'auto';// делает курсор активным в блоке с индикаторами
+  blockIndicatorAnswers.style.opacity = 1;
   btnPrev.classList.add('btn-score__btn--display--none');
   btnNext.classList.remove('btn-score__btn--display--none');
   btnResult.classList.add('btn-score__btn--display--none');
   btnRestart.classList.add('btn-score__btn--display--none');
   arrayAnswer = [];// массив ответов
-  slyleResetAnswer(); // сбрасывает стили ответов
+  slyleResetAnswer();// сбрасывает стили ответов
+  collectionIndicators.forEach(indicator => indicator.classList.remove('training__set-answer'));// сбрасывает стили индикаторов
+  showCurrentActiveQuest()// показывает(стилизует) первый вопрос(индикатор)
 }
 
 //* стилизует выбранный ответ */
@@ -474,6 +531,8 @@ const restartResults = () => {
   indexQuestion = 0;
   fieldQuestionAnswer.style.pointerEvents = 'auto';// делает курсор активным во всем блоке
   fieldQuestionAnswer.style.opacity = 1;
+  blockIndicatorAnswers.style.pointerEvents = 'auto';// делает курсор активным в блоке с индикаторами
+  blockIndicatorAnswers.style.opacity = 1;
   btnPrev.classList.add('btn-score__btn--display--none');
   btnNext.classList.remove('btn-score__btn--display--none');
   btnResult.classList.add('btn-score__btn--display--none');
@@ -491,6 +550,9 @@ clickPrewiew();// при нажатии на превьюшку если она 
 btnExitBlockTraining.addEventListener('click', exitOfBlockTraining)// закрывает блок "Обученме" и oткрывает блок с превьюшками
 trainingAnswersCollectionBody.forEach((elem, index) => {
   elem.addEventListener('click', () => {
+    styleQuestionIndicator();// стилизует индикатор выбраного вопроса
+    allIndicatorsActive();// если все индикаторы активны, то появляется кнопка РЕЗУЛЬТАТ
+
     styleSelectedAnswer(elem);// стилизует выбранный ответ
     recordedAnswer = currentQuestionsArray[indexQuestion].answers[index].correct;// устонавливает true или false
     
@@ -513,7 +575,7 @@ trainingAnswersCollectionBody.forEach((elem, index) => {
 
     console.log(arrayAnswer);
     console.log(recordedAnswer);
-    
+
   })
 });// три кнопки ответа
 
