@@ -481,6 +481,14 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
         .training__set-answer {
           background: #0064b127;
         }
+
+        .training__right-answer {
+          background:#008000;
+        }
+
+        .training__not-right-answer {
+          background:#ff0000;
+        }
       }
     }
 

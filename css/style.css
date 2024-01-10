@@ -399,6 +399,12 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 .training-main .training .training__indicators-field .training__block-indicator-answers .training__set-answer {
   background: rgba(0, 100, 177, 0.1529411765);
 }
+.training-main .training .training__indicators-field .training__block-indicator-answers .training__right-answer {
+  background: #008000;
+}
+.training-main .training .training__indicators-field .training__block-indicator-answers .training__not-right-answer {
+  background: #ff0000;
+}
 .training-main .training .training-question-answers__body .training-question-answers__question {
   min-height: 5rem;
   margin: 2rem 0;

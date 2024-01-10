@@ -196,7 +196,7 @@ const collectionAllNumQuest = document.querySelectorAll('.all-quest-in-stage');
 const trainingMin = document.querySelector('#training-min');
 const trainingSec = document.querySelector('#training-sec');
 const trainingQuestionText = document.querySelector('#training-questionText');
-const fieldQuestionAnswer = document.querySelector('.training-question-answers__body');
+const fieldQuestionAnswer = document.querySelectorAll('.training-question-answers__answers-body');
 const trainingAnswersCollectionBody = document.querySelectorAll('.training-question-answers__answers-body');
 const trainingAnswersCollection = document.querySelectorAll('.training-question-answers__answers-body-answer');
 const collectionNameStage = document.querySelectorAll('.stage-block');
@@ -221,6 +221,19 @@ const styleQuestionIndicator = () => {
 
 } 
 
+//* стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
+const rightNotRightAnswersIndicators = () => {
+  arrayAnswer.forEach((elem, i) => {
+    
+    if (elem.answer == true) {
+      collectionIndicators[i].classList.add('training__right-answer');
+    } else {
+      // console.log(collectionIndicators[i]);
+      collectionIndicators[i].classList.add('training__not-right-answer');
+    }
+  })
+}
+
 //* показывает(стилизует) текущий активный индикатор (рамка вокруг индикатора)
 const showCurrentActiveQuest = () => {
   document.querySelectorAll('.training__indicator-body').forEach((indicator, i) => {
@@ -240,7 +253,12 @@ const navigatingQuestionsByindicator = () => {
         stylesNotStylesAnswers();
       }
 
-      trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+      if (result.textContent.length != 0) {
+        trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
+      } else {
+        trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+      }
+      
 
       currentNumAnswer = indicator.firstElementChild.textContent;
       indexQuestion = i;
@@ -256,6 +274,13 @@ const navigatingQuestionsByindicator = () => {
         btnNext.classList.remove('btn-score__btn--display--none');
         btnResult.classList.add('btn-score__btn--display--none');
       } 
+
+      /* если обучение пройдено */
+      if (result.textContent.length != 0) {
+        btnNext.classList.add('btn-score__btn--display--none');
+        btnPrev.classList.add('btn-score__btn--display--none');
+        btnResult.classList.add('btn-score__btn--display--none');
+      }
 
       showCurrentActiveQuest();// показывает(стилизует) текущий активный индикатор (рамка вокруг индикатора)
       showNumQuest(currentNumAnswer);// присваевает номер текущего вопроса
@@ -339,17 +364,22 @@ const moveNextQuestion = () => {
 
 //* при нажатии на кнопку РЕЗУЛЬТАТ */
 const moveResult = () => {
+  
   clearInterval(testTimeReportVar);
   btnRestart.classList.remove('btn-score__btn--display--none');
   btnResult.classList.add('btn-score__btn--display--none');
   btnPrev.classList.add('btn-score__btn--display--none');
-  fieldQuestionAnswer.style.pointerEvents = 'none';// делает курсор не активным во всем блоке
-  fieldQuestionAnswer.style.opacity = '0.2';
-  blockIndicatorAnswers.style.pointerEvents = 'none';// делает курсор не активным в блоке с индикаторами
-  blockIndicatorAnswers.style.opacity = '0.2';
+  fieldQuestionAnswer.forEach(answer => {
+    answer.style.pointerEvents = 'none';
+  })
+  // fieldQuestionAnswer.style.pointerEvents = 'none';// делает курсор не активным во всем блоке
+  // fieldQuestionAnswer.style.opacity = '0.2';
+  // blockIndicatorAnswers.style.pointerEvents = 'none';// делает курсор не активным в блоке с индикаторами
+  // blockIndicatorAnswers.style.opacity = '0.2';
   /* если меньше трех ошибок, то выведет сообщение, что все ОК */
   if (calcArrAnswerScore() >= currentQuestionsArray.length-3) {
     result.textContent = `Вы прошли! Ваша оценка: ${calcArrAnswerScore()}`;
+    rightNotRightAnswersIndicators();// стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
     // collectionPrewiews[currentIndexPreview+1]
     /* что бы не вызывало ошибку после прохождения последнего этапа, поскольку код ниже срабатывает только для последующего этапа */
     if (currentIndexPreview <= 5) {
@@ -363,6 +393,28 @@ const moveResult = () => {
   /* если больше трех ошибок, то выведет сообщение, что все NO */
   else {
     result.textContent = `Вы не прошли! Ваша оценка: ${calcArrAnswerScore()}`;
+    rightNotRightAnswersIndicators();// стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
+    //!===============================================================
+
+    // currentQuestionsArray
+    // arrayAnswer
+    arrayAnswer.forEach((elem, i) => {
+      console.log(elem);
+
+      if (elem.indexAnswer == 3) {
+        console.log(`ответ не выбран`);
+      } else {
+        console.log(`выбраный ответ ${currentQuestionsArray[i].answers[elem.indexAnswer].value}`);
+      }
+
+      currentQuestionsArray[i].answers.forEach(el => {
+        if (el.correct == true) {
+          console.log(`правельный ответ ${el.value}`);
+        }
+      })
+    })
+
+    //!===============================================================
     return;
   }
 }
