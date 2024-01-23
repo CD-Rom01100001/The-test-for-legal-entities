@@ -50,6 +50,9 @@ const createStagePreviewBlock = (stage, section, allQuest) => {
   stageBlock.setAttribute('id', 'stage-block');
   stageBlock.textContent = `${stage}-й этап`;
 
+  const stageProgress = document.createElement('p');
+  stageProgress.setAttribute('class', 'stage-progress');
+
   const sectionBlock = document.createElement('p');
   sectionBlock.setAttribute('class', 'section-block');
   sectionBlock.setAttribute('id', 'section-block');
@@ -59,9 +62,10 @@ const createStagePreviewBlock = (stage, section, allQuest) => {
   allQuestInStage.setAttribute('class', 'all-quest-in-stage');
   allQuestInStage.textContent = `всего ${allQuest} вопросов`;
 
-  previewBlock.append(stageBlock, sectionBlock, allQuestInStage);
+  previewBlock.append(stageBlock, stageProgress, sectionBlock, allQuestInStage);
   trainingContentInner.append(previewBlock);
 }
+
 //* формирует индикаторы ответов
 const setAnswerIndicators = () => {
   let num = 1;
@@ -131,6 +135,7 @@ const createLock = (preview) => {
   disabledBlock.setAttribute('alt', 'disabled');
   preview.append(disabledBlock);
 }
+
 //* добавляет замок и блокирует все превьюшки кроме первой */
 const setBlockedPreview = () => {
   collectionPrewiews.forEach((elem, i) => {
@@ -179,6 +184,7 @@ const clickPrewiew = () => {
         currentIndexPreview = index;
         currentQuestionsArray = questionsFromTo(index);// устонавливает массив из 35 вопроссов в соответствии с нажатой превьюшкой
         console.log(`текущее превью ${currentIndexPreview}`);
+        console.log('currentQuestionsArray:');
         console.log(currentQuestionsArray);
         blockIndicatorAnswers.innerHTML = '';// очищает блок с индикаторами, что-бы они не дублирывались
         setAnswerIndicators();// формирует индикаторы ответов
@@ -198,6 +204,7 @@ const trainingSec = document.querySelector('#training-sec');
 const trainingQuestionText = document.querySelector('#training-questionText');
 const fieldQuestionAnswer = document.querySelectorAll('.training-question-answers__answers-body');
 const trainingAnswersCollectionBody = document.querySelectorAll('.training-question-answers__answers-body');
+const trainingSelectedNotSelectedAnswer = document.querySelectorAll('.training-question-answers__answers-body-selected-not-selected');
 const trainingAnswersCollection = document.querySelectorAll('.training-question-answers__answers-body-answer');
 const collectionNameStage = document.querySelectorAll('.stage-block');
 
@@ -227,8 +234,9 @@ const rightNotRightAnswersIndicators = () => {
     
     if (elem.answer == true) {
       collectionIndicators[i].classList.add('training__right-answer');
+    } else if (elem.answer == false && elem.indexAnswer == 3) {
+      collectionIndicators[i].classList.add('training__no-answer');
     } else {
-      // console.log(collectionIndicators[i]);
       collectionIndicators[i].classList.add('training__not-right-answer');
     }
   })
@@ -253,8 +261,10 @@ const navigatingQuestionsByindicator = () => {
         stylesNotStylesAnswers();
       }
 
+      /* если обучение пройдено */
       if (result.textContent.length != 0) {
         trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
+        showSelectedNotSelectedAnswers(i);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
       } else {
         trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
       }
@@ -285,7 +295,7 @@ const navigatingQuestionsByindicator = () => {
       showCurrentActiveQuest();// показывает(стилизует) текущий активный индикатор (рамка вокруг индикатора)
       showNumQuest(currentNumAnswer);// присваевает номер текущего вопроса
       fillsQuestAnswers(indexQuestion);// присвваеваем текст к вопроссу и ответам
-      stylesNotStylesAnswers();// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
+      stylesNotStylesAnswers();// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран      
     })
   })
 }
@@ -304,7 +314,7 @@ const fillsQuestAnswers = (quest) => {
   trainingQuestionText.textContent = currentQuestionsArray[quest].question;
   for (let i = 0; i < 3; i++) {
     trainingAnswersCollection[i].textContent = currentQuestionsArray[quest].answers[i].value; 
-  }
+  }  
 }
 
 //* при нажатии на кнопку НАЗАД */
@@ -364,7 +374,6 @@ const moveNextQuestion = () => {
 
 //* при нажатии на кнопку РЕЗУЛЬТАТ */
 const moveResult = () => {
-  
   clearInterval(testTimeReportVar);
   btnRestart.classList.remove('btn-score__btn--display--none');
   btnResult.classList.add('btn-score__btn--display--none');
@@ -376,6 +385,7 @@ const moveResult = () => {
   // fieldQuestionAnswer.style.opacity = '0.2';
   // blockIndicatorAnswers.style.pointerEvents = 'none';// делает курсор не активным в блоке с индикаторами
   // blockIndicatorAnswers.style.opacity = '0.2';
+  
   /* если меньше трех ошибок, то выведет сообщение, что все ОК */
   if (calcArrAnswerScore() >= currentQuestionsArray.length-3) {
     result.textContent = `Вы прошли! Ваша оценка: ${calcArrAnswerScore()}`;
@@ -394,29 +404,40 @@ const moveResult = () => {
   else {
     result.textContent = `Вы не прошли! Ваша оценка: ${calcArrAnswerScore()}`;
     rightNotRightAnswersIndicators();// стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
-    //!===============================================================
-
-    // currentQuestionsArray
-    // arrayAnswer
-    arrayAnswer.forEach((elem, i) => {
-      console.log(elem);
-
-      if (elem.indexAnswer == 3) {
-        console.log(`ответ не выбран`);
-      } else {
-        console.log(`выбраный ответ ${currentQuestionsArray[i].answers[elem.indexAnswer].value}`);
-      }
-
-      currentQuestionsArray[i].answers.forEach(el => {
-        if (el.correct == true) {
-          console.log(`правельный ответ ${el.value}`);
-        }
-      })
-    })
-
-    //!===============================================================
+    showSelectedNotSelectedAnswers(currentQuestionsArray.length-1);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+    localStorage.setItem(`stage ${currentIndexPreview}`, calcLearningProgress());
+    console.log(calcLearningProgress());
     return;
   }
+  
+}
+
+//* стилизует и показывает где правильный ответ и какой ответ выбрал пользователь после завершения блока "Обучение" */
+const showSelectedNotSelectedAnswers = (i) => {
+
+  currentQuestionsArray[i].answers.forEach((el, index) => {
+    trainingAnswersCollectionBody[index].classList.remove('training-question-answers__body--correct');
+    trainingAnswersCollectionBody[index].classList.remove('training-question-answers__body--correct-select');
+    trainingAnswersCollectionBody[index].classList.remove('training-question-answers__body--incorrect-select');
+    trainingSelectedNotSelectedAnswer[index].textContent = ``;
+
+    if (el.correct == true) {
+      trainingAnswersCollectionBody[index].classList.add('training-question-answers__body--correct');
+      trainingSelectedNotSelectedAnswer[index].textContent = `правильный ответ`;
+      console.log(`правельный ответ ${el.value}`);
+    } 
+    if (el.correct == true && arrayAnswer[i].answer == true) {
+      trainingAnswersCollectionBody[index].classList.add('training-question-answers__body--correct-select');
+      trainingSelectedNotSelectedAnswer[index].textContent = `Ваш ответ`;
+      console.log(`правельный ответ ${el.value}`);
+    }
+    if (arrayAnswer[i].answer == false && arrayAnswer[i].indexAnswer != 3) {
+      trainingAnswersCollectionBody[arrayAnswer[i].indexAnswer].classList.add('training-question-answers__body--incorrect-select');
+      trainingSelectedNotSelectedAnswer[arrayAnswer[i].indexAnswer].textContent = `Ваш ответ`;
+      console.log(index);
+    } 
+    
+  })
 }
 
 /* перебирает массив 'openPreview' находящийся в localStorage и при загрузки сайта разблокирует превьюшки с теми индексами которые есть в данном массиве  */
@@ -513,6 +534,16 @@ const allNumQuest = (index) => {
 //* показывает номер вопроса */
 const showNumQuest = (numAnswer) => {
   currentQuestionNumber.textContent = `${numAnswer}/${allNumQuest(currentIndexSection)}`;
+}
+
+//* подсчитывает прогресс обучения */
+const calcLearningProgress = () => {
+  const totalNumQuestions = arrayAnswer.length;
+  let finaScore = 0;
+  arrayAnswer.forEach(quest => {
+    if (quest.answer == true) finaScore++;
+  })
+  return `${Math.round(finaScore / totalNumQuestions * 100)}%`;
 }
 
 //* показывает время */
@@ -625,6 +656,7 @@ trainingAnswersCollectionBody.forEach((elem, index) => {
       arrayAnswer.splice(indexQuestion, 1, iii);
     }
 
+    console.log('arrayAnswer:');
     console.log(arrayAnswer);
     console.log(recordedAnswer);
 

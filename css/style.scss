@@ -489,6 +489,10 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
         .training__not-right-answer {
           background:#ff0000;
         }
+
+        .training__no-answer {
+          background: transparent;
+        }
       }
     }
 
@@ -517,6 +521,10 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
           border: 0.2rem solid #8a8a8a3f;
           border-radius: 0.5rem;
           cursor: pointer;
+
+          .training-question-answers__answers-body-selected-not-selected {
+            font-weight: 600;
+          }
         }
 
         .training-question-answers__answers-body:hover {
@@ -531,6 +539,18 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
         .training-question-answers__body--active {
           background: #0064b127;
+        }
+
+        .training-question-answers__body--correct {
+          background: #0064b127;
+        }
+
+        .training-question-answers__body--correct-select {
+          background: #00b50051;
+        }
+
+        .training-question-answers__body--incorrect-select {
+          background: #ff00005b;
         }
 
         .question-answers__answers-body--display--none {

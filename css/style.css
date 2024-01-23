@@ -405,6 +405,9 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 .training-main .training .training__indicators-field .training__block-indicator-answers .training__not-right-answer {
   background: #ff0000;
 }
+.training-main .training .training__indicators-field .training__block-indicator-answers .training__no-answer {
+  background: transparent;
+}
 .training-main .training .training-question-answers__body .training-question-answers__question {
   min-height: 5rem;
   margin: 2rem 0;
@@ -427,6 +430,9 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   border-radius: 0.5rem;
   cursor: pointer;
 }
+.training-main .training .training-question-answers__body .training-question-answers__answers .training-question-answers__answers-body .training-question-answers__answers-body-selected-not-selected {
+  font-weight: 600;
+}
 .training-main .training .training-question-answers__body .training-question-answers__answers .training-question-answers__answers-body:hover {
   color: #000;
   background: rgba(0, 100, 177, 0.1529411765);
@@ -437,6 +443,15 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 }
 .training-main .training .training-question-answers__body .training-question-answers__answers .training-question-answers__body--active {
   background: rgba(0, 100, 177, 0.1529411765);
+}
+.training-main .training .training-question-answers__body .training-question-answers__answers .training-question-answers__body--correct {
+  background: rgba(0, 100, 177, 0.1529411765);
+}
+.training-main .training .training-question-answers__body .training-question-answers__answers .training-question-answers__body--correct-select {
+  background: rgba(0, 181, 0, 0.3176470588);
+}
+.training-main .training .training-question-answers__body .training-question-answers__answers .training-question-answers__body--incorrect-select {
+  background: rgba(255, 0, 0, 0.3568627451);
 }
 .training-main .training .training-question-answers__body .training-question-answers__answers .question-answers__answers-body--display--none {
   display: none;
