@@ -177,6 +177,41 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   height: 50rem;
   padding: 2rem 0;
 }
+.tests__body .tests__indicators-field .tests__block-indicator-answers {
+  display: flex;
+  gap: 0 0.2rem;
+}
+.tests__body .tests__indicators-field .tests__block-indicator-answers .exam__indicator-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid #000;
+  border-radius: 0.3rem;
+}
+.tests__body .tests__indicators-field .tests__block-indicator-answers .exam__indicator-body .exam__indicator-number {
+  font-size: 1.6rem;
+}
+.tests__body .tests__indicators-field .tests__block-indicator-answers .exam__indicator-body:hover {
+  cursor: pointer;
+  box-shadow: 0 0 2px 1px #7c8a94;
+}
+.tests__body .tests__indicators-field .tests__block-indicator-answers .exam__current-indicator {
+  box-shadow: 0px 0px 1px 1px #0064b1;
+}
+.tests__body .tests__indicators-field .tests__block-indicator-answers .exam__set-answer {
+  background: rgba(0, 100, 177, 0.1529411765);
+}
+.tests__body .tests__indicators-field .tests__block-indicator-answers .exam__right-answer {
+  background: #008000;
+}
+.tests__body .tests__indicators-field .tests__block-indicator-answers .exam__not-right-answer {
+  background: #ff0000;
+}
+.tests__body .tests__indicators-field .tests__block-indicator-answers .exam__no-answer {
+  background: transparent;
+}
 .tests .question-answers {
   display: flex;
   flex-direction: column;
@@ -201,6 +236,18 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 .tests .question-answers__answers-body--display--none {
   display: none;
 }
+.tests .question-answers__answers-body--active {
+  background: rgba(0, 100, 177, 0.1529411765);
+}
+.tests .question-answers .exam-question-answers__body--correct {
+  background: rgba(0, 100, 177, 0.1529411765);
+}
+.tests .question-answers .exam-question-answers__body--correct-select {
+  background: rgba(0, 181, 0, 0.3176470588);
+}
+.tests .question-answers .exam-question-answers__body--incorrect-select {
+  background: rgba(255, 0, 0, 0.3568627451);
+}
 .tests .question-answers__answers-body:hover {
   color: #000;
   background: rgba(0, 100, 177, 0.1529411765);
@@ -208,9 +255,6 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 .tests .question-answers__answers-body:active {
   color: #000;
   background: rgba(0, 100, 177, 0.0470588235);
-}
-.tests .question-answers__answers-body--active {
-  background: rgba(0, 100, 177, 0.1529411765);
 }
 .tests .btn-score__body {
   display: flex;

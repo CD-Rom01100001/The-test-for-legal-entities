@@ -1,3 +1,13 @@
+@mixin style-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid #000;
+  border-radius: 0.3rem;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -204,6 +214,47 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     justify-content: space-between;
     height: 50rem;
     padding: 2rem 0;
+
+    .tests__indicators-field {
+      .tests__block-indicator-answers {
+        display: flex;
+        gap: 0 0.2rem;
+
+        .exam__indicator-body {
+          @include style-indicator;
+
+          .exam__indicator-number {
+            font-size: 1.6rem;
+          }
+        }
+
+        .exam__indicator-body:hover {
+          cursor: pointer;
+          box-shadow: 0 0 2px 1px #7c8a94;
+        }
+
+        .exam__current-indicator {
+          box-shadow: 0px 0px 1px 1px #0064b1;
+        }
+
+        .exam__set-answer {
+          background: #0064b127;
+        }
+
+        .exam__right-answer {
+          background:#008000;
+        }
+
+        .exam__not-right-answer {
+          background:#ff0000;
+        }
+
+        .exam__no-answer {
+          background: transparent;
+        }
+      }
+      
+    }
   }
 
   .question-answers {
@@ -233,6 +284,22 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
       display: none;
     }
 
+    &__answers-body--active {
+      background: #0064b127;
+    }
+
+    .exam-question-answers__body--correct {
+      background: #0064b127;
+    }
+
+    .exam-question-answers__body--correct-select {
+      background: #00b50051;
+    }
+
+    .exam-question-answers__body--incorrect-select {
+      background: #ff00005b;
+    }
+
     &__answers-body:hover {
       color: #000;
       background: #0064b127;
@@ -241,10 +308,6 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     &__answers-body:active {
       color: #000;
       background: #0064b10c;
-    }
-
-    &__answers-body--active {
-      background: #0064b127;
     }
 
   }
@@ -456,13 +519,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
         gap: 0 0.2rem;
 
         .training__indicator-body {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 3rem;
-          height: 3rem;
-          border: 1px solid #000;
-          border-radius: 0.3rem;
+          @include style-indicator;
 
           .training__indicator-number {
             font-size: 1.6rem;

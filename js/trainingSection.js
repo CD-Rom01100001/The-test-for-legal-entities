@@ -39,7 +39,6 @@ if (localStorage.getItem('openPreview')) {
   locStorArrayOpenPrew = JSON.parse(localStorage.getItem('openPreview'));
 }
 
-
 //* формирует превьюшки html теги на странице */
 const createStagePreviewBlock = (stage, section, allQuest) => {
   const previewBlock = document.createElement('div');
@@ -225,7 +224,6 @@ const styleQuestionIndicator = () => {
       indicator.classList.add('training__set-answer');
     }
   })
-
 } 
 
 //* стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
@@ -295,7 +293,7 @@ const navigatingQuestionsByindicator = () => {
       showCurrentActiveQuest();// показывает(стилизует) текущий активный индикатор (рамка вокруг индикатора)
       showNumQuest(currentNumAnswer);// присваевает номер текущего вопроса
       fillsQuestAnswers(indexQuestion);// присвваеваем текст к вопроссу и ответам
-      stylesNotStylesAnswers();// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран      
+      stylesNotStylesAnswers();// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
     })
   })
 }
@@ -309,7 +307,7 @@ const allIndicatorsActive = () => {
   })
 }
 
-//* присвваеваем текст к вопроссу и ответам */
+//* присваиваем текст к вопроссу и ответам */
 const fillsQuestAnswers = (quest) => {
   trainingQuestionText.textContent = currentQuestionsArray[quest].question;
   for (let i = 0; i < 3; i++) {
@@ -663,4 +661,4 @@ trainingAnswersCollectionBody.forEach((elem, index) => {
   })
 });// три кнопки ответа
 
-export {fieldTrainingMain, collectionPrewiews, previewBlock, trainingBlock, restartResults};
+export {fieldTrainingMain, collectionPrewiews, previewBlock, trainingBlock, restartResults, setAnswerIndicators};
