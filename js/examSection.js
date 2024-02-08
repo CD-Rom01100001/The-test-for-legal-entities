@@ -255,7 +255,6 @@ const navigatingQuestionsByindicator = () => {
 
 //* стилизует и показывает где правильный ответ и какой ответ выбрал пользователь после завершения блока "Экзамен" */
 const showSelectedNotSelectedAnswers = (i) => {
-
   randomQuestions[i].answers.forEach((el, index) => {
     collectionAnswersBody[index].classList.remove('exam-question-answers__body--correct');
     collectionAnswersBody[index].classList.remove('exam-question-answers__body--correct-select');
@@ -264,21 +263,25 @@ const showSelectedNotSelectedAnswers = (i) => {
 
     if (el.correct == true) {
       collectionAnswersBody[index].classList.add('exam-question-answers__body--correct');
-      trainingSelectedNotSelectedAnswer[index].textContent = `правильный ответ`;
-      console.log(`правельный ответ ${el.value}`);
+      trainingSelectedNotSelectedAnswer[index].textContent = `Правильный ответ`;
+      console.log(`Правильный ответ ${el.value}`);
     } 
     if (el.correct == true && arrayAnswer[i].answer == true) {
       collectionAnswersBody[index].classList.add('exam-question-answers__body--correct-select');
       trainingSelectedNotSelectedAnswer[index].textContent = `Ваш ответ`;
-      console.log(`правельный ответ ${el.value}`);
+      console.log(`Правильный ответ ${el.value}`);
     }
     if (arrayAnswer[i].answer == false && arrayAnswer[i].indexAnswer != 3) {
       collectionAnswersBody[arrayAnswer[i].indexAnswer].classList.add('exam-question-answers__body--incorrect-select');
       trainingSelectedNotSelectedAnswer[arrayAnswer[i].indexAnswer].textContent = `Ваш ответ`;
       console.log(index);
     } 
-    
   })
+}
+
+//* убирает текст ("Ваш ответ", "Правильный ответ") */
+const removeSelectedNotSelectedText = () => {
+  trainingSelectedNotSelectedAnswer.forEach(elem => elem.textContent = '');
 }
 
 //* при нажатии на кнопку НАЗАД */
@@ -419,17 +422,21 @@ const moveResult = () => {
   btnRestart.style.display = 'block';
   btnResult.style.display = 'none';
   btnPrev.style.display = 'none';
+  btnNext.style.display = 'none';
   clearInterval(timeReportVar);
   fieldQuestionAnswer.style.pointerEvents = 'none';
-  // fieldQuestionAnswer.style.opacity = '0.2';
   /* делает все ответы не активными */
   collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'none';});
-  if (/* countCorrectAnswers */calcArrAnserScore() >= 9) {
-    fieldFinalScore.textContent = `Вы прошли! Ваша оценка: ${calcArrAnserScore()/* countCorrectAnswers */}`;
+
+  /* если экзамен пройден */
+  if (calcArrAnserScore() >= 9) {
+    fieldFinalScore.textContent = `Вы прошли! Ваша оценка: ${calcArrAnserScore()}`;
     rightNotRightAnswersIndicators();// стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
+    showSelectedNotSelectedAnswers(randomQuestions.length-1)// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после
   } 
+  /* если экзамен не пройден */
   else {
-    fieldFinalScore.textContent = `Вы не прошли! Ваша оценка: ${calcArrAnserScore()/* countCorrectAnswers */}`;
+    fieldFinalScore.textContent = `Вы не прошли! Ваша оценка: ${calcArrAnserScore()}`;
     rightNotRightAnswersIndicators();// стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
     showSelectedNotSelectedAnswers(randomQuestions.length-1)// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после
     return;
@@ -461,6 +468,7 @@ const restartResults = () => {
   checkedOff(); // убирает состояние checked с каждого элемента
   fillsQAWithText(indexQuest); // присвваеваем текст к вопроссу и ответам
   slyleResetAnswer('exit'); // сбрасывает стили ответов
+  removeSelectedNotSelectedText();// убирает текст ("Ваш ответ", "Правильный ответ")
   testTimeReport(); // запускает время тестат заново
 }
 /* --------------------------------------------------- */
