@@ -191,6 +191,18 @@ const clickPrewiew = () => {
         fillsQuestAnswers(0);// присваеваем текст к вопроссу и ответам в соответствии с нажатой превьюшкой
         showCurrentActiveQuest()// показывает(стилизует) первый вопрос(индикатор)
         navigatingQuestionsByindicator()// навигация по вопросам с помощью индикаторов
+        document.addEventListener("keydown", (event) => {
+          const keyName = event.key;
+          if (keyName == "ArrowRight") {
+            moveNextQuestion();
+            if (result.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+          } else if (keyName == "ArrowLeft") {
+            movePrevQuestion();
+            if (result.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+          }
+  
+        }
+      );
       }
     })
   })
@@ -219,10 +231,10 @@ const shuffle = (newArr) => {
 
 //* стилизует индикатор выбраного вопроса
 const styleQuestionIndicator = () => {
-  document.querySelectorAll('.training__indicator-body').forEach((indicator, i) => {
+  collectionIndicators.forEach((indicator, i) => {
     if (i == currentNumAnswer-1) {
       indicator.classList.add('training__set-answer');
-    }
+    } else console.log('error indicator style');
   })
 } 
 
@@ -237,6 +249,15 @@ const rightNotRightAnswersIndicators = () => {
     } else {
       collectionIndicators[i].classList.add('training__not-right-answer');
     }
+  })
+}
+
+//* убирает стилизацию индакаторов
+const clearStyleIndicators = () => {
+  collectionIndicators.forEach(elem => {
+    elem.classList.remove('training__no-answer');
+    elem.classList.remove('training__not-right-answer');
+    elem.classList.remove('training__right-answer');
   })
 }
 
@@ -283,13 +304,8 @@ const navigatingQuestionsByindicator = () => {
         btnResult.classList.add('btn-score__btn--display--none');
       } 
 
-      /* если обучение пройдено */
-      if (result.textContent.length != 0) {
-        btnNext.classList.add('btn-score__btn--display--none');
-        btnPrev.classList.add('btn-score__btn--display--none');
-        btnResult.classList.add('btn-score__btn--display--none');
-      }
-
+      allIndicatorsActive();// если все индикаторы активны, то появляется кнопка РЕЗУЛЬТАТ
+      removeButtonsAfterTraining();// если обучение пройдено, убирает кнопки
       showCurrentActiveQuest();// показывает(стилизует) текущий активный индикатор (рамка вокруг индикатора)
       showNumQuest(currentNumAnswer);// присваевает номер текущего вопроса
       fillsQuestAnswers(indexQuestion);// присвваеваем текст к вопроссу и ответам
@@ -334,6 +350,7 @@ const movePrevQuestion = () => {
     btnResult.classList.add('btn-score__btn--display--none');
   }
 
+  removeButtonsAfterTraining();// если обучение пройдено, убирает кнопки
   showCurrentActiveQuest()// показывает(стилизует) текущий активный вопрос
 
   showNumQuest(currentNumAnswer);
@@ -361,6 +378,7 @@ const moveNextQuestion = () => {
     btnResult.classList.remove('btn-score__btn--display--none');
   }
 
+  removeButtonsAfterTraining();// если обучение пройдено, убирает кнопки
   showCurrentActiveQuest()// показывает(стилизует) текущий активный индикатор (рамка вокруг индикатора)
 
   showNumQuest(currentNumAnswer);
@@ -376,13 +394,7 @@ const moveResult = () => {
   btnRestart.classList.remove('btn-score__btn--display--none');
   btnResult.classList.add('btn-score__btn--display--none');
   btnPrev.classList.add('btn-score__btn--display--none');
-  fieldQuestionAnswer.forEach(answer => {
-    answer.style.pointerEvents = 'none';
-  })
-  // fieldQuestionAnswer.style.pointerEvents = 'none';// делает курсор не активным во всем блоке
-  // fieldQuestionAnswer.style.opacity = '0.2';
-  // blockIndicatorAnswers.style.pointerEvents = 'none';// делает курсор не активным в блоке с индикаторами
-  // blockIndicatorAnswers.style.opacity = '0.2';
+  fieldQuestionAnswer.forEach(answer => answer.style.pointerEvents = 'none');// делает курсор активным во всем блоке
   
   /* если меньше трех ошибок, то выведет сообщение, что все ОК */
   if (calcArrAnswerScore() >= currentQuestionsArray.length-3) {
@@ -438,7 +450,17 @@ const showSelectedNotSelectedAnswers = (i) => {
   })
 }
 
-/* перебирает массив 'openPreview' находящийся в localStorage и при загрузки сайта разблокирует превьюшки с теми индексами которые есть в данном массиве  */
+//* очищает правильный ответ и какой ответ выбрал пользователь после завершения блока "Обучение" */
+const clearSelectedNotSelectedAnswers = () => {
+  trainingAnswersCollectionBody.forEach((elem, i) => {
+    if (elem.classList.contains('training-question-answers__body--correct')) elem.classList.remove('training-question-answers__body--correct');
+    if (elem.classList.contains('training-question-answers__body--correct-select')) elem.classList.remove('training-question-answers__body--correct-select');
+    if (elem.classList.contains('training-question-answers__body--incorrect-select')) elem.classList.remove('training-question-answers__body--incorrect-select');
+    elem.lastElementChild.textContent = '';
+  })
+}
+
+//* перебирает массив 'openPreview' находящийся в localStorage и при загрузки сайта разблокирует превьюшки с теми индексами которые есть в данном массиве  */
 const openPrewiewOnSiteLoad = () => {
   if (localStorage.getItem("openPreview")) {
     let numLS = JSON.parse(localStorage.getItem('openPreview'));
@@ -451,14 +473,15 @@ const openPrewiewOnSiteLoad = () => {
 
 //* при нажатии на кнопку ЗАНОВО */
 const moveAgain = () => {
+  result.textContent = '';// убирает текст с итоговой оценкой
   indexQuestion = 0;// индекс вопроса
-  fillsQuestAnswers(indexQuestion);// присвваеваем текст к вопроссу и ответам
   currentNumAnswer = 1;// номер текущего вопроса
+  showNumQuest(currentNumAnswer);// номер текущего вопроса
+  fillsQuestAnswers(indexQuestion);// присваеваем текст к вопроссу и ответам
+  clearSelectedNotSelectedAnswers();// очищает правильный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+  clearStyleIndicators();// убирает стилизацию индакаторов
   trainingTime()// показывает время
-  fieldQuestionAnswer.style.pointerEvents = 'auto';// деоает курсор активным во всем блоке
-  fieldQuestionAnswer.style.opacity = 1;
-  blockIndicatorAnswers.style.pointerEvents = 'auto';// делает курсор активным в блоке с индикаторами
-  blockIndicatorAnswers.style.opacity = 1;
+  fieldQuestionAnswer.forEach(answer => answer.style.pointerEvents = 'auto');// делает курсор активным во всем блоке
   btnPrev.classList.add('btn-score__btn--display--none');
   btnNext.classList.remove('btn-score__btn--display--none');
   btnResult.classList.add('btn-score__btn--display--none');
@@ -482,6 +505,15 @@ const slyleResetAnswer = () => {
   trainingAnswersCollectionBody.forEach(elem => {
     elem.classList.remove('training-question-answers__body--active');
   })
+}
+
+//* если обучение пройдено, убирает кнопки */
+const removeButtonsAfterTraining = () => {
+  if (result.textContent.length != 0) {
+    btnNext.classList.add('btn-score__btn--display--none');
+    btnPrev.classList.add('btn-score__btn--display--none');
+    btnResult.classList.add('btn-score__btn--display--none');
+  }
 }
 
 //* при каждом вызове прибавляет 1 если true и аккамулирует итоговую оценку  */
