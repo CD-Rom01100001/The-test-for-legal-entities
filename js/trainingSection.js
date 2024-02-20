@@ -189,20 +189,8 @@ const clickPrewiew = () => {
         setAnswerIndicators();// формирует индикаторы ответов
         collectionIndicators = document.querySelectorAll('.training__indicator-body');
         fillsQuestAnswers(0);// присваеваем текст к вопроссу и ответам в соответствии с нажатой превьюшкой
-        showCurrentActiveQuest()// показывает(стилизует) первый вопрос(индикатор)
-        navigatingQuestionsByindicator()// навигация по вопросам с помощью индикаторов
-        document.addEventListener("keydown", (event) => {
-          const keyName = event.key;
-          if (keyName == "ArrowRight") {
-            moveNextQuestion();
-            if (result.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
-          } else if (keyName == "ArrowLeft") {
-            movePrevQuestion();
-            if (result.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
-          }
-  
-        }
-      );
+        showCurrentActiveQuest();// показывает(стилизует) первый вопрос(индикатор)
+        navigatingQuestionsByindicator();// навигация по вопросам с помощью индикаторов
       }
     })
   })
@@ -312,6 +300,21 @@ const navigatingQuestionsByindicator = () => {
       stylesNotStylesAnswers();// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
     })
   })
+}
+
+//* навигация по вопросам с помощью клавиатуры
+const navigationQuestionsByKeyboards = () => {
+  document.addEventListener("keydown", (event) => {
+    const keyName = event.key;
+    if (keyName == "ArrowRight") {
+      moveNextQuestion();
+      if (result.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+    } else if (keyName == "ArrowLeft") {
+      movePrevQuestion();
+      if (result.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+    }
+
+  });
 }
 
 //* если все индикаторы активны, то появляется кнопка РЕЗУЛЬТАТ
@@ -640,12 +643,11 @@ const exitOfBlockTraining = () => {
 //* при нажатии на другие ВКЛАДКИ или на кнопку ВЫХОД  */
 const restartResults = () => {
   clearInterval(testTimeReportVar);
+  result.textContent = '';// убирает текст с итоговой оценкой
+  clearSelectedNotSelectedAnswers();// очищает правильный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
   currentNumAnswer = 1;
   indexQuestion = 0;
-  fieldQuestionAnswer.style.pointerEvents = 'auto';// делает курсор активным во всем блоке
-  fieldQuestionAnswer.style.opacity = 1;
-  blockIndicatorAnswers.style.pointerEvents = 'auto';// делает курсор активным в блоке с индикаторами
-  blockIndicatorAnswers.style.opacity = 1;
+  fieldQuestionAnswer.forEach(answer => answer.style.pointerEvents = 'auto');// делает курсор активным во всем блоке
   btnPrev.classList.add('btn-score__btn--display--none');
   btnNext.classList.remove('btn-score__btn--display--none');
   btnResult.classList.add('btn-score__btn--display--none');
@@ -654,6 +656,7 @@ const restartResults = () => {
   slyleResetAnswer(); // сбрасывает стили ответов
 }
 
+window.addEventListener('load', navigationQuestionsByKeyboards);// навигация по вопросам с помощью клавиатуры
 window.addEventListener('load', openPrewiewOnSiteLoad);// разблокирует превьюшки при загрузке сайта
 btnNext.addEventListener('click', moveNextQuestion);
 btnPrev.addEventListener('click', movePrevQuestion);
