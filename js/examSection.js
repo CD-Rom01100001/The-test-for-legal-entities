@@ -32,6 +32,7 @@ let reportMin = document.querySelector('#min');
 let reportSec = document.querySelector('#sec');
 let timeReportVar = Object;
 let indicatorCollection = Object;// индикатор
+let eventKey = false;// нужно, что-бы событие клавиатуры срабатывало только один раз и не дулировало функцию "navigationQuestionsByKeyboards"
 //* --------------------------------------------------- */
 
 //* -------------------- FUNCTIONS -------------------- */
@@ -108,7 +109,7 @@ const setAnswerIndicators = () => {
 const startQuestNum = () => {
   fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
 }
-//* присвваеваем текст к названию секции, вопроссу и ответам */
+//* присваеваем текст к названию секции, вопроссу и ответам */
 const fillsQAWithText = (index) => {
   questionText.textContent = randomQuestions[index].question;
   nameSectionText.textContent = randomQuestions[index].answers[0].id;
@@ -162,6 +163,7 @@ const startExam = () => {
   fieldTests.classList.add('tests--display--block');
   fieldStartExam.classList.remove('field-start-exam--display--block');
   restartResults();
+  navigationQuestionsByKeyboards();// навигация по вопросам с помощью клавиатуры
   console.log(randomQuestions);
 }
 
@@ -250,7 +252,30 @@ const navigatingQuestionsByindicator = () => {
     console.log('длинна массива с выбраными ответами: ' + indicatorCollection.length);
     console.log('индекс текущего вопросса: ' + indexQuest);
     console.log('номер текущего вопросса: ' + numQuest);
+    console.log(arrayAnswer[indexQuest]);
   }))
+}
+
+//* навигация по вопросам с помощью клавиатуры
+const navigationQuestionsByKeyboards = () => {
+  if (eventKey == false) {
+    document.addEventListener("keydown", (event) => {
+      const keyName = event.key;
+      if (numQuest < 10) {
+        if (keyName == "ArrowRight") {
+          moveNextQuestion();
+          if (fieldFinalScore.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuest);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+        }
+      } 
+      if (numQuest > 1) {
+        if (keyName == "ArrowLeft") {
+          movePrevQuestion();
+          if (fieldFinalScore.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuest);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+        }
+      }
+    });
+  }
+  eventKey = true;
 }
 
 //* стилизует и показывает где правильный ответ и какой ответ выбрал пользователь после завершения блока "Экзамен" */
@@ -286,15 +311,15 @@ const removeSelectedNotSelectedText = () => {
 
 //* при нажатии на кнопку НАЗАД */
 const movePrevQuestion = () => {
-  /* делает все ответы активными */
-  collectionAnswersBody.forEach(elem => {
-    elem.style.pointerEvents = 'auto';
-  });
-
-  indexQuest--; // уменьшает индекс вопроса
+  if (fieldFinalScore.textContent.length != 0) {
+    collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
+  } else {
+    collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+  }
 
   /* убавляет и показывает номер вопросса */
   if (numQuest > 1) {
+    indexQuest--;
     numQuest--;
     fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
     currentIndicator(indexQuest);// стилизует индикатор в соответствии с выброным текущим вопросом
@@ -309,6 +334,7 @@ const movePrevQuestion = () => {
     btnResult.style.display = 'none';
   }
   currentNumAnswers();// если все ответы выбранны то появляется кнопка результат
+  removeButtonsAfterTraining()
 
   fillsQAWithText(indexQuest); // присвваеваем текст к названию секции, вопроссу и ответам
 
@@ -324,10 +350,15 @@ const movePrevQuestion = () => {
 
 //* при нажатии на кнопку ДАЛЕЕ */
 const moveNextQuestion = () => {
-  /* делает все ответы активными */
-  collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});
+  if (fieldFinalScore.textContent.length != 0) {
+    collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
+  } else {
+    collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+  }
+
   /* прибавляет и показывает номер вопросса */
   if (numQuest < randomQuestions.length) {
+    indexQuest++;
     numQuest++;
     fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
   }
@@ -341,9 +372,8 @@ const moveNextQuestion = () => {
     btnResult.style.display = 'block';
   }
   currentNumAnswers();// если все ответы выбранны то появляется кнопка результат
+  removeButtonsAfterTraining()
   
-  /* прибавляет индекс вопроса */
-  indexQuest++;
   fillsQAWithText(indexQuest); // присвваеваем текст к названию секции, вопроссу и ответам
   scoreCalc(); // посчитывает количество правельных ответов
   currentIndicator(indexQuest);// стилизует индикатор в соответствии с выброным текущим вопросом
@@ -391,6 +421,15 @@ const slyleResetAnswer = (text) => {
       elem.classList.remove('exam-question-answers__body--incorrect-select');
     }
   })
+}
+
+//* если обучение пройдено, убирает кнопки */
+const removeButtonsAfterTraining = () => {
+  if (fieldFinalScore.textContent.length != 0) {
+    btnNext.style.display = 'none';
+    btnPrev.style.display = 'none';
+    btnResult.style.display = 'none';
+  }
 }
 
 //* стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран

@@ -307,13 +307,11 @@ const navigatingQuestionsByindicator = () => {
 //* навигация по вопросам с помощью клавиатуры
 const navigationQuestionsByKeyboards = () => {
   if (eventKey == false) {
-    console.log('keyboard-run');
     document.addEventListener("keydown", (event) => {
       const keyName = event.key;
       if (keyName == "ArrowRight") {
         moveNextQuestion();
-        console.log(currentNumAnswer);
-        console.log(indexQuestion);
+
         if (result.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
       } else if (keyName == "ArrowLeft") {
         movePrevQuestion();
@@ -343,8 +341,11 @@ const fillsQuestAnswers = (quest) => {
 
 //* при нажатии на кнопку НАЗАД */
 const movePrevQuestion = () => {
-
-  trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+  if (result.textContent.length != 0) {
+    trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
+  } else {
+    trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+  }
 
   if (currentNumAnswer > 1) {
     currentNumAnswer--;
@@ -371,8 +372,11 @@ const movePrevQuestion = () => {
 
 //* при нажатии на кнопку ДАЛЕЕ */
 const moveNextQuestion = () => {
-
-  trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+  if (result.textContent.length != 0) {
+    trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
+  } else {
+    trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+  }
 
   if (currentNumAnswer < currentQuestionsArray.length) {
     currentNumAnswer++;
