@@ -34,6 +34,7 @@ let arrayAnswer = [];// массив ответов
 let testTimeReportVar = Object;
 let collectionIndicators = Object;// коллекция индикаторов
 let locStorArrayOpenPrew = [];// массив с индексами открытых превью
+let eventKey = false;// нужно, что-бы событие клавиатуры срабатывало только один раз и не дулировало функцию "navigationQuestionsByKeyboards"
 /* если в localStorage присутствует ключ 'openPreview' то все значения данного ключа переносятся в массив locStorArrayOpenPrew при загрузке сайта */
 if (localStorage.getItem('openPreview')) {
   locStorArrayOpenPrew = JSON.parse(localStorage.getItem('openPreview'));
@@ -191,6 +192,7 @@ const clickPrewiew = () => {
         fillsQuestAnswers(0);// присваеваем текст к вопроссу и ответам в соответствии с нажатой превьюшкой
         showCurrentActiveQuest();// показывает(стилизует) первый вопрос(индикатор)
         navigatingQuestionsByindicator();// навигация по вопросам с помощью индикаторов
+        navigationQuestionsByKeyboards();// навигация по вопросам с помощью клавиатуры
       }
     })
   })
@@ -304,17 +306,22 @@ const navigatingQuestionsByindicator = () => {
 
 //* навигация по вопросам с помощью клавиатуры
 const navigationQuestionsByKeyboards = () => {
-  document.addEventListener("keydown", (event) => {
-    const keyName = event.key;
-    if (keyName == "ArrowRight") {
-      moveNextQuestion();
-      if (result.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
-    } else if (keyName == "ArrowLeft") {
-      movePrevQuestion();
-      if (result.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
-    }
-
-  });
+  if (eventKey == false) {
+    console.log('keyboard-run');
+    document.addEventListener("keydown", (event) => {
+      const keyName = event.key;
+      if (keyName == "ArrowRight") {
+        moveNextQuestion();
+        console.log(currentNumAnswer);
+        console.log(indexQuestion);
+        if (result.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+      } else if (keyName == "ArrowLeft") {
+        movePrevQuestion();
+        if (result.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+      }
+    });
+  }
+  eventKey = true;
 }
 
 //* если все индикаторы активны, то появляется кнопка РЕЗУЛЬТАТ
@@ -656,8 +663,8 @@ const restartResults = () => {
   slyleResetAnswer(); // сбрасывает стили ответов
 }
 
-window.addEventListener('load', navigationQuestionsByKeyboards);// навигация по вопросам с помощью клавиатуры
-window.addEventListener('load', openPrewiewOnSiteLoad);// разблокирует превьюшки при загрузке сайта
+// window.addEventListener('load', navigationQuestionsByKeyboards);// навигация по вопросам с помощью клавиатуры
+// window.addEventListener('load', openPrewiewOnSiteLoad);// разблокирует превьюшки при загрузке сайта
 btnNext.addEventListener('click', moveNextQuestion);
 btnPrev.addEventListener('click', movePrevQuestion);
 btnResult.addEventListener('click', moveResult);
@@ -696,4 +703,4 @@ trainingAnswersCollectionBody.forEach((elem, index) => {
   })
 });// три кнопки ответа
 
-export {fieldTrainingMain, collectionPrewiews, previewBlock, trainingBlock, restartResults, setAnswerIndicators};
+export {fieldTrainingMain, collectionPrewiews, previewBlock, trainingBlock, restartResults, openPrewiewOnSiteLoad};

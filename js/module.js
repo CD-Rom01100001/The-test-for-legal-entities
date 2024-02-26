@@ -1,6 +1,6 @@
 import {legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84} from './questions.js';
 import {fieldQuestionsMain, fieldQuestionList} from './questionSection.js';
-import {fieldTrainingMain} from './trainingSection.js';
+import {fieldTrainingMain, openPrewiewOnSiteLoad} from './trainingSection.js';
 import { previewBlock, trainingBlock, restartResults } from './trainingSection.js';
 import {fieldTests, fieldStartExam, timeReportVar, fieldFinalScore} from './examSection.js';// import * as say from './examSection.js' (say.fieldTests)
 
@@ -34,7 +34,7 @@ const styleLinksNav = (link) => {
   })
   link.classList.add('nav-link--active');
 }
-//* меняет содержимое на вопросы */
+//* меняет содержимое на Вопросы */
 const questionContent = () => {
   titleSection.textContent = 'Вопросы';
   descriptionSectionCollection.forEach((elem, index) => {
@@ -51,9 +51,10 @@ const questionContent = () => {
   fieldTests.classList.remove('tests--display--block'); // закрывает блок с тестами
   clearInterval(timeReportVar); // останавливает время в тестах
 }
-//* меняет содержимое на обучение
+//* меняет содержимое на Обучение
 const trainingContent = () => {
   titleSection.textContent = 'Обучение';
+  openPrewiewOnSiteLoad();// разблокирует превьюшки при загрузке сайта
   descriptionSectionCollection.forEach((elem, index) => {
     if (index != 3) {
       elem.classList.add('staff-training__descriotion-text--display--none');
@@ -68,7 +69,7 @@ const trainingContent = () => {
   fieldTests.classList.remove('tests--display--block'); // закрывает блок с тестами
   clearInterval(timeReportVar); // останавливает время в тестах
 }
-//* меняет содержимое на экзамены */
+//* меняет содержимое на Экзамены */
 const examsContent = () => {
   titleSection.textContent = 'Экзамен';
   descriptionSectionCollection.forEach((elem, index) => {
