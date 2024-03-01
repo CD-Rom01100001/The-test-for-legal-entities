@@ -311,7 +311,6 @@ const navigationQuestionsByKeyboards = () => {
       const keyName = event.key;
       if (keyName == "ArrowRight") {
         moveNextQuestion();
-
         if (result.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
       } else if (keyName == "ArrowLeft") {
         movePrevQuestion();
@@ -399,7 +398,7 @@ const moveNextQuestion = () => {
   fillsQuestAnswers(indexQuestion);// присвваеваем текст к вопроссу и ответам
 
   stylesNotStylesAnswers()// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
-  recordedAnswer = ''; // очищает переменную ()
+  // recordedAnswer = ''; // очищает переменную ()
 }
 
 //* при нажатии на кнопку РЕЗУЛЬТАТ */

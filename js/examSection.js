@@ -164,6 +164,7 @@ const startExam = () => {
   fieldStartExam.classList.remove('field-start-exam--display--block');
   restartResults();
   navigationQuestionsByKeyboards();// навигация по вопросам с помощью клавиатуры
+  stylesNotStylesAnswers();// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
   console.log(randomQuestions);
 }
 
@@ -377,15 +378,12 @@ const moveNextQuestion = () => {
   fillsQAWithText(indexQuest); // присвваеваем текст к названию секции, вопроссу и ответам
   scoreCalc(); // посчитывает количество правельных ответов
   currentIndicator(indexQuest);// стилизует индикатор в соответствии с выброным текущим вопросом
-
+  stylesNotStylesAnswers();// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
   //!---------------------------------------------------------------------------------
   console.log(arrayAnswer[indexQuest]);
   console.log('длинна массива с выбраными ответами: ' + arrayAnswer.length);
   console.log('индекс текущего вопросса: ' + indexQuest);
   console.log('номер текущего вопросса: ' + numQuest);
-
-  stylesNotStylesAnswers();// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
-
   console.log(arrayAnswer);
   //!---------------------------------------------------------------------------------
   recordedAnswer = ''; // очищает переменную ()
