@@ -193,6 +193,7 @@ const clickPrewiew = () => {
         showCurrentActiveQuest();// показывает(стилизует) первый вопрос(индикатор)
         navigatingQuestionsByindicator();// навигация по вопросам с помощью индикаторов
         navigationQuestionsByKeyboards();// навигация по вопросам с помощью клавиатуры
+        stylesNotStylesAnswers()// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
       }
     })
   })
@@ -398,7 +399,7 @@ const moveNextQuestion = () => {
   fillsQuestAnswers(indexQuestion);// присвваеваем текст к вопроссу и ответам
 
   stylesNotStylesAnswers()// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
-  // recordedAnswer = ''; // очищает переменную ()
+  recordedAnswer = ''; // очищает переменную ()
 }
 
 //* при нажатии на кнопку РЕЗУЛЬТАТ */
@@ -503,6 +504,7 @@ const moveAgain = () => {
   slyleResetAnswer();// сбрасывает стили ответов
   collectionIndicators.forEach(indicator => indicator.classList.remove('training__set-answer'));// сбрасывает стили индикаторов
   showCurrentActiveQuest()// показывает(стилизует) первый вопрос(индикатор)
+  stylesNotStylesAnswers()// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
 }
 
 //* стилизует выбранный ответ */
