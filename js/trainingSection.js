@@ -1,4 +1,5 @@
 import {arrayQuestions} from './questions.js';
+import {staffTrainingDescription} from './module.js';
 
 const fieldTrainingMain = document.querySelector('#field-training');
 const trainingContentInner = document.querySelector('.training__content-inner');
@@ -8,7 +9,7 @@ const trainingBlock = document.querySelector('#training');
 const blockIndicatorAnswers = document.querySelector('#block-indicator-answers')
 const nameStage = document.querySelector('#training-name-stage-text');
 const nameSection = document.querySelector('#training-name-section-text');
-const staffTrainingDescription = document.querySelector('.staff-training__descriotion');
+// const staffTrainingDescription = document.querySelector('.staff-training__descriotion');
 const currentQuestionNumber = document.querySelector('#training-num-quest-current');
 const btnPrev = document.querySelector('#training-btn-prev');
 const btnNext = document.querySelector('#training-btn-next');
@@ -42,6 +43,9 @@ if (localStorage.getItem('openPreview')) {
 
 //* формирует превьюшки html теги на странице */
 const createStagePreviewBlock = (stage, section, allQuest) => {
+  const wrapPreviewBlockLink = document.createElement('a');
+  wrapPreviewBlockLink.setAttribute('href', `#anchor-for-exams`);
+
   const previewBlock = document.createElement('div');
   previewBlock.setAttribute('class', `preview-block`);
 
@@ -62,8 +66,9 @@ const createStagePreviewBlock = (stage, section, allQuest) => {
   allQuestInStage.setAttribute('class', 'all-quest-in-stage');
   allQuestInStage.textContent = `всего ${allQuest} вопросов`;
 
+  wrapPreviewBlockLink.append(previewBlock);
   previewBlock.append(stageBlock, stageProgress, sectionBlock, allQuestInStage);
-  trainingContentInner.append(previewBlock);
+  trainingContentInner.append(wrapPreviewBlockLink);
 }
 
 //* формирует индикаторы ответов
@@ -708,4 +713,4 @@ trainingAnswersCollectionBody.forEach((elem, index) => {
   })
 });// три кнопки ответа
 
-export {fieldTrainingMain, collectionPrewiews, previewBlock, trainingBlock, restartResults, openPrewiewOnSiteLoad};
+export {fieldTrainingMain, collectionPrewiews, previewBlock, trainingBlock, restartResults, openPrewiewOnSiteLoad, staffTrainingDescription};

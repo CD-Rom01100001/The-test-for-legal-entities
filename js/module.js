@@ -37,6 +37,7 @@ const styleLinksNav = (link) => {
 //* меняет содержимое на Вопросы */
 const questionContent = () => {
   titleSection.textContent = 'Вопросы';
+  if (staffTrainingDescription.style.display == 'none') staffTrainingDescription.style.display = 'block';
   descriptionSectionCollection.forEach((elem, index) => {
     if (index != 0 && index != 1) {
       elem.classList.add('staff-training__descriotion-text--display--none');
@@ -54,6 +55,7 @@ const questionContent = () => {
 //* меняет содержимое на Обучение
 const trainingContent = () => {
   titleSection.textContent = 'Обучение';
+  if (staffTrainingDescription.style.display == 'none') staffTrainingDescription.style.display = 'block';
   openPrewiewOnSiteLoad();// разблокирует превьюшки при загрузке сайта
   descriptionSectionCollection.forEach((elem, index) => {
     if (index != 3) {
@@ -72,6 +74,7 @@ const trainingContent = () => {
 //* меняет содержимое на Экзамены */
 const examsContent = () => {
   titleSection.textContent = 'Экзамен';
+  if (staffTrainingDescription.style.display == 'none') staffTrainingDescription.style.display = 'block';
   descriptionSectionCollection.forEach((elem, index) => {
     if (index != 2) {
       elem.classList.add('staff-training__descriotion-text--display--none');
@@ -136,3 +139,5 @@ btnQuestionSection.addEventListener('click', () => exitWarning(questionContent))
 btnTrainingSection.addEventListener('click', () => exitWarning(trainingContent));
 btnExamSection.addEventListener('click', () => exitWarning(examsContent));
 //* --------------------------------------------------- */
+
+export {staffTrainingDescription};

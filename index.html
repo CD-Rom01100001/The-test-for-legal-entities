@@ -23,14 +23,14 @@
       </div>
 
       <div class="staff-training__main-nav-wrap">
-
+        <div class="staff-training__background-line"></div>
         <nav class="staff-training__nav navigation">
           <p class="navigation__questions nav-link nav-link--active" id="navigation__questions">Вопросы</p>
           <p class="navigation__training nav-link" id="navigation__training">Обучение</p>
           <p class="navigation__exam nav-link" id="navigation__exam">Экзамен</p>
         </nav>
 
-        <main class="staff-training__main main">
+        <main class="staff-training__main main" id="main">
 
           <div class="staff-training__title">
             <h3 class="staff-training__title-text" id="title-section">Вопросы</h3>
@@ -178,7 +178,7 @@
           <!-- блок с кнопкой "Начать экзамен" -->
           <div class="field-start-exam">
             <div class="field-start-exam__body">
-              <button class="field-start-exam__button" id="button-start-exam">Начать экзамен</button>
+              <button class="field-start-exam__button" id="button-start-exam" onclick="document.location='#anchor-for-exams'">Начать экзамен</button>
             </div>
           </div>
 
@@ -189,18 +189,23 @@
               <div class="tests__indicators-field">
                 <!-- indicators question -->
                 <div class="tests__block-indicator-answers" id="tests-block-indicator-answers"></div>
-                <!-- number question -->
-                <div class="tests__number-question">
-                  <p class="tests__number-question-number" id="num-quest-current"></p>
+
+                <!-- block questions information -->
+                <div class="tests__block-questions-information">
+                  <!-- number question -->
+                  <div class="tests__number-question">
+                    <p class="tests__number-question-number" id="num-quest-current"></p>
+                  </div>
+                  <!-- name section -->
+                  <div class="tests__name-section">
+                    <p class="tests__name-section-text" id="name-section-text"></p>
+                  </div>
+                  <!-- time -->
+                  <div class="tests__time-exam">
+                    <p class="test__time-exam-num"><span id="min"></span>:<span id="sec"></span></p>
+                  </div>
                 </div>
-                <!-- name section -->
-                <div class="tests__name-section">
-                  <p class="tests__name-section-text" id="name-section-text"></p>
-                </div>
-                <!-- time -->
-                <div class="tests__time-exam">
-                  <p class="test__time-exam-num"><span id="min"></span> : <span id="sec"></span></p>
-                </div>
+                
               </div>
               <!-- questions and answers -->
               <div class="tests__question-answers question-answers" id="field-question-answers">
@@ -250,11 +255,11 @@
     
             </div>
           </div>
-  
-        </main>
 
+        </main>
+        
       </div>
-      
+      <div id="anchor-for-exams"></div>
       
     </div>
   </div>

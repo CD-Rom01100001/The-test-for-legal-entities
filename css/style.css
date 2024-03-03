@@ -17,6 +17,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   position: fixed;
   right: 2rem;
   bottom: 2rem;
+  z-index: 2;
   display: none;
   justify-content: center;
   align-items: center;
@@ -69,10 +70,24 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   margin-bottom: 2rem;
 }
 .staff-training__main-nav-wrap {
+  position: relative;
   display: flex;
   flex-direction: column;
+  padding: 1rem 0.1rem 0.1rem 0.1rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.staff-training__background-line {
+  position: absolute;
+  top: 4.9rem;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(70, 70, 70, 0.2196078431);
 }
 .staff-training__nav {
+  z-index: 1;
   display: flex;
   gap: 0 1rem;
 }
@@ -83,11 +98,13 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   width: 100px;
   min-height: 4rem;
   height: auto;
-  background: #cecece;
+  background: #e6e6e6;
+  border-bottom: 1px solid rgba(70, 70, 70, 0.2196078431);
   border-radius: 0.5rem 0.5rem 0 0;
   color: #4d4d4d;
   font-weight: 500;
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.219), inset 1px 1px 3px 1px rgb(240, 240, 240);
+  transition: all 0.1s;
   cursor: pointer;
 }
 .staff-training__nav .nav-link:hover {
@@ -102,13 +119,36 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 .staff-training__nav .nav-link--active {
   margin-top: -0.5rem;
   color: #000000;
-  background: #f0f0f0;
-  box-shadow: inset 0px 0px 0px rgba(0, 0, 0, 0.219), inset -1px -1px 3px 1px rgb(240, 240, 240);
+  background: #F6F6F6;
+  border-bottom: none;
+  box-shadow: 0px 0px 1px 1px rgba(70, 70, 70, 0.2196078431), inset 0px 0px 0px 0px rgb(240, 240, 240);
 }
 .staff-training__main {
-  padding: 2rem 2rem 0 2rem;
-  background: #f0f0f0;
-  border-radius: 0 0.5rem 0.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  min-height: 50rem;
+  padding: 2rem;
+  background: #F6F6F6;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+.staff-training__main .field-start-exam__button {
+  padding: 0 1rem;
+  height: 3.5rem;
+  background: #e6e6e6;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.219), inset 1px 1px 3px 1px rgb(240, 240, 240);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.staff-training__main .field-start-exam__button:hover {
+  box-shadow: 1px 1px 5px 3px rgba(0, 0, 0, 0.219), inset 1px 1px 3px 1px rgb(240, 240, 240);
+}
+.staff-training__main .field-start-exam__button:active {
+  background: #e4e4e4;
+  box-shadow: inset 1px 1px 3px 1px rgba(0, 0, 0, 0.219), 1px 1px 3px 1px rgb(240, 240, 240);
 }
 .staff-training__title {
   display: flex;
@@ -175,11 +215,11 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   flex-direction: column;
   justify-content: space-between;
   height: 50rem;
-  padding: 2rem 0;
 }
 .tests__body .tests__indicators-field .tests__block-indicator-answers {
   display: flex;
-  gap: 0 0.2rem;
+  justify-content: center;
+  gap: 0 0.5rem;
 }
 .tests__body .tests__indicators-field .tests__block-indicator-answers .exam__indicator-body {
   display: flex;
@@ -212,11 +252,15 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 .tests__body .tests__indicators-field .tests__block-indicator-answers .exam__no-answer {
   background: transparent;
 }
-.tests .question-answers {
+.tests__body .tests__indicators-field .tests__block-questions-information {
+  display: flex;
+  justify-content: space-between;
+  margin: 4rem 0 0 0;
+}
+.tests .question-answers__body {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  flex-grow: 1;
+  gap: 2rem 0;
 }
 .tests .question-answers__question {
   margin-bottom: 1rem;
@@ -250,7 +294,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 }
 .tests .question-answers__answers-body:hover {
   color: #000;
-  background: rgba(0, 100, 177, 0.1529411765);
+  box-shadow: 0 0 2px 1px #7c8a94;
 }
 .tests .question-answers__answers-body:active {
   color: #000;
@@ -266,7 +310,10 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   display: none;
 }
 .field-start-exam--display--block {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  flex-grow: 1;
 }
 .field-start-exam__body {
   display: flex;

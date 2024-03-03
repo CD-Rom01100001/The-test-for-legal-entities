@@ -1,4 +1,5 @@
 import {arrayQuestions, legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84} from './questions.js';
+import {staffTrainingDescription} from './trainingSection.js';
 
 //* -------------------- CONSTANTS -------------------- */
 const fieldTests = document.querySelector('#field-tests');
@@ -160,6 +161,7 @@ const calcArrAnserScore = () => {
 
 //* при нажатии на кнопку "Начать зкзамен" открывается поле с тестом */
 const startExam = () => {
+  staffTrainingDescription.style.display = 'none';
   fieldTests.classList.add('tests--display--block');
   fieldStartExam.classList.remove('field-start-exam--display--block');
   restartResults();
