@@ -73,7 +73,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 1rem 0.1rem 0.1rem 0.1rem;
+  padding: 0.5rem 0.1rem 0.1rem 0.1rem;
   border-radius: 0.5rem;
   overflow: hidden;
 }
@@ -92,14 +92,14 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   gap: 0 1rem;
 }
 .staff-training__nav .nav-link {
+  position: relative;
+  bottom: -0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100px;
-  min-height: 4rem;
-  height: auto;
+  min-height: 4.5rem;
   background: #e6e6e6;
-  border-bottom: 1px solid rgba(70, 70, 70, 0.2196078431);
   border-radius: 0.5rem 0.5rem 0 0;
   color: #4d4d4d;
   font-weight: 500;
@@ -108,16 +108,16 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   cursor: pointer;
 }
 .staff-training__nav .nav-link:hover {
-  margin-top: -0.5rem;
+  bottom: 0;
   color: #000000;
 }
 .staff-training__nav .nav-link:active {
-  margin-top: 0;
+  bottom: -0.5rem;
   background: #f0f0f0;
   box-shadow: inset 0px 0px 0px rgba(0, 0, 0, 0.219), inset -1px -1px 3px 1px rgb(240, 240, 240);
 }
 .staff-training__nav .nav-link--active {
-  margin-top: -0.5rem;
+  bottom: 0;
   color: #000000;
   background: #F6F6F6;
   border-bottom: none;
