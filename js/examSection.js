@@ -389,6 +389,7 @@ const moveNextQuestion = () => {
   console.log(arrayAnswer);
   //!---------------------------------------------------------------------------------
   recordedAnswer = ''; // очищает переменную ()
+  document.querySelector('.main').style.height = 'auto';
 }
 
 //* посчитывает количество правельных ответов */

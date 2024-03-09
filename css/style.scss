@@ -66,6 +66,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
 .staff-training {
   width: 100%;
+  height: 100%;
 
   &__body {
     max-width: 102.4rem;
@@ -82,23 +83,24 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     display: flex;
     flex-direction: column;
     // gap: 4rem 0;
-    padding: 0.5rem 0.1rem 0.1rem 0.1rem;
-    border-radius: 0.5rem;
-    overflow: hidden;
+    min-height: 50rem;
+    // border-radius: 0.5rem;
+    // overflow: hidden;
   }
 
-  &__background-line {
-    position: absolute;
-    top: 4.9rem;
-    left: 0;
-    z-index: 0;
-    width: 100%;
-    height: 100%;
-    background: #46464638;
-  }
+  // &__background-line {
+  //   position: absolute;
+  //   top: 4.9rem;
+  //   left: 0;
+  //   z-index: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   background: #46464638;
+  // }
 
   &__nav {
-    z-index: 1;
+    position: relative;
+    z-index: 2;
     display: flex;
     gap: 0 1rem;
 
@@ -114,7 +116,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
       border-radius: 0.5rem 0.5rem 0 0;
       color: #4d4d4d;
       font-weight: 500;
-      box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.219),
+      box-shadow: 2px 1px 3px 0px rgba(0, 0, 0, 0.219),
       inset 1px 1px 3px 1px rgb(240, 240, 240);
       transition: all .1s;
       cursor: pointer;
@@ -143,14 +145,29 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
   }
 
-  &__main {
+  .staff-training__background-line {
+    position: relative;
+  }
+
+  .staff-training__background-line::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top:-0.1rem;
+    width: 100%;
+    height: 0.1rem;
+    background: #00000028;
+  }
+
+  .staff-training__main {
+    z-index: 3;
     display: flex;
     flex-direction: column;
-    z-index: 1;
     min-height: 50rem;
     padding: 2rem;
     background: #F6F6F6;
-    border-radius: 0 0 0.5rem 0.5rem;
+    box-shadow: 0px 2px 1px 1px #00000028;
+    border-radius: 0 0 0.5rem 0.5rem;    
 
     .field-start-exam__button {
       padding: 0 1rem;
@@ -179,6 +196,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
       1px 1px 3px 1px rgb(240, 240, 240);
     }
   }
+
 
   &__title {
     display: flex;
@@ -260,7 +278,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 50rem;
+    min-height: 50rem;
 
     .tests__indicators-field {
       .tests__block-indicator-answers {
