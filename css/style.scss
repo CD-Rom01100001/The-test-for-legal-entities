@@ -4,8 +4,12 @@
   align-items: center;
   width: 3rem;
   height: 3rem;
-  border: 1px solid #000;
+  background: #e6e6e6;
   border-radius: 0.3rem;
+  box-shadow: 
+  0px 0px 1px 1px rgba(0, 0, 0, 0.1),
+  inset -1px -1px 1px 1px rgb(0, 0, 0, 0.219),
+  inset 1px 1px 1px 1px rgb(255, 255, 255);
 }
 
 html {
@@ -323,7 +327,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
         }
 
         .exam__no-answer {
-          background: transparent;
+          background: #e6e6e6;
         }
       }
 
@@ -664,7 +668,8 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     .training__indicators-field {
       .training__block-indicator-answers {
         display: flex;
-        gap: 0 0.2rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
 
         .training__indicator-body {
           @include style-indicator;
@@ -676,11 +681,15 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
         .training__indicator-body:hover {
           cursor: pointer;
-          box-shadow: 0 0 2px 1px #7c8a94;
+          outline: 2px solid #0064b156;
         }
 
         .training__current-indicator {
-          box-shadow: 0px 0px 1px 1px #0064b1;
+          // box-shadow: 0px 0px 1px 1px #0064b1;
+          box-shadow: 
+          0px 0px 1px 1px rgba(0, 0, 0, 0.2),
+          inset 1px 1px 1px 1px rgb(0, 0, 0, 0.219),
+          inset -1px -1px 1px 1px rgba(255, 255, 255, 0.349);
         }
 
         .training__set-answer {
@@ -697,6 +706,18 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
         .training__no-answer {
           background: transparent;
+        }
+      }
+
+      .training__block-questions-information {
+        display: flex;
+        justify-content: space-between;
+        margin: 4rem 0;
+        
+        .training__block-names {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
       }
     }
@@ -783,6 +804,37 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
           display: none;
         }
       }
+    }
+
+    .training__button-exit, .training-btn-score__btn {
+      padding: 0 1rem;
+      height: 3.5rem;
+      background: #e6e6e6;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      box-shadow: 
+      0px 0px 2px 1px rgba(0, 0, 0, 0.1),
+      inset -1px -1px 1px 1px rgb(0, 0, 0, 0.219),
+      inset 1px 1px 1px 1px rgb(255, 255, 255);
+      transition: all .1s;
+      cursor: pointer;
+    }
+
+    .training__button-exit:hover, .training-btn-score__btn:hover {
+      box-shadow: 
+      0px 0px 3px 1px rgba(0, 0, 0, 0.3),
+      inset -1px -1px 1px 1px rgb(0, 0, 0, 0.219),
+      inset 1px 1px 1px 1px rgb(255, 255, 255);
+
+    }
+
+    .training__button-exit:active, .training-btn-score__btn:active {
+      background: #e4e4e4;
+      box-shadow: 
+      0px 0px 2px 1px rgba(0, 0, 0, 0.1),
+      inset 1px 1px 1px 1px rgb(0, 0, 0, 0.219),
+      inset -1px -1px 1px 1px rgba(255, 255, 255, 0.349);
     }
     
   }

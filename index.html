@@ -90,28 +90,39 @@
             <div class="training" id="training">
               <div class="training__body">
       
+                <!-- button exit -->
+                <div class="training__block-button-exit">
+                  <button class="training__button-exit">Выход</button>
+                </div>
+
                 <div class="training__indicators-field">
+                  <!--  -->
                   <div class="training__block-indicator-answers" id="block-indicator-answers"></div>
-                  <!-- button exit -->
-                  <div class="training__block-button-exit">
-                    <button class="training__button-exit">Выход</button>
+                  <!--  -->
+                  <div class="training__block-questions-information">
+                    <!-- number question -->
+                    <div class="training__number-question">
+                      <p class="training__number-question-number" id="training-num-quest-current"></p>
+                    </div>
+
+                    <div class="training__block-names">
+                      <!-- name stage -->
+                      <div class="training__name-stage">
+                        <h3 class="training__name-stage-text" id="training-name-stage-text"></h3>
+                      </div>
+                      <!-- name section -->
+                      <div class="training__name-section">
+                        <p class="training__prev-title" id="training__prev-title"></p>
+                        <p class="training__name-section-text" id="training-name-section-text"></p>
+                      </div>
+                    </div>
+                    
+                    <!-- time -->
+                    <div class="training__time-exam">
+                      <p class="training__time-exam-num"><span id="training-min"></span> : <span id="training-sec"></span></p>
+                    </div>
                   </div>
-                  <!-- name stage -->
-                  <div class="training__name-stage">
-                    <h3 class="training__name-stage-text" id="training-name-stage-text"></h3>
-                  </div>
-                  <!-- name section -->
-                  <div class="training__name-section">
-                    <p class="training__name-section-text" id="training-name-section-text"></p>
-                  </div>
-                  <!-- number question -->
-                  <div class="training__number-question">
-                    <p class="training__number-question-number" id="training-num-quest-current"></p>
-                  </div>
-                  <!-- time -->
-                  <div class="training__time-exam">
-                    <p class="training__time-exam-num"><span id="training-min"></span> : <span id="training-sec"></span></p>
-                  </div>
+
                 </div>
 
                 <!-- questions and answers -->

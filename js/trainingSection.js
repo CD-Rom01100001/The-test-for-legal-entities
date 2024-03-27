@@ -9,6 +9,7 @@ const trainingBlock = document.querySelector('#training');
 const blockIndicatorAnswers = document.querySelector('#block-indicator-answers')
 const nameStage = document.querySelector('#training-name-stage-text');
 const nameSection = document.querySelector('#training-name-section-text');
+const prevTitle = document.querySelector('#training__prev-title');
 // const staffTrainingDescription = document.querySelector('.staff-training__descriotion');
 const currentQuestionNumber = document.querySelector('#training-num-quest-current');
 const btnPrev = document.querySelector('#training-btn-prev');
@@ -31,6 +32,7 @@ let currentNumAnswer = 1;// номер текущего вопроса
 let currentIndexPreview = 0;
 let currentIndexSection = 0;
 let indexQuestion = 0;// индекс вопроса
+let amountTextInPreview = 0;
 let arrayAnswer = [];// массив ответов
 let testTimeReportVar = Object;
 let collectionIndicators = Object;// коллекция индикаторов
@@ -183,6 +185,7 @@ const clickPrewiew = () => {
         currentIndexSection = index;
         const stageBlockTitle = preview.querySelector('#stage-block').innerHTML;// получает названия этапа
         const sectionBlockTitle = preview.querySelector('#section-block').innerHTML;// получает названия секций
+        amountTextInPreview = sectionBlockTitle.split('-').length;
         if(!preview.classList.contains('inactive-status')) {
           startTraining(sectionBlockTitle, stageBlockTitle);
         }
@@ -636,6 +639,11 @@ const startTraining = (numSection, nStage) => {
   trainingBlock.style.display = 'block';
   nameStage.textContent = nStage;// название этапа
   nameSection.innerHTML = numSection;// название секции
+  /* если в превью один заздел */
+  if (amountTextInPreview <= 2) prevTitle.textContent = 'Из раздела:';
+  /* если в превью больше разделов */
+  else prevTitle.textContent = 'Из разделов:';
+
   showNumQuest(currentNumAnswer);// номер текущего вопроса и общее количество вопросов в блоке
   trainingTime();// показывает время
 }

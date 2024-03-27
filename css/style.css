@@ -235,8 +235,9 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   align-items: center;
   width: 3rem;
   height: 3rem;
-  border: 1px solid #000;
+  background: #e6e6e6;
   border-radius: 0.3rem;
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1), inset -1px -1px 1px 1px rgba(0, 0, 0, 0.219), inset 1px 1px 1px 1px rgb(255, 255, 255);
 }
 .tests__body .tests__indicators-field .tests__block-indicator-answers .exam__indicator-body .exam__indicator-number {
   font-size: 1.6rem;
@@ -258,7 +259,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   background: #ff0000;
 }
 .tests__body .tests__indicators-field .tests__block-indicator-answers .exam__no-answer {
-  background: transparent;
+  background: #e6e6e6;
 }
 .tests__body .tests__indicators-field .test__prev-title {
   text-align: center;
@@ -524,7 +525,8 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 }
 .training-main .training .training__indicators-field .training__block-indicator-answers {
   display: flex;
-  gap: 0 0.2rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 .training-main .training .training__indicators-field .training__block-indicator-answers .training__indicator-body {
   display: flex;
@@ -532,18 +534,19 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   align-items: center;
   width: 3rem;
   height: 3rem;
-  border: 1px solid #000;
+  background: #e6e6e6;
   border-radius: 0.3rem;
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1), inset -1px -1px 1px 1px rgba(0, 0, 0, 0.219), inset 1px 1px 1px 1px rgb(255, 255, 255);
 }
 .training-main .training .training__indicators-field .training__block-indicator-answers .training__indicator-body .training__indicator-number {
   font-size: 1.6rem;
 }
 .training-main .training .training__indicators-field .training__block-indicator-answers .training__indicator-body:hover {
   cursor: pointer;
-  box-shadow: 0 0 2px 1px #7c8a94;
+  outline: 2px solid rgba(0, 100, 177, 0.337254902);
 }
 .training-main .training .training__indicators-field .training__block-indicator-answers .training__current-indicator {
-  box-shadow: 0px 0px 1px 1px #0064b1;
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2), inset 1px 1px 1px 1px rgba(0, 0, 0, 0.219), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.349);
 }
 .training-main .training .training__indicators-field .training__block-indicator-answers .training__set-answer {
   background: rgba(0, 100, 177, 0.1529411765);
@@ -556,6 +559,16 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 }
 .training-main .training .training__indicators-field .training__block-indicator-answers .training__no-answer {
   background: transparent;
+}
+.training-main .training .training__indicators-field .training__block-questions-information {
+  display: flex;
+  justify-content: space-between;
+  margin: 4rem 0;
+}
+.training-main .training .training__indicators-field .training__block-questions-information .training__block-names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .training-main .training .training-question-answers__body .training-question-answers__question {
   min-height: 5rem;
@@ -618,4 +631,22 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 }
 .training-main .training .training__btn-score .training-btn-score__body .btn-score__btn--display--none {
   display: none;
+}
+.training-main .training .training__button-exit, .training-main .training .training-btn-score__btn {
+  padding: 0 1rem;
+  height: 3.5rem;
+  background: #e6e6e6;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.1), inset -1px -1px 1px 1px rgba(0, 0, 0, 0.219), inset 1px 1px 1px 1px rgb(255, 255, 255);
+  transition: all 0.1s;
+  cursor: pointer;
+}
+.training-main .training .training__button-exit:hover, .training-main .training .training-btn-score__btn:hover {
+  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.3), inset -1px -1px 1px 1px rgba(0, 0, 0, 0.219), inset 1px 1px 1px 1px rgb(255, 255, 255);
+}
+.training-main .training .training__button-exit:active, .training-main .training .training-btn-score__btn:active {
+  background: #e4e4e4;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.1), inset 1px 1px 1px 1px rgba(0, 0, 0, 0.219), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.349);
 }
