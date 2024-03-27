@@ -383,6 +383,7 @@ const moveNextQuestion = () => {
     trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
   }
 
+  /* прибавляет и показывает номер вопросса */
   if (currentNumAnswer < currentQuestionsArray.length) {
     currentNumAnswer++;
     indexQuestion++;

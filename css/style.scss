@@ -116,7 +116,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
       border-radius: 0.5rem 0.5rem 0 0;
       color: #4d4d4d;
       font-weight: 500;
-      box-shadow: 2px 1px 3px 0px rgba(0, 0, 0, 0.219),
+      box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.219),
       inset 1px 1px 3px 1px rgb(240, 240, 240);
       transition: all .1s;
       cursor: pointer;
@@ -153,10 +153,10 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     content: '';
     position: absolute;
     z-index: 1;
-    top:-0.1rem;
+    top:0;
     width: 100%;
     height: 0.1rem;
-    background: #00000028;
+    box-shadow: 0px -0.3px 1px 1px #00000028;
   }
 
   .staff-training__main {
@@ -184,7 +184,8 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     }
 
     .field-start-exam__button:hover {
-      box-shadow: 1px 1px 5px 3px rgba(0, 0, 0, 0.219),
+      box-shadow: 
+      1px 1px 5px 3px rgba(0, 0, 0, 0.219),
       inset 1px 1px 3px 1px rgb(240, 240, 240);
 
     }
@@ -213,8 +214,13 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     margin-bottom: 3rem;
   }
 
+  &__descriotion {
+    max-width: 70.68rem;
+    margin: 0 auto 3rem auto;
+  }
+
   &__descriotion-text {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     font: 400 1.6rem/2rem 'agora';
     text-align: justify;
     text-indent: 2rem;
@@ -281,6 +287,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     min-height: 50rem;
 
     .tests__indicators-field {
+
       .tests__block-indicator-answers {
         display: flex;
         justify-content: center;
@@ -320,10 +327,27 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
         }
       }
 
+      .test__prev-title {
+        text-align: center;
+      }
+
+      .tests__name-section-text {
+        font-size: 1.6rem;
+      }
+
+      .tests__number-question-number,
+      .test__time-exam-num, 
+      .test__time-exam-num span {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
       .tests__block-questions-information {
         display: flex;
         justify-content: space-between;
+        align-items: end;
         margin: 4rem 0 0 0;
+        margin-bottom: 4rem;
       }
       
     }
@@ -391,9 +415,35 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
     &__body {
       display: flex;
+      justify-content: center;
+      gap: 0 2rem;
+      margin-top: 2rem;
     }
   
     &__btn {
+      padding: 0.5rem;
+      color: #4d4d4d;
+      background: #e6e6e6;
+      border: 1px solid #0000001a;
+      border-radius: 0.5rem;
+      box-shadow: 
+      1px 1px 3px 1px rgba(0, 0, 0, 0.219),
+      inset 1px 1px 3px 1px rgb(240, 240, 240);
+      transition: 0.2s;
+    }
+
+    &__btn:hover {
+      cursor: pointer;
+      box-shadow: 
+      1px 1px 5px 2px rgba(0, 0, 0, 0.219),
+      inset 1px 1px 3px 1px rgb(240, 240, 240);
+    }
+
+    &__btn:active {
+      background: #e4e4e4;
+      box-shadow:
+      inset 1px 1px 3px 1px rgba(0, 0, 0, 0.219),
+      1px 1px 3px 1px rgb(240, 240, 240);
     }
   
     &__btn--display--none {
@@ -401,9 +451,27 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     }
   
     &__field-result {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .final-text {
+        margin: 2rem 0 0.5rem 0;
+        font-size: 2rem;
+        font-weight: 600;
+      }
+
+      .error-rate {
+        color: red;
+      }
+      
+      .passed {
+        color: green;
+      }
     }
   
     &__field-result-result {
+      
     }
   }
 
@@ -426,6 +494,8 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
   &__button {
   }
+
+ 
 }
 
 .pre-start-countdown {

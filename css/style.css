@@ -94,7 +94,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   border-radius: 0.5rem 0.5rem 0 0;
   color: #4d4d4d;
   font-weight: 500;
-  box-shadow: 2px 1px 3px 0px rgba(0, 0, 0, 0.219), inset 1px 1px 3px 1px rgb(240, 240, 240);
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.219), inset 1px 1px 3px 1px rgb(240, 240, 240);
   transition: all 0.1s;
   cursor: pointer;
 }
@@ -121,10 +121,10 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   content: "";
   position: absolute;
   z-index: 1;
-  top: -0.1rem;
+  top: 0;
   width: 100%;
   height: 0.1rem;
-  background: rgba(0, 0, 0, 0.1568627451);
+  box-shadow: 0px -0.3px 1px 1px rgba(0, 0, 0, 0.1568627451);
 }
 .staff-training .staff-training__main {
   z-index: 3;
@@ -166,8 +166,12 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   font: 500 2.4rem/2.4rem "agora";
   margin-bottom: 3rem;
 }
+.staff-training__descriotion {
+  max-width: 70.68rem;
+  margin: 0 auto 3rem auto;
+}
 .staff-training__descriotion-text {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font: 400 1.6rem/2rem "agora";
   text-align: justify;
   text-indent: 2rem;
@@ -256,10 +260,24 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 .tests__body .tests__indicators-field .tests__block-indicator-answers .exam__no-answer {
   background: transparent;
 }
+.tests__body .tests__indicators-field .test__prev-title {
+  text-align: center;
+}
+.tests__body .tests__indicators-field .tests__name-section-text {
+  font-size: 1.6rem;
+}
+.tests__body .tests__indicators-field .tests__number-question-number,
+.tests__body .tests__indicators-field .test__time-exam-num,
+.tests__body .tests__indicators-field .test__time-exam-num span {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
 .tests__body .tests__indicators-field .tests__block-questions-information {
   display: flex;
   justify-content: space-between;
+  align-items: end;
   margin: 4rem 0 0 0;
+  margin-bottom: 4rem;
 }
 .tests .question-answers__body {
   display: flex;
@@ -306,9 +324,45 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 }
 .tests .btn-score__body {
   display: flex;
+  justify-content: center;
+  gap: 0 2rem;
+  margin-top: 2rem;
+}
+.tests .btn-score__btn {
+  padding: 0.5rem;
+  color: #4d4d4d;
+  background: #e6e6e6;
+  border: 1px solid rgba(0, 0, 0, 0.1019607843);
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.219), inset 1px 1px 3px 1px rgb(240, 240, 240);
+  transition: 0.2s;
+}
+.tests .btn-score__btn:hover {
+  cursor: pointer;
+  box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.219), inset 1px 1px 3px 1px rgb(240, 240, 240);
+}
+.tests .btn-score__btn:active {
+  background: #e4e4e4;
+  box-shadow: inset 1px 1px 3px 1px rgba(0, 0, 0, 0.219), 1px 1px 3px 1px rgb(240, 240, 240);
 }
 .tests .btn-score__btn--display--none {
   display: none;
+}
+.tests .btn-score__field-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tests .btn-score__field-result .final-text {
+  margin: 2rem 0 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 600;
+}
+.tests .btn-score__field-result .error-rate {
+  color: red;
+}
+.tests .btn-score__field-result .passed {
+  color: green;
 }
 .field-start-exam {
   display: none;

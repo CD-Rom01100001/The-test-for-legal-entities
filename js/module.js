@@ -92,7 +92,7 @@ const examsContent = () => {
 }
 //* при условии, что открыты тесты и не нажата кнопка "результат" или что открыт блок обучение */
 const exitWarning = (navLink) => {
-  if (fieldTests.classList.contains('tests--display--block') && fieldFinalScore.textContent == 0) {
+  if (fieldTests.classList.contains('tests--display--block') && fieldFinalScore.style.displey === 'none') {
     let warning = confirm("Если вы покините тест, то все результаты будут сброшены!\nХотите продолжить?");
     if (warning == true) {
       navLink();

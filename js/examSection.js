@@ -9,7 +9,7 @@ const fieldIndicatorsQuest = document.querySelector('#tests-block-indicator-answ
 const fieldNumQuest = document.querySelector('#num-quest-current');
 const fieldQuestionAnswer = document.querySelector('#field-question-answers');
 const questionText = document.querySelector('#questionText');
-const fieldFinalScore = document.querySelector('#final-result');
+const fieldFinalScore = document.querySelector('.btn-score__field-result');
 const nameSectionText = document.querySelector('#name-section-text');
 const collectionAnswersBody = document.querySelectorAll('.question-answers__answers-body');
 const collectionAnswers = document.querySelectorAll('.question-answers__answers-body-answer');
@@ -151,12 +151,13 @@ const testTimeReport = () => {
 }
 //* ---------------------------------------------------- */
 
+//* считает количество ошибок
 const calcArrAnserScore = () => {
-  let score = 0;
+  let errors = 0;
   arrayAnswer.forEach((elem) => {
-    if (elem.answer == true) score += 1;
+    if (elem.answer == false) errors += 1;
   })
-  return score;
+  return errors;
 }
 
 //* при нажатии на кнопку "Начать зкзамен" открывается поле с тестом */
@@ -215,7 +216,7 @@ const navigatingQuestionsByindicator = () => {
     }
 
     /* если обучение пройдено */
-    if (fieldFinalScore.textContent.length != 0) {
+    if (fieldFinalScore.style.display === 'flex') {
       collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
       showSelectedNotSelectedAnswers(indI);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
     } else {
@@ -240,7 +241,7 @@ const navigatingQuestionsByindicator = () => {
     currentNumAnswers();// если все ответы выбранны то появляется кнопка результат
 
     /* если обучение пройдено */
-    if (fieldFinalScore.textContent.length != 0) {
+    if (fieldFinalScore.style.display === 'flex') {
       btnNext.style.display = 'none';
       btnPrev.style.display = 'none';
       btnResult.style.display = 'none';
@@ -267,13 +268,13 @@ const navigationQuestionsByKeyboards = () => {
       if (numQuest < 10) {
         if (keyName == "ArrowRight") {
           moveNextQuestion();
-          if (fieldFinalScore.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuest);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+          if (fieldFinalScore.style.display === 'flex') showSelectedNotSelectedAnswers(indexQuest);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
         }
       } 
       if (numQuest > 1) {
         if (keyName == "ArrowLeft") {
           movePrevQuestion();
-          if (fieldFinalScore.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuest);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+          if (fieldFinalScore.style.display === 'none') showSelectedNotSelectedAnswers(indexQuest);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
         }
       }
     });
@@ -314,7 +315,7 @@ const removeSelectedNotSelectedText = () => {
 
 //* при нажатии на кнопку НАЗАД */
 const movePrevQuestion = () => {
-  if (fieldFinalScore.textContent.length != 0) {
+  if (fieldFinalScore.style.display === 'flex') {
     collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
   } else {
     collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
@@ -337,7 +338,7 @@ const movePrevQuestion = () => {
     btnResult.style.display = 'none';
   }
   currentNumAnswers();// если все ответы выбранны то появляется кнопка результат
-  removeButtonsAfterTraining()
+  removeButtonsAfterTraining()// если обучение пройдено, убирает кнопки
 
   fillsQAWithText(indexQuest); // присвваеваем текст к названию секции, вопроссу и ответам
 
@@ -353,7 +354,7 @@ const movePrevQuestion = () => {
 
 //* при нажатии на кнопку ДАЛЕЕ */
 const moveNextQuestion = () => {
-  if (fieldFinalScore.textContent.length != 0) {
+  if (fieldFinalScore.style.display === 'flex') {
     collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
   } else {
     collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
@@ -365,17 +366,19 @@ const moveNextQuestion = () => {
     numQuest++;
     fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
   }
+
   /* показывает кнопку "назад" */
   if (numQuest > 1) {
     btnPrev.style.display = 'block';
   }
+
   /* показывает кнопку "результат" и убирает кнопку "далее" */
   if (numQuest == randomQuestions.length) {
     btnNext.style.display = 'none';
     btnResult.style.display = 'block';
   }
   currentNumAnswers();// если все ответы выбранны то появляется кнопка результат
-  removeButtonsAfterTraining()
+  removeButtonsAfterTraining()// если обучение пройдено, убирает кнопки
   
   fillsQAWithText(indexQuest); // присвваеваем текст к названию секции, вопроссу и ответам
   scoreCalc(); // посчитывает количество правельных ответов
@@ -426,7 +429,7 @@ const slyleResetAnswer = (text) => {
 
 //* если обучение пройдено, убирает кнопки */
 const removeButtonsAfterTraining = () => {
-  if (fieldFinalScore.textContent.length != 0) {
+  if (fieldFinalScore.style.display === 'flex') {
     btnNext.style.display = 'none';
     btnPrev.style.display = 'none';
     btnResult.style.display = 'none';
@@ -469,18 +472,26 @@ const moveResult = () => {
   collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'none';});
 
   /* если экзамен пройден */
-  if (calcArrAnserScore() >= 9) {
-    fieldFinalScore.textContent = `Вы прошли! Ваша оценка: ${calcArrAnserScore()}`;
+  if (calcArrAnserScore() <= 1) {
+    finalReport(`Вы прошли! &#128578;`);
     rightNotRightAnswersIndicators();// стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
     showSelectedNotSelectedAnswers(randomQuestions.length-1)// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после
   } 
   /* если экзамен не пройден */
   else {
-    fieldFinalScore.textContent = `Вы не прошли! Ваша оценка: ${calcArrAnserScore()}`;
+    finalReport(`Вы не прошли! &#128543;`);
     rightNotRightAnswersIndicators();// стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
     showSelectedNotSelectedAnswers(randomQuestions.length-1)// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после
     return;
   }
+}
+
+//* формирует финальный текст */
+const finalReport = (text) => {
+  fieldFinalScore.style.display = 'flex';
+  document.querySelector('.final-text').innerHTML = text;
+  document.querySelector('.error-rate').textContent = `Ошибок: ${calcArrAnserScore()}`;
+  document.querySelector('.passed').textContent = `Пройдено: ${(randomQuestions.length-calcArrAnserScore())*10}%`;
 }
 
 //* сбрасывает все результаты */
@@ -490,7 +501,7 @@ const restartResults = () => {
   btnNext.style.display = 'block';
   btnResult.style.display = 'none';
   btnRestart.style.display = 'none';
-  fieldFinalScore.textContent = '';
+  fieldFinalScore.style.display = 'none';
   fieldQuestionAnswer.style.pointerEvents = 'auto';
   fieldQuestionAnswer.style.opacity = '1';
   /* делает все ответы активными */
@@ -510,6 +521,7 @@ const restartResults = () => {
   slyleResetAnswer('exit'); // сбрасывает стили ответов
   removeSelectedNotSelectedText();// убирает текст ("Ваш ответ", "Правильный ответ")
   testTimeReport(); // запускает время тестат заново
+  stylesNotStylesAnswers();// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
 }
 /* --------------------------------------------------- */
 
@@ -551,8 +563,7 @@ collectionAnswersBody.forEach((elem, index) => {
     // console.log(collectionAnswersBody[arrayAnswer[indexQuest]]);
     // console.log(randomQuestions);
     // console.log(randomQuestions[indexQuest].answers[arrayAnswer[indexQuest]]);
-    console.log(arrayAnswer);
-    // console.log(arrayAnswer[indexQuest]);
+    console.log(recordedAnswer);
     console.log(calcArrAnserScore());
 
     console.log('arrayAnswer:');
