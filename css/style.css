@@ -157,6 +157,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 .staff-training__title {
   display: flex;
   justify-content: center;
+  margin-bottom: 3rem;
 }
 .staff-training__title--margin-bottom {
   margin-bottom: 4rem;
@@ -164,7 +165,6 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 .staff-training__title-text {
   text-align: center;
   font: 500 2.4rem/2.4rem "agora";
-  margin-bottom: 3rem;
 }
 .staff-training__descriotion {
   max-width: 70.68rem;
@@ -237,26 +237,26 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   height: 3rem;
   background: #e6e6e6;
   border-radius: 0.3rem;
-  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1), inset -1px -1px 1px 1px rgba(0, 0, 0, 0.219), inset 1px 1px 1px 1px rgb(255, 255, 255);
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1), inset -1px -1px 1px 1px rgba(0, 0, 0, 0.219), inset 1px 1px 1px 1px rgba(255, 255, 255, 0.6);
 }
 .tests__body .tests__indicators-field .tests__block-indicator-answers .exam__indicator-body .exam__indicator-number {
   font-size: 1.6rem;
 }
 .tests__body .tests__indicators-field .tests__block-indicator-answers .exam__indicator-body:hover {
   cursor: pointer;
-  box-shadow: 0 0 2px 1px #7c8a94;
+  transform: scale(1.05);
 }
 .tests__body .tests__indicators-field .tests__block-indicator-answers .exam__current-indicator {
-  box-shadow: 0px 0px 1px 1px #0064b1;
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2), inset 1px 1px 1px 1px rgba(0, 0, 0, 0.219), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.349);
 }
 .tests__body .tests__indicators-field .tests__block-indicator-answers .exam__set-answer {
   background: rgba(0, 100, 177, 0.1529411765);
 }
 .tests__body .tests__indicators-field .tests__block-indicator-answers .exam__right-answer {
-  background: #008000;
+  background: rgba(1, 248, 1, 0.3764705882);
 }
 .tests__body .tests__indicators-field .tests__block-indicator-answers .exam__not-right-answer {
-  background: #ff0000;
+  background: rgba(255, 0, 0, 0.3764705882);
 }
 .tests__body .tests__indicators-field .tests__block-indicator-answers .exam__no-answer {
   background: #e6e6e6;
@@ -300,6 +300,9 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   border-radius: 0.5rem;
   cursor: pointer;
 }
+.tests .question-answers__answers-body .exam-question-answers__answers-body-selected-not-selected {
+  font-weight: 600;
+}
 .tests .question-answers__answers-body--display--none {
   display: none;
 }
@@ -310,10 +313,10 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   background: rgba(0, 100, 177, 0.1529411765);
 }
 .tests .question-answers .exam-question-answers__body--correct-select {
-  background: rgba(0, 181, 0, 0.3176470588);
+  background: rgba(1, 248, 1, 0.3764705882);
 }
 .tests .question-answers .exam-question-answers__body--incorrect-select {
-  background: rgba(255, 0, 0, 0.3568627451);
+  background: rgba(255, 0, 0, 0.3764705882);
 }
 .tests .question-answers__answers-body:hover {
   color: #000;
@@ -362,8 +365,11 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 .tests .btn-score__field-result .error-rate {
   color: red;
 }
-.tests .btn-score__field-result .passed {
+.tests .btn-score__field-result .correct {
   color: green;
+}
+.tests .btn-score__field-result .passed {
+  color: #0064b1;
 }
 .field-start-exam {
   display: none;
@@ -522,6 +528,10 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   /* индикаторы */
   /* вопрос, отваты */
   /* кнопки */
+  /* финальный текст */
+}
+.training-main .training .training__block-button-exit {
+  margin-bottom: 3rem;
 }
 .training-main .training .training__indicators-field .training__block-indicator-answers {
   display: flex;
@@ -536,14 +546,14 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   height: 3rem;
   background: #e6e6e6;
   border-radius: 0.3rem;
-  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1), inset -1px -1px 1px 1px rgba(0, 0, 0, 0.219), inset 1px 1px 1px 1px rgb(255, 255, 255);
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1), inset -1px -1px 1px 1px rgba(0, 0, 0, 0.219), inset 1px 1px 1px 1px rgba(255, 255, 255, 0.6);
 }
 .training-main .training .training__indicators-field .training__block-indicator-answers .training__indicator-body .training__indicator-number {
   font-size: 1.6rem;
 }
 .training-main .training .training__indicators-field .training__block-indicator-answers .training__indicator-body:hover {
   cursor: pointer;
-  outline: 2px solid rgba(0, 100, 177, 0.337254902);
+  transform: scale(1.05);
 }
 .training-main .training .training__indicators-field .training__block-indicator-answers .training__current-indicator {
   box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2), inset 1px 1px 1px 1px rgba(0, 0, 0, 0.219), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.349);
@@ -552,23 +562,32 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   background: rgba(0, 100, 177, 0.1529411765);
 }
 .training-main .training .training__indicators-field .training__block-indicator-answers .training__right-answer {
-  background: #008000;
+  background: rgba(1, 248, 1, 0.3764705882);
 }
 .training-main .training .training__indicators-field .training__block-indicator-answers .training__not-right-answer {
-  background: #ff0000;
+  background: rgba(255, 0, 0, 0.3764705882);
 }
 .training-main .training .training__indicators-field .training__block-indicator-answers .training__no-answer {
-  background: transparent;
+  background: #e6e6e6;
 }
 .training-main .training .training__indicators-field .training__block-questions-information {
   display: flex;
   justify-content: space-between;
-  margin: 4rem 0;
+  margin: 3rem 0;
 }
 .training-main .training .training__indicators-field .training__block-questions-information .training__block-names {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.training-main .training .training__prev-title {
+  text-align: center;
+}
+.training-main .training .training-question-answers__body {
+  margin-bottom: 2rem;
+  padding: 0 2rem;
+  border: 0.2rem solid rgba(138, 138, 138, 0.2470588235);
+  border-radius: 0.5rem;
 }
 .training-main .training .training-question-answers__body .training-question-answers__question {
   min-height: 5rem;
@@ -597,11 +616,11 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 }
 .training-main .training .training-question-answers__body .training-question-answers__answers .training-question-answers__answers-body:hover {
   color: #000;
-  background: rgba(0, 100, 177, 0.1529411765);
+  box-shadow: 0 0 2px 1px #7c8a94;
 }
 .training-main .training .training-question-answers__body .training-question-answers__answers .training-question-answers__body:active {
   color: #000;
-  background: rgba(0, 100, 177, 0.0470588235);
+  background: rgba(0, 100, 177, 0.1529411765);
 }
 .training-main .training .training-question-answers__body .training-question-answers__answers .training-question-answers__body--active {
   background: rgba(0, 100, 177, 0.1529411765);
@@ -610,10 +629,10 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   background: rgba(0, 100, 177, 0.1529411765);
 }
 .training-main .training .training-question-answers__body .training-question-answers__answers .training-question-answers__body--correct-select {
-  background: rgba(0, 181, 0, 0.3176470588);
+  background: rgba(1, 248, 1, 0.3764705882);
 }
 .training-main .training .training-question-answers__body .training-question-answers__answers .training-question-answers__body--incorrect-select {
-  background: rgba(255, 0, 0, 0.3568627451);
+  background: rgba(255, 0, 0, 0.3764705882);
 }
 .training-main .training .training-question-answers__body .training-question-answers__answers .question-answers__answers-body--display--none {
   display: none;
@@ -649,4 +668,23 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 .training-main .training .training__button-exit:active, .training-main .training .training-btn-score__btn:active {
   background: #e4e4e4;
   box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.1), inset 1px 1px 1px 1px rgba(0, 0, 0, 0.219), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.349);
+}
+.training-main .training .training__block-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.training-main .training .training__block-result .training-final-text {
+  margin: 2rem 0 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 600;
+}
+.training-main .training .training__block-result .training-error-rate {
+  color: red;
+}
+.training-main .training .training__block-result .training-correct {
+  color: green;
+}
+.training-main .training .training__block-result .training-passed {
+  color: #0064b1;
 }

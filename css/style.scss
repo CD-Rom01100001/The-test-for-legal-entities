@@ -9,7 +9,7 @@
   box-shadow: 
   0px 0px 1px 1px rgba(0, 0, 0, 0.1),
   inset -1px -1px 1px 1px rgb(0, 0, 0, 0.219),
-  inset 1px 1px 1px 1px rgb(255, 255, 255);
+  inset 1px 1px 1px 1px rgba(255, 255, 255, 0.6);
 }
 
 html {
@@ -206,6 +206,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   &__title {
     display: flex;
     justify-content: center;
+    margin-bottom: 3rem;
   }
 
   &__title--margin-bottom {
@@ -215,7 +216,6 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   &__title-text {
     text-align: center;
     font: 500 2.4rem/2.4rem 'agora';
-    margin-bottom: 3rem;
   }
 
   &__descriotion {
@@ -307,11 +307,17 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
         .exam__indicator-body:hover {
           cursor: pointer;
-          box-shadow: 0 0 2px 1px #7c8a94;
+          // outline: 3px solid #0090f690;
+          transform: scale(1.05);
         }
-
+        
+        
         .exam__current-indicator {
-          box-shadow: 0px 0px 1px 1px #0064b1;
+          // outline: 3px solid #0064b190;
+          box-shadow: 
+            0px 0px 1px 1px rgba(0, 0, 0, 0.2),
+            inset 1px 1px 1px 1px rgb(0, 0, 0, 0.219),
+            inset -1px -1px 1px 1px rgba(255, 255, 255, 0.349);
         }
 
         .exam__set-answer {
@@ -319,16 +325,17 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
         }
 
         .exam__right-answer {
-          background:#008000;
+          background:#01f80160;
         }
 
         .exam__not-right-answer {
-          background:#ff0000;
+          background:#ff000060;
         }
 
         .exam__no-answer {
           background: #e6e6e6;
         }
+
       }
 
       .test__prev-title {
@@ -380,6 +387,10 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
       border: 0.2rem solid #8a8a8a3f;
       border-radius: 0.5rem;
       cursor: pointer;
+
+      .exam-question-answers__answers-body-selected-not-selected {
+        font-weight: 600;
+      }
 		}
 
     &__answers-body--display--none {
@@ -395,16 +406,15 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     }
 
     .exam-question-answers__body--correct-select {
-      background: #00b50051;
+      background: #01f80160;
     }
 
     .exam-question-answers__body--incorrect-select {
-      background: #ff00005b;
+      background: #ff000060;
     }
 
     &__answers-body:hover {
       color: #000;
-      // background: #0064b127;
       box-shadow: 0 0 2px 1px #7c8a94;
     }
 
@@ -412,6 +422,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
       color: #000;
       background: #0064b10c;
     }
+    
 
   }
 
@@ -468,9 +479,13 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
       .error-rate {
         color: red;
       }
+
+      .correct {
+        color: green;
+      }
       
       .passed {
-        color: green;
+        color: #0064b1;
       }
     }
   
@@ -664,6 +679,10 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   .training {
     display: none;
 
+    .training__block-button-exit {
+      margin-bottom: 3rem;
+    }
+
     /* индикаторы */
     .training__indicators-field {
       .training__block-indicator-answers {
@@ -681,15 +700,17 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
         .training__indicator-body:hover {
           cursor: pointer;
-          outline: 2px solid #0064b156;
+          // outline: 3px solid #0090f690;
+          transform: scale(1.05);
         }
-
+        
+        
         .training__current-indicator {
-          // box-shadow: 0px 0px 1px 1px #0064b1;
+          // outline: 3px solid #0064b190;
           box-shadow: 
-          0px 0px 1px 1px rgba(0, 0, 0, 0.2),
-          inset 1px 1px 1px 1px rgb(0, 0, 0, 0.219),
-          inset -1px -1px 1px 1px rgba(255, 255, 255, 0.349);
+            0px 0px 1px 1px rgba(0, 0, 0, 0.2),
+            inset 1px 1px 1px 1px rgb(0, 0, 0, 0.219),
+            inset -1px -1px 1px 1px rgba(255, 255, 255, 0.349);
         }
 
         .training__set-answer {
@@ -697,22 +718,22 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
         }
 
         .training__right-answer {
-          background:#008000;
+          background:#01f80160;
         }
 
         .training__not-right-answer {
-          background:#ff0000;
+          background:#ff000060;
         }
 
         .training__no-answer {
-          background: transparent;
+          background: #e6e6e6;
         }
       }
 
       .training__block-questions-information {
         display: flex;
         justify-content: space-between;
-        margin: 4rem 0;
+        margin: 3rem 0;
         
         .training__block-names {
           display: flex;
@@ -722,8 +743,16 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
       }
     }
 
+    .training__prev-title {
+      text-align: center;
+    }
+
     /* вопрос, отваты */
     .training-question-answers__body {
+      margin-bottom: 2rem;
+      padding: 0 2rem;
+      border: 0.2rem solid #8a8a8a3f;
+      border-radius: 0.5rem;
 
       .training-question-answers__question {
         min-height: 5rem;
@@ -755,12 +784,12 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
         .training-question-answers__answers-body:hover {
           color: #000;
-          background: #0064b127;
+          box-shadow: 0 0 2px 1px #7c8a94;
         }
         
         .training-question-answers__body:active {
           color: #000;
-          background: #0064b10c;
+          background: #0064b127;
         }
 
         .training-question-answers__body--active {
@@ -772,11 +801,11 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
         }
 
         .training-question-answers__body--correct-select {
-          background: #00b50051;
+          background: #01f80160;
         }
 
         .training-question-answers__body--incorrect-select {
-          background: #ff00005b;
+          background: #ff000060;
         }
 
         .question-answers__answers-body--display--none {
@@ -835,6 +864,31 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
       0px 0px 2px 1px rgba(0, 0, 0, 0.1),
       inset 1px 1px 1px 1px rgb(0, 0, 0, 0.219),
       inset -1px -1px 1px 1px rgba(255, 255, 255, 0.349);
+    }
+
+    /* финальный текст */
+    .training__block-result {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .training-final-text {
+        margin: 2rem 0 0.5rem 0;
+        font-size: 2rem;
+        font-weight: 600;
+      }
+
+      .training-error-rate {
+        color: red;
+      }
+      
+      .training-correct {
+        color: green;
+      }
+
+      .training-passed {
+        color: #0064b1;
+      }
     }
     
   }

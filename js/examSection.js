@@ -160,6 +160,15 @@ const calcArrAnserScore = () => {
   return errors;
 }
 
+//* считает количество правельных ответов
+const calcArrAnserScoreTrue = () => {
+  let errors = 0;
+  arrayAnswer.forEach((elem) => {
+    if (elem.answer == true) errors += 1;
+  })
+  return errors;
+}
+
 //* при нажатии на кнопку "Начать зкзамен" открывается поле с тестом */
 const startExam = () => {
   staffTrainingDescription.style.display = 'none';
@@ -274,7 +283,7 @@ const navigationQuestionsByKeyboards = () => {
       if (numQuest > 1) {
         if (keyName == "ArrowLeft") {
           movePrevQuestion();
-          if (fieldFinalScore.style.display === 'none') showSelectedNotSelectedAnswers(indexQuest);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+          if (fieldFinalScore.style.display === 'flex') showSelectedNotSelectedAnswers(indexQuest);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
         }
       }
     });
@@ -491,6 +500,7 @@ const finalReport = (text) => {
   fieldFinalScore.style.display = 'flex';
   document.querySelector('.final-text').innerHTML = text;
   document.querySelector('.error-rate').textContent = `Ошибок: ${calcArrAnserScore()}`;
+  document.querySelector('.correct').textContent = `Правельных ответов: ${calcArrAnserScoreTrue()}`;
   document.querySelector('.passed').textContent = `Пройдено: ${(randomQuestions.length-calcArrAnserScore())*10}%`;
 }
 

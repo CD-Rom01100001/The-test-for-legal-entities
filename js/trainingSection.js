@@ -16,7 +16,7 @@ const btnPrev = document.querySelector('#training-btn-prev');
 const btnNext = document.querySelector('#training-btn-next');
 const btnResult = document.querySelector('#training-btn-result');
 const btnRestart = document.querySelector('#training-btn-restart');
-const result = document.querySelector('.training__result-text');
+const resultField = document.querySelector('.training__block-result');
 
 let allQuestions = [];// здесь формируются все 244 вопроса
 let currentQuestionsArray = []; // устонавливает массив из 35 вопроссов в соответствии с нажатой превьюшкой
@@ -64,12 +64,16 @@ const createStagePreviewBlock = (stage, section, allQuest) => {
   sectionBlock.setAttribute('id', 'section-block');
   sectionBlock.innerHTML = section; // innerHTML а не textContent потому-что в дальнейшем нужно добовлять перенос строки дописывая в строку <br>
 
+  const bestResult = document.createElement('p');
+  bestResult.setAttribute('class', 'best-result');
+  bestResult.setAttribute('id', 'best-result');
+
   const allQuestInStage = document.createElement('p');
   allQuestInStage.setAttribute('class', 'all-quest-in-stage');
   allQuestInStage.textContent = `всего ${allQuest} вопросов`;
 
   wrapPreviewBlockLink.append(previewBlock);
-  previewBlock.append(stageBlock, stageProgress, sectionBlock, allQuestInStage);
+  previewBlock.append(stageBlock, stageProgress, sectionBlock, bestResult, allQuestInStage);
   trainingContentInner.append(wrapPreviewBlockLink);
 }
 
@@ -280,7 +284,7 @@ const navigatingQuestionsByindicator = () => {
       }
 
       /* если обучение пройдено */
-      if (result.textContent.length != 0) {
+      if (/* result.textContent.length != 0 */resultField.style.display == 'flex') {
         trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
         showSelectedNotSelectedAnswers(i);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
       } else {
@@ -320,10 +324,10 @@ const navigationQuestionsByKeyboards = () => {
       const keyName = event.key;
       if (keyName == "ArrowRight") {
         moveNextQuestion();
-        if (result.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+        if (/* result.textContent.length != 0 */resultField.style.display == 'flex') showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
       } else if (keyName == "ArrowLeft") {
         movePrevQuestion();
-        if (result.textContent.length != 0) showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+        if (/* result.textContent.length != 0 */resultField.style.display == 'flex') showSelectedNotSelectedAnswers(indexQuestion);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
       }
     });
   }
@@ -349,7 +353,7 @@ const fillsQuestAnswers = (quest) => {
 
 //* при нажатии на кнопку НАЗАД */
 const movePrevQuestion = () => {
-  if (result.textContent.length != 0) {
+  if (/* result.textContent.length != 0 */resultField.style.display == 'flex') {
     trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
   } else {
     trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
@@ -380,7 +384,7 @@ const movePrevQuestion = () => {
 
 //* при нажатии на кнопку ДАЛЕЕ */
 const moveNextQuestion = () => {
-  if (result.textContent.length != 0) {
+  if (/* result.textContent.length != 0 */resultField.style.display == 'flex') {
     trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
   } else {
     trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
@@ -420,8 +424,9 @@ const moveResult = () => {
   fieldQuestionAnswer.forEach(answer => answer.style.pointerEvents = 'none');// делает курсор активным во всем блоке
   
   /* если меньше трех ошибок, то выведет сообщение, что все ОК */
-  if (calcArrAnswerScore() >= currentQuestionsArray.length-3) {
-    result.textContent = `Вы прошли! Ваша оценка: ${calcArrAnswerScore()}`;
+  if (calcArrAnswerScore() <= 3) {
+    finalReport(`Вы прошли! &#128578;`);
+    // result.textContent = `Вы прошли! Ваша оценка: ${calcArrAnswerScore()}`;
     rightNotRightAnswersIndicators();// стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
     // collectionPrewiews[currentIndexPreview+1]
     /* что бы не вызывало ошибку после прохождения последнего этапа, поскольку код ниже срабатывает только для последующего этапа */
@@ -435,7 +440,8 @@ const moveResult = () => {
   } 
   /* если больше трех ошибок, то выведет сообщение, что все NO */
   else {
-    result.textContent = `Вы не прошли! Ваша оценка: ${calcArrAnswerScore()}`;
+    finalReport(`Вы не прошли! &#128543;`);
+    // result.textContent = `Вы не прошли! Ваша оценка: ${calcArrAnswerScore()}`;
     rightNotRightAnswersIndicators();// стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
     showSelectedNotSelectedAnswers(currentQuestionsArray.length-1);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
     localStorage.setItem(`stage ${currentIndexPreview}`, calcLearningProgress());
@@ -443,6 +449,15 @@ const moveResult = () => {
     return;
   }
   
+}
+
+//* формирует финальный текст */
+const finalReport = (text) => {
+  resultField.style.display = 'flex';
+  document.querySelector('.training-final-text').innerHTML = text;
+  document.querySelector('.training-error-rate').textContent = `Ошибок: ${calcArrAnswerScore()}`;
+  document.querySelector('.training-correct').textContent = `Правельных ответов: ${calcArrAnswerScoreTrue()}`;
+  document.querySelector('.training-passed').textContent = `Пройдено: ${calcLearningProgress()}`;
 }
 
 //* стилизует и показывает где правильный ответ и какой ответ выбрал пользователь после завершения блока "Обучение" */
@@ -496,7 +511,7 @@ const openPrewiewOnSiteLoad = () => {
 
 //* при нажатии на кнопку ЗАНОВО */
 const moveAgain = () => {
-  result.textContent = '';// убирает текст с итоговой оценкой
+  /* result.textContent = ''; */resultField.style.display = 'none';// убирает текст с итоговой оценкой
   indexQuestion = 0;// индекс вопроса
   currentNumAnswer = 1;// номер текущего вопроса
   showNumQuest(currentNumAnswer);// номер текущего вопроса
@@ -533,15 +548,24 @@ const slyleResetAnswer = () => {
 
 //* если обучение пройдено, убирает кнопки */
 const removeButtonsAfterTraining = () => {
-  if (result.textContent.length != 0) {
+  if (/* result.textContent.length != 0 */resultField.style.display == 'flex') {
     btnNext.classList.add('btn-score__btn--display--none');
     btnPrev.classList.add('btn-score__btn--display--none');
     btnResult.classList.add('btn-score__btn--display--none');
   }
 }
 
-//* при каждом вызове прибавляет 1 если true и аккамулирует итоговую оценку  */
+//* при каждом вызове прибавляет 1 если false и аккамулирует итоговую оценку  */
 const calcArrAnswerScore = () => {
+  let score = 0;
+  arrayAnswer.forEach((elem) => {
+    if (elem.answer == false) score += 1;
+  })
+  return score;
+}
+
+//* при каждом вызове прибавляет 1 если true и аккамулирует итоговую оценку  */
+const calcArrAnswerScoreTrue = () => {
   let score = 0;
   arrayAnswer.forEach((elem) => {
     if (elem.answer == true) score += 1;
@@ -640,9 +664,9 @@ const startTraining = (numSection, nStage) => {
   nameStage.textContent = nStage;// название этапа
   nameSection.innerHTML = numSection;// название секции
   /* если в превью один заздел */
-  if (amountTextInPreview <= 2) prevTitle.textContent = 'Из раздела:';
+  if (amountTextInPreview <= 2) prevTitle.textContent = 'из раздела:';
   /* если в превью больше разделов */
-  else prevTitle.textContent = 'Из разделов:';
+  else prevTitle.textContent = 'из разделов:';
 
   showNumQuest(currentNumAnswer);// номер текущего вопроса и общее количество вопросов в блоке
   trainingTime();// показывает время
@@ -669,7 +693,7 @@ const exitOfBlockTraining = () => {
 //* при нажатии на другие ВКЛАДКИ или на кнопку ВЫХОД  */
 const restartResults = () => {
   clearInterval(testTimeReportVar);
-  result.textContent = '';// убирает текст с итоговой оценкой
+  /* result.textContent = '' */resultField.style.display = 'none';// убирает текст с итоговой оценкой
   clearSelectedNotSelectedAnswers();// очищает правильный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
   currentNumAnswer = 1;
   indexQuestion = 0;
