@@ -30,7 +30,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   position: fixed;
   right: 2rem;
   bottom: 2rem;
-  z-index: 2;
+  z-index: 20;
   display: none;
   justify-content: center;
   align-items: center;
@@ -80,6 +80,38 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
   &__logo {
     margin-bottom: 2rem;
+
+    .staff-training__logo-image {
+      max-height: 18rem;
+    }
+
+    .staff-training__logo-image-2 {
+      display: none;
+    }
+
+    @media(max-width: 800px){
+      .staff-training__logo-image {
+        display: none;
+      }
+
+      .staff-training__logo-2-wrapper {
+        max-height: 18rem;
+        max-width: 18rem;
+
+        .staff-training__logo-image-2 {
+          display: block;
+          width: 100%;
+        }
+      }
+    }
+    
+  }
+  
+  @media(max-width: 480px){
+    &__logo {
+      display: flex;
+      justify-content: center;
+    }
   }
 
   &__main-nav-wrap {
@@ -626,7 +658,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
   
     .training__content-inner {
       display: flex;
-      justify-content: start;
+      justify-content: center;
       flex-wrap: wrap;
       gap: 2rem;
       max-width: 68rem;
@@ -636,7 +668,8 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        width: 33rem;
+        align-items: stretch;
+        max-width: 33rem;
         padding: 1rem;
         line-height: 3rem;
         background: #fff;
@@ -645,6 +678,12 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
         box-shadow: 1px 1px 0px 1px #83828231;
         cursor: pointer;
       }
+
+      // @media(max-width: 480px){
+      //   .preview-block {
+      //     min-width: 13rem;
+      //   }
+      // }
   
       .disabled-block {
         position: absolute;
@@ -667,6 +706,7 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
     
       .section-block {
         min-height: 10rem;
+        width: 100%;
       }
     
       .all-quest-in-stage {
