@@ -20,6 +20,10 @@ const resultField = document.querySelector('.training__block-result');
 
 let allQuestions = [];// здесь формируются все 244 вопроса
 let currentQuestionsArray = []; // устонавливает массив из 35 вопроссов в соответствии с нажатой превьюшкой
+let bestResultArray = [];// для localStorage массив лучших результатов
+let bestResultArrayNumber = [];// для localStorage массив цифр лучших результатов
+let lastResultArray = [];// для localstorage массив последних результатов
+let numBestResult = 0;
 let recordedAnswer = ''; // устонавливает true или false
 let stageOut = 1;
 let count = 1;
@@ -38,13 +42,30 @@ let testTimeReportVar = Object;
 let collectionIndicators = Object;// коллекция индикаторов
 let locStorArrayOpenPrew = [];// массив с индексами открытых превью
 let eventKey = false;// нужно, что-бы событие клавиатуры срабатывало только один раз и не дулировало функцию "navigationQuestionsByKeyboards"
+
 /* если в localStorage присутствует ключ 'openPreview' то все значения данного ключа переносятся в массив locStorArrayOpenPrew при загрузке сайта */
 if (localStorage.getItem('openPreview')) {
   locStorArrayOpenPrew = JSON.parse(localStorage.getItem('openPreview'));
 }
 
+/* если в localStorage присутствует ключ 'last result array' то все значения данного ключа переносятся в массив lastResultArray при загрузке сайта */
+if (localStorage.getItem('last result array')) {
+  lastResultArray = JSON.parse(localStorage.getItem('last result array'));
+  console.log(lastResultArray);
+} else lastResultArray = ['', '', '', '', '', '', ''];
+
+/* если в localStorage присутствует ключ 'last result array' то все значения данного ключа переносятся в массив lastResultArray при загрузке сайта */
+if (localStorage.getItem('best result array')) {
+  bestResultArray = JSON.parse(localStorage.getItem('best result array'));
+  bestResultArrayNumber = JSON.parse(localStorage.getItem('best result array number'));
+} else {
+  bestResultArray = ['', '', '', '', '', '', ''];
+  bestResultArrayNumber = [0, 0, 0, 0, 0, 0, 0];
+}
+
+
 //* формирует превьюшки html теги на странице */
-const createStagePreviewBlock = (stage, section, allQuest) => {
+const createStagePreviewBlock = (stage, section, allQuest, lastRes, bestRes) => {
   const wrapPreviewBlockLink = document.createElement('a');
   wrapPreviewBlockLink.setAttribute('href', `#anchor-for-exams`);
 
@@ -64,16 +85,22 @@ const createStagePreviewBlock = (stage, section, allQuest) => {
   sectionBlock.setAttribute('id', 'section-block');
   sectionBlock.innerHTML = section; // innerHTML а не textContent потому-что в дальнейшем нужно добовлять перенос строки дописывая в строку <br>
 
+  const lastResult = document.createElement('p');
+  lastResult.setAttribute('class', 'last-result');
+  lastResult.setAttribute('id', 'last-result');
+  lastResult.textContent = `последний результат: ${lastRes}`;
+
   const bestResult = document.createElement('p');
   bestResult.setAttribute('class', 'best-result');
   bestResult.setAttribute('id', 'best-result');
+  bestResult.textContent = `лучший результат: ${bestRes}`;
 
   const allQuestInStage = document.createElement('p');
   allQuestInStage.setAttribute('class', 'all-quest-in-stage');
   allQuestInStage.textContent = `всего ${allQuest} вопросов`;
 
   wrapPreviewBlockLink.append(previewBlock);
-  previewBlock.append(stageBlock, stageProgress, sectionBlock, bestResult, allQuestInStage);
+  previewBlock.append(stageBlock, stageProgress, sectionBlock, lastResult, bestResult, allQuestInStage);
   trainingContentInner.append(wrapPreviewBlockLink);
 }
 
@@ -94,6 +121,7 @@ const setAnswerIndicators = () => {
     num++;
   }
 }
+
 //* заполняет превьюшки информацией сколько в каком этапе вопросов и к каким секциям они относятся */
 const previewCreation = () => {
   for (let i = 0; i < allQuestions.length; i++) {
@@ -115,7 +143,7 @@ const previewCreation = () => {
         countsKeyValue += `&#8226; ${i} - ${counts[i]} <br>`;
         totalNumQuestStage += counts[i];
       }
-      createStagePreviewBlock(stageOut, countsKeyValue, totalNumQuestStage);
+      createStagePreviewBlock(stageOut, countsKeyValue, totalNumQuestStage, lastResultArray[stageOut-1], bestResultArray[stageOut-1]);
       sectionArray = [];
       countsKeyValue = '';
       notFirstIteration = true;
@@ -195,9 +223,8 @@ const clickPrewiew = () => {
         }
         currentIndexPreview = index;
         currentQuestionsArray = questionsFromTo(index);// устонавливает массив из 35 вопроссов в соответствии с нажатой превьюшкой
-        console.log(`текущее превью ${currentIndexPreview}`);
-        console.log('currentQuestionsArray:');
-        console.log(currentQuestionsArray);
+        // console.log(`текущее превью ${currentIndexPreview}`);
+        // console.log(`currentQuestionsArray:\n${currentQuestionsArray}`);
         blockIndicatorAnswers.innerHTML = '';// очищает блок с индикаторами, что-бы они не дублирывались
         setAnswerIndicators();// формирует индикаторы ответов
         collectionIndicators = document.querySelectorAll('.training__indicator-body');
@@ -206,6 +233,10 @@ const clickPrewiew = () => {
         navigatingQuestionsByindicator();// навигация по вопросам с помощью индикаторов
         navigationQuestionsByKeyboards();// навигация по вопросам с помощью клавиатуры
         stylesNotStylesAnswers()// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
+
+        if (localStorage.getItem('best result array number')) {
+          numBestResult = JSON.parse(localStorage.getItem('best result array number'))[currentIndexPreview];// преобразует текстовый результат из массива "best result array number" в localStorage в число
+        }
       }
     })
   })
@@ -415,6 +446,39 @@ const moveNextQuestion = () => {
   recordedAnswer = ''; // очищает переменную ()
 }
 
+//* выводит результат последнего прохождения теста */
+const deduceLastResult = () => {
+  // localStorage.getItem('last result array')
+  let lastResDate = `${calcLearningProgress()} (${new Date().toLocaleDateString()})`;
+  document.querySelectorAll('#last-result')[currentIndexPreview].textContent = `последний результат: ${lastResDate}`;
+  lastResultArray[currentIndexPreview] = lastResDate;// помещает в массив с последними результатами оценку пройденного этапа в соответствии с индексом превьюшки
+  console.log(lastResultArray);
+  localStorage.setItem('last result array', JSON.stringify(lastResultArray));
+}
+
+//* выводит результат лучшего прохождения теста */
+const deduceBestResult = () => {
+  console.log('подсчитывает прогресс обучения - '+calcLearningProgress());
+  let bestResDate = `${calcLearningProgress()} (${new Date().toLocaleDateString()})`;
+   
+  if(+calcLearningProgress().slice(0,-1) >= numBestResult) {
+    
+    document.querySelectorAll('#best-result')[currentIndexPreview].textContent = `лучший результат: ${bestResDate}`;
+    bestResultArray[currentIndexPreview] = bestResDate;// помещает в массив с последними результатами оценку пройденного этапа в соответствии с индексом превьюшки
+    localStorage.setItem('best result array', JSON.stringify(bestResultArray));
+    let numBest = '';
+    for(let elem of bestResDate.split('')) {
+      if(elem === '%') break;
+      numBest += elem;
+    }
+    console.log('номер последнего, локального результата - '+numBest);
+    bestResultArrayNumber[currentIndexPreview] = +numBest;
+    localStorage.setItem('best result array number', JSON.stringify(bestResultArrayNumber));
+    console.log(numBestResult);
+  }
+}
+
+
 //* при нажатии на кнопку РЕЗУЛЬТАТ */
 const moveResult = () => {
   clearInterval(testTimeReportVar);
@@ -436,6 +500,7 @@ const moveResult = () => {
 
       locStorArrayOpenPrew.push(currentIndexPreview+1);// помещает индекс нажатого превью в массив locStorArrayOpenPrew
       localStorage.setItem('openPreview', JSON.stringify([... new Set(locStorArrayOpenPrew)]));// помещает в localStorage массив locStorArrayOpenPrew без повторяющихся значений(индеков)
+      
     }
   } 
   /* если больше трех ошибок, то выведет сообщение, что все NO */
@@ -444,8 +509,9 @@ const moveResult = () => {
     // result.textContent = `Вы не прошли! Ваша оценка: ${calcArrAnswerScore()}`;
     rightNotRightAnswersIndicators();// стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
     showSelectedNotSelectedAnswers(currentQuestionsArray.length-1);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
-    localStorage.setItem(`stage ${currentIndexPreview}`, calcLearningProgress());
-    console.log(calcLearningProgress());
+
+    deduceLastResult();// выводит результат последнего прохождения теста
+    deduceBestResult();// выводит результат лучшего прохождения теста
     return;
   }
   
@@ -472,7 +538,6 @@ const showSelectedNotSelectedAnswers = (i) => {
     if (el.correct == true) {
       trainingAnswersCollectionBody[index].classList.add('training-question-answers__body--correct');
       trainingSelectedNotSelectedAnswer[index].textContent = `правильный ответ`;
-      console.log(`правельный ответ ${el.value}`);
     } 
     if (el.correct == true && arrayAnswer[i].answer == true) {
       trainingAnswersCollectionBody[index].classList.add('training-question-answers__body--correct-select');
