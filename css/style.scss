@@ -293,9 +293,20 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
 
     &__item--list-style--none {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       margin: 2rem 0 0 0;
       list-style: none;
+
+      .questions-list__order-reference {
+        margin: 0 4rem 2rem 0;
+      }
+
+      @media(max-width: 700px){
+        .questions-list__order-reference {
+          margin: 0 0 2rem 0;
+        }
+      }
     }
   }
 
@@ -327,7 +338,12 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
       .tests__block-indicator-answers {
         display: flex;
         justify-content: center;
-        gap: 0 0.5rem;
+
+        .tests__wrap-indicator-body {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0 0.5rem;
+        }
 
         .exam__indicator-body {
           @include style-indicator;
@@ -663,13 +679,18 @@ h1, h2, h3, h4, h5, h6, p, a, span, li {
       gap: 2rem;
       max-width: 68rem;
     
+      .wrap-link-preview-block {
+        flex: 1 1 100%;// flex-grow, flex-shrink, flex-basis
+        max-width: 33rem;
+      }
+
       .preview-block {
         position: relative;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: stretch;
-        max-width: 33rem;
+        
         padding: 1rem;
         line-height: 3rem;
         background: #fff;

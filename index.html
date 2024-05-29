@@ -1,294 +1,497 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Обучение сотрудников</title>
-  <link rel="shortcut icon" href="assets/images/favicon.ico">
-  <link rel="stylesheet" href="css/fonts.css">
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Обучение сотрудников</title>
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="staff-training">
+      <div class="staff-training__body">
+        <header class="staff-training__logo" id="top">
+          <img
+            src="assets/images/logo.png"
+            alt="logo GCSS"
+            class="staff-training__logo-image"
+          />
+          <div class="staff-training__logo-2-wrapper">
+            <img
+              src="assets/images/logo-2.png"
+              alt="logo GCSS-2"
+              class="staff-training__logo-image-2 staff-training__logo-image-2--display-none"
+            />
+          </div>
+        </header>
 
-  <div class="staff-training">
-    <div class="staff-training__body">
-
-      <header class="staff-training__logo" id="top">
-        <img src="assets/images/logo.png" alt="logo GCSS" class="staff-training__logo-image">
-        <div class="staff-training__logo-2-wrapper">
-          <img src="assets/images/logo-2.png" alt="logo GCSS-2" class="staff-training__logo-image-2 staff-training__logo-image-2--display-none">
+        <div class="staff-training__title staff-training__title--margin-bottom">
+          <h2 class="staff-training__title-text">
+            Обучение сотрудников ФГУП ГЦСС:
+          </h2>
         </div>
-      </header>
 
-      <div class="staff-training__title staff-training__title--margin-bottom">
-        <h2 class="staff-training__title-text">Обучение сотрудников ФГУП ГЦСС:</h2>
-      </div>
-
-      <div class="staff-training__main-nav-wrap">
-        <nav class="staff-training__nav navigation">
-          <div class="navigation__questions nav-link nav-link--active" id="navigation__questions"><p>Вопросы</p></div>
-          <div class="navigation__training nav-link" id="navigation__training"><p>Обучение</p></div>
-          <div class="navigation__exam nav-link" id="navigation__exam"><p>Экзамен</p></div>
-        </nav>
-        <div class="staff-training__background-line"></div>
-        <main class="staff-training__main main" id="main">
-
-          <div class="staff-training__title">
-            <h3 class="staff-training__title-text" id="title-section">Вопросы</h3>
-          </div>
-    
-          <!-- описания рзделов (Вопросы, Обучение, Экзамен) -->
-          <div class="staff-training__descriotion">
-            <p class="staff-training__descriotion-text">Для проверки теоретических знаний нормативных правовых актов Российской Федерации, регулирующих деятельность юридических лиц с особыми уставными задачами, оборот оружия и (или) специальных средств, а также устанавливающих особенности, запреты и ограничения на их применение в ходе периодических проверок на пригодность к действиям в условиях, связанных с применением огнестрельного оружия и специальных средств разработаны 244 вопроса для юридических лиц с особыми уставными задачами.</p>
-            <p class="staff-training__descriotion-text">Перечень вопросов и варианты ответов на них утверждены Главным управлением государственного контроля и лицензионно-разрешительной работы Федеральной службы войск национальной гвардии Российской Федерации.</p>
-            <p class="staff-training__descriotion-text staff-training__descriotion-text--display--none">На экзамене будут использоваться билеты, в каждом из которых будет приведено по 10 вопросов из общего списка. На тестирование отведено 15 минут. Для успешной сдачи экзамена вам необходимо уложиться в данный промежуток времени, а также разрешается допустить не более 1 ошибки.</p>
-            <p class="staff-training__descriotion-text staff-training__descriotion-text--display--none">Раздел обучение преднозначен для поэтапного изучения всех вопросов категорий. Всё обучение разбито на определеное количество этапов, что-бы пройти на следующий этап, необходимо успешно завершить тест текущего этапа. Для удачного прохождения этапа разрешается допустить не более 3-х ошибок.</p>
-          </div>
-    
-          <!-- блок списка разделов вопросов и ссылки -->
-          <div class="questions-list">
-            <div class="questions-list__body">
-              <h3 class="questions-list__title">Всего 244 вопроса:</h3>
-    
-              <ul>
-                <li class="questions-list__item">
-                  <p class="questions-list__section-link links" id="legal-training-80">по правовой подготовке (80)</p>
-                </li>
-                <li class="questions-list__item">
-                  <p class="questions-list__section-link links" id="tactical-specialty-training-10">по тактико-специальной подготовке (10)</p>
-                </li>
-                <li class="questions-list__item">
-                  <p class="questions-list__section-link links" id="first-aid-50">по первой помощи (50)</p>
-                </li>
-                <li class="questions-list__item">
-                  <p class="questions-list__section-link links" id="use-of-special-tools-20">по использованию специальных средств (20)</p>
-                </li>
-                <li class="questions-list__item">
-                  <p class="questions-list__section-link links" id="firearms-training-84">по огневой подготовке (84)</p>
-                </li>
-                <li class="questions-list__item questions-list__item--list-style--none">
-                  <p>Все они утверждены <a class="questions-list__order-link links" href="https://rosguard.gov.ru/document/article/prikaz-federalnoj-sluzhby-vojsk-nacionalnoj-gvardii-rossijskoj-federacii-ot-25112019--387" target="_blank">Приказом Росгвардии от 25.11.2019 N 387</a></p> 
-                  <a class="questions-list__link-pdf-file links" href="assets/txt-files/voprosy_i_otvety_dlya_yuridicheskih_lic_s_osobymi_zadachami2021.pdf" download="voprosy_i_otvety_dlya_yuridicheskih_lic_s_osobymi_zadachami2021.pdf">Скачать вопросы с ответами</a>
-                </li>
-              </ul>
-    
+        <div class="staff-training__main-nav-wrap">
+          <nav class="staff-training__nav navigation">
+            <div
+              class="navigation__questions nav-link nav-link--active"
+              id="navigation__questions"
+            >
+              <p>Вопросы</p>
             </div>
-          </div>
-
-          <!-- блок списка вопросов выбранного раздела -->
-          <div class="field-questions field-questions--margin--top">
-            <div class="field-questions__body" id="field-questions"></div>
-          </div>
-
-          <!-- блок прохождения обучения -->
-          <div class="training-main training-main--display--none" id="field-training">
-
-            <!-- блок с превьюшками -->
-            <div class="training__content">
-              <div class="training__content-inner"></div>
+            <div
+              class="navigation__training nav-link"
+              id="navigation__training"
+            >
+              <p>Обучение</p>
             </div>
-            
-            <!-- блок с прохождением обучения определеной секции -->
-            <div class="training" id="training">
-              <div class="training__body">
-      
-                <!-- button exit -->
-                <div class="training__block-button-exit">
-                  <button class="training__button-exit">Выход</button>
-                </div>
+            <div class="navigation__exam nav-link" id="navigation__exam">
+              <p>Экзамен</p>
+            </div>
+          </nav>
+          <div class="staff-training__background-line"></div>
+          <main class="staff-training__main main" id="main">
+            <div class="staff-training__title">
+              <h3 class="staff-training__title-text" id="title-section">
+                Вопросы
+              </h3>
+            </div>
 
-                <div class="training__indicators-field">
-                  <!--  -->
-                  <div class="training__block-indicator-answers" id="block-indicator-answers"></div>
-                  <!--  -->
-                  <div class="training__block-questions-information">
-                    <!-- number question -->
-                    <div class="training__number-question">
-                      <p class="training__number-question-number" id="training-num-quest-current"></p>
-                    </div>
+            <!-- описания рзделов (Вопросы, Обучение, Экзамен) -->
+            <div class="staff-training__descriotion">
+              <p class="staff-training__descriotion-text">
+                Для проверки теоретических знаний нормативных правовых актов
+                Российской Федерации, регулирующих деятельность юридических лиц
+                с особыми уставными задачами, оборот оружия и (или) специальных
+                средств, а также устанавливающих особенности, запреты и
+                ограничения на их применение в ходе периодических проверок на
+                пригодность к действиям в условиях, связанных с применением
+                огнестрельного оружия и специальных средств разработаны 244
+                вопроса для юридических лиц с особыми уставными задачами.
+              </p>
+              <p class="staff-training__descriotion-text">
+                Перечень вопросов и варианты ответов на них утверждены Главным
+                управлением государственного контроля и
+                лицензионно-разрешительной работы Федеральной службы войск
+                национальной гвардии Российской Федерации.
+              </p>
+              <p
+                class="staff-training__descriotion-text staff-training__descriotion-text--display--none"
+              >
+                На экзамене будут использоваться билеты, в каждом из которых
+                будет приведено по 10 вопросов из общего списка. На тестирование
+                отведено 15 минут. Для успешной сдачи экзамена вам необходимо
+                уложиться в данный промежуток времени, а также разрешается
+                допустить не более 1 ошибки.
+              </p>
+              <p
+                class="staff-training__descriotion-text staff-training__descriotion-text--display--none"
+              >
+                Раздел обучение преднозначен для поэтапного изучения всех
+                вопросов категорий. Всё обучение разбито на определеное
+                количество этапов, что-бы пройти на следующий этап, необходимо
+                успешно завершить тест текущего этапа. Для удачного прохождения
+                этапа разрешается допустить не более 3-х ошибок.
+              </p>
+            </div>
 
-                    <div class="training__block-names">
-                      <!-- name stage -->
-                      <div class="training__name-stage">
-                        <h3 class="training__name-stage-text" id="training-name-stage-text"></h3>
+            <!-- блок списка разделов вопросов и ссылки -->
+            <div class="questions-list">
+              <div class="questions-list__body">
+                <h3 class="questions-list__title">Всего 244 вопроса:</h3>
+
+                <ul>
+                  <li class="questions-list__item">
+                    <p
+                      class="questions-list__section-link links"
+                      id="legal-training-80"
+                    >
+                      по правовой подготовке (80)
+                    </p>
+                  </li>
+                  <li class="questions-list__item">
+                    <p
+                      class="questions-list__section-link links"
+                      id="tactical-specialty-training-10"
+                    >
+                      по тактико-специальной подготовке (10)
+                    </p>
+                  </li>
+                  <li class="questions-list__item">
+                    <p
+                      class="questions-list__section-link links"
+                      id="first-aid-50"
+                    >
+                      по первой помощи (50)
+                    </p>
+                  </li>
+                  <li class="questions-list__item">
+                    <p
+                      class="questions-list__section-link links"
+                      id="use-of-special-tools-20"
+                    >
+                      по использованию специальных средств (20)
+                    </p>
+                  </li>
+                  <li class="questions-list__item">
+                    <p
+                      class="questions-list__section-link links"
+                      id="firearms-training-84"
+                    >
+                      по огневой подготовке (84)
+                    </p>
+                  </li>
+                  <li
+                    class="questions-list__item questions-list__item--list-style--none"
+                  >
+                    <p class="questions-list__order-reference">
+                      Все они утверждены
+                      <a
+                        class="questions-list__order-link links"
+                        href="https://rosguard.gov.ru/document/article/prikaz-federalnoj-sluzhby-vojsk-nacionalnoj-gvardii-rossijskoj-federacii-ot-25112019--387"
+                        target="_blank"
+                        >Приказом Росгвардии от 25.11.2019 N 387</a
+                      >
+                    </p>
+                    <a
+                      class="questions-list__link-pdf-file links"
+                      href="assets/txt-files/voprosy_i_otvety_dlya_yuridicheskih_lic_s_osobymi_zadachami2021.pdf"
+                      download="voprosy_i_otvety_dlya_yuridicheskih_lic_s_osobymi_zadachami2021.pdf"
+                      >Скачать вопросы с ответами</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- блок списка вопросов выбранного раздела -->
+            <div class="field-questions field-questions--margin--top">
+              <div class="field-questions__body" id="field-questions"></div>
+            </div>
+
+            <!-- блок прохождения обучения -->
+            <div
+              class="training-main training-main--display--none"
+              id="field-training"
+            >
+              <!-- блок с превьюшками -->
+              <div class="training__content">
+                <div class="training__content-inner"></div>
+              </div>
+
+              <!-- блок с прохождением обучения определеной секции -->
+              <div class="training" id="training">
+                <div class="training__body">
+                  <!-- button exit -->
+                  <div class="training__block-button-exit">
+                    <button class="training__button-exit">Выход</button>
+                  </div>
+
+                  <div class="training__indicators-field">
+                    <!--  -->
+                    <div
+                      class="training__block-indicator-answers"
+                      id="block-indicator-answers"
+                    ></div>
+                    <!--  -->
+                    <div class="training__block-questions-information">
+                      <!-- number question -->
+                      <div class="training__number-question">
+                        <p
+                          class="training__number-question-number"
+                          id="training-num-quest-current"
+                        ></p>
                       </div>
-                      <!-- name section -->
-                      <div class="training__name-section">
-                        <p class="training__prev-title" id="training__prev-title"></p>
-                        <p class="training__name-section-text" id="training-name-section-text"></p>
+
+                      <div class="training__block-names">
+                        <!-- name stage -->
+                        <div class="training__name-stage">
+                          <h3
+                            class="training__name-stage-text"
+                            id="training-name-stage-text"
+                          ></h3>
+                        </div>
+                        <!-- name section -->
+                        <div class="training__name-section">
+                          <p
+                            class="training__prev-title"
+                            id="training__prev-title"
+                          ></p>
+                          <p
+                            class="training__name-section-text"
+                            id="training-name-section-text"
+                          ></p>
+                        </div>
+                      </div>
+
+                      <!-- time -->
+                      <div class="training__time-exam">
+                        <p class="training__time-exam-num">
+                          <span id="training-min"></span> :
+                          <span id="training-sec"></span>
+                        </p>
                       </div>
                     </div>
-                    
-                    <!-- time -->
-                    <div class="training__time-exam">
-                      <p class="training__time-exam-num"><span id="training-min"></span> : <span id="training-sec"></span></p>
+                  </div>
+
+                  <!-- questions and answers -->
+                  <div
+                    class="training__question-answers training-question-answers"
+                    id="training-field-question-answers"
+                  >
+                    <div class="training-question-answers__body">
+                      <div class="training-question-answers__question">
+                        <p
+                          class="training-question-answers__question-text"
+                          id="training-questionText"
+                        ></p>
+                      </div>
+
+                      <div class="training-question-answers__answers">
+                        <label class="training-question-answers__answers-body">
+                          <p
+                            class="training-question-answers__answers-body-answer"
+                            id="training-answer"
+                          ></p>
+                          <p
+                            class="training-question-answers__answers-body-selected-not-selected"
+                          ></p>
+                        </label>
+
+                        <label class="training-question-answers__answers-body">
+                          <p
+                            class="training-question-answers__answers-body-answer"
+                            id="training-answer2"
+                          ></p>
+                          <p
+                            class="training-question-answers__answers-body-selected-not-selected"
+                          ></p>
+                        </label>
+
+                        <label class="training-question-answers__answers-body">
+                          <p
+                            class="training-question-answers__answers-body-answer"
+                            id="training-answer3"
+                          ></p>
+                          <p
+                            class="training-question-answers__answers-body-selected-not-selected"
+                          ></p>
+                        </label>
+
+                        <label
+                          class="training-question-answers__answers-body question-answers__answers-body--display--none"
+                        >
+                          <p
+                            class="training-question-answers__answers-body-answer"
+                            id="training-answer-hidden"
+                          ></p>
+                        </label>
+                      </div>
                     </div>
                   </div>
 
-                </div>
+                  <!-- buttons and score -->
+                  <div class="training__btn-score btn-score">
+                    <div class="training-btn-score__body">
+                      <button
+                        class="training-btn-score__btn btn-score__btn--display--none"
+                        id="training-btn-prev"
+                      >
+                        Назад
+                      </button>
 
-                <!-- questions and answers -->
-                <div class="training__question-answers training-question-answers" id="training-field-question-answers">
-                  <div class="training-question-answers__body">
-  
-                    <div class="training-question-answers__question">
-                      <p class="training-question-answers__question-text" id="training-questionText"></p>
-                    </div>
-  
-                    <div class="training-question-answers__answers">
-               
-                        <label class="training-question-answers__answers-body">
-                          <p class="training-question-answers__answers-body-answer" id="training-answer"></p>
-                          <p class="training-question-answers__answers-body-selected-not-selected"></p>
-                        </label>
-             
-                        <label class="training-question-answers__answers-body">
-                          <p class="training-question-answers__answers-body-answer" id="training-answer2"></p>
-                          <p class="training-question-answers__answers-body-selected-not-selected"></p>
-                        </label>
-                     
-                        <label class="training-question-answers__answers-body">
-                          <p class="training-question-answers__answers-body-answer" id="training-answer3"></p>
-                          <p class="training-question-answers__answers-body-selected-not-selected"></p>
-                        </label>
-  
-                        <label class="training-question-answers__answers-body question-answers__answers-body--display--none">
-                          <p class="training-question-answers__answers-body-answer" id="training-answer-hidden"></p>
-                        </label>
-                   
+                      <button
+                        class="training-btn-score__btn"
+                        id="training-btn-next"
+                      >
+                        Далее
+                      </button>
+
+                      <button
+                        class="training-btn-score__btn btn-score__btn--display--none"
+                        id="training-btn-result"
+                      >
+                        Результат
+                      </button>
+
+                      <button
+                        class="training-btn-score__btn btn-score__btn--display--none"
+                        id="training-btn-restart"
+                      >
+                        Заново
+                      </button>
+
+                      <div class="training-btn-score__field-result">
+                        <p
+                          class="training-btn-score__field-result-result"
+                          id="training-final-result"
+                        ></p>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <!-- buttons and score -->
-                <div class="training__btn-score btn-score">
-                  <div class="training-btn-score__body">
-
-                    <button class="training-btn-score__btn btn-score__btn--display--none" id="training-btn-prev">Назад</button>
-
-                    <button class="training-btn-score__btn" id="training-btn-next">Далее</button>
-
-                    <button class="training-btn-score__btn btn-score__btn--display--none" id="training-btn-result">Результат</button>
-                    
-                    <button class="training-btn-score__btn btn-score__btn--display--none" id="training-btn-restart">Заново</button>
-                  
-                    <div class="training-btn-score__field-result">
-                      <p class="training-btn-score__field-result-result" id="training-final-result"></p>
-                    </div>
-
-                  </div>
-                </div>
-
-                <!-- <div class="training__block-result">
+                  <!-- <div class="training__block-result">
                   <p class="training__result-text" id="training__result-text"></p>
                 </div> -->
-                <div class="training__block-result">
-                  <p class="training-final-text"></p>
-                  <p class="training-error-rate"></p>
-                  <p class="training-correct"></p>
-                  <p class="training-passed"></p>
+                  <div class="training__block-result">
+                    <p class="training-final-text"></p>
+                    <p class="training-error-rate"></p>
+                    <p class="training-correct"></p>
+                    <p class="training-passed"></p>
+                  </div>
                 </div>
-      
               </div>
             </div>
-          </div>
-    
-          <!-- блок с кнопкой "Начать экзамен" -->
-          <div class="field-start-exam">
-            <div class="field-start-exam__body">
-              <button class="field-start-exam__button" id="button-start-exam" onclick="document.location='#anchor-for-exams'">Начать экзамен</button>
+
+            <!-- блок с кнопкой "Начать экзамен" -->
+            <div class="field-start-exam">
+              <div class="field-start-exam__body">
+                <button
+                  class="field-start-exam__button"
+                  id="button-start-exam"
+                  onclick="document.location='#anchor-for-exams'"
+                >
+                  Начать экзамен
+                </button>
+              </div>
             </div>
-          </div>
 
-          <!-- блок прохаждения экзамена -->
-          <div class="tests" id="field-tests">
-            <div class="tests__body">
-    
-              <div class="tests__indicators-field">
-                <!-- indicators question -->
-                <div class="tests__block-indicator-answers" id="tests-block-indicator-answers"></div>
+            <!-- блок прохаждения экзамена -->
+            <div class="tests" id="field-tests">
+              <div class="tests__body">
+                <div class="tests__indicators-field">
+                  <!-- indicators question -->
+                  <div
+                    class="tests__block-indicator-answers"
+                    id="tests-block-indicator-answers"
+                  >
+                    <div class="tests__wrap-indicator-body"></div>
+                  </div>
 
-                <!-- block questions information -->
-                <div class="tests__block-questions-information">
-                  <!-- number question -->
-                  <div class="tests__number-question">
-                    <p class="tests__number-question-number" id="num-quest-current"></p>
-                  </div>
-                  <!-- name section -->
-                  <div class="tests__name-section">
-                    <p class="test__prev-title">из раздела:</p>
-                    <h3 class="tests__name-section-text" id="name-section-text"></h3>
-                  </div>
-                  <!-- time -->
-                  <div class="tests__time-exam">
-                    <p class="test__time-exam-num"><span id="min"></span>:<span id="sec"></span></p>
+                  <!-- block questions information -->
+                  <div class="tests__block-questions-information">
+                    <!-- number question -->
+                    <div class="tests__number-question">
+                      <p
+                        class="tests__number-question-number"
+                        id="num-quest-current"
+                      ></p>
+                    </div>
+                    <!-- name section -->
+                    <div class="tests__name-section">
+                      <p class="test__prev-title">из раздела:</p>
+                      <h3
+                        class="tests__name-section-text"
+                        id="name-section-text"
+                      ></h3>
+                    </div>
+                    <!-- time -->
+                    <div class="tests__time-exam">
+                      <p class="test__time-exam-num">
+                        <span id="min"></span>:<span id="sec"></span>
+                      </p>
+                    </div>
                   </div>
                 </div>
-                
-              </div>
-              <!-- questions and answers -->
-              <div class="tests__question-answers question-answers" id="field-question-answers">
-                <div class="question-answers__body">
+                <!-- questions and answers -->
+                <div
+                  class="tests__question-answers question-answers"
+                  id="field-question-answers"
+                >
+                  <div class="question-answers__body">
+                    <div class="question-answers__question">
+                      <p
+                        class="question-answers__question-text"
+                        id="questionText"
+                      ></p>
+                    </div>
 
-                  <div class="question-answers__question">
-                    <p class="question-answers__question-text" id="questionText"></p>
-                  </div>
-
-                  <div class="question-answers__answers">
-             
+                    <div class="question-answers__answers">
                       <label class="question-answers__answers-body">
-                        <span class="question-answers__answers-body-answer" id="answer"></span>
-                        <p class="exam-question-answers__answers-body-selected-not-selected"></p>
-                      </label>
-           
-                      <label class="question-answers__answers-body">
-                        <span class="question-answers__answers-body-answer" id="answer2"></span>
-                        <p class="exam-question-answers__answers-body-selected-not-selected"></p>
-                      </label>
-                   
-                      <label class="question-answers__answers-body">
-                        <span class="question-answers__answers-body-answer" id="answer3"></span>
-                        <p class="exam-question-answers__answers-body-selected-not-selected"></p>
+                        <span
+                          class="question-answers__answers-body-answer"
+                          id="answer"
+                        ></span>
+                        <p
+                          class="exam-question-answers__answers-body-selected-not-selected"
+                        ></p>
                       </label>
 
-                      <label class="question-answers__answers-body question-answers__answers-body--display--none">
-                        <span class="question-answers__answers-body-answer" id="answerHidden"></span>
+                      <label class="question-answers__answers-body">
+                        <span
+                          class="question-answers__answers-body-answer"
+                          id="answer2"
+                        ></span>
+                        <p
+                          class="exam-question-answers__answers-body-selected-not-selected"
+                        ></p>
                       </label>
-                 
+
+                      <label class="question-answers__answers-body">
+                        <span
+                          class="question-answers__answers-body-answer"
+                          id="answer3"
+                        ></span>
+                        <p
+                          class="exam-question-answers__answers-body-selected-not-selected"
+                        ></p>
+                      </label>
+
+                      <label
+                        class="question-answers__answers-body question-answers__answers-body--display--none"
+                      >
+                        <span
+                          class="question-answers__answers-body-answer"
+                          id="answerHidden"
+                        ></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <!-- buttons and score -->
+                <div class="tests__btn-score btn-score">
+                  <div class="btn-score__body">
+                    <button
+                      class="btn-score__btn btn-score__btn--display--none"
+                      id="btn-prev"
+                    >
+                      Назад
+                    </button>
+                    <button class="btn-score__btn" id="btn-next">Далее</button>
+                    <button
+                      class="btn-score__btn btn-score__btn--display--none"
+                      id="btn-result"
+                    >
+                      Результат
+                    </button>
+                    <button
+                      class="btn-score__btn btn-score__btn--display--none"
+                      id="btn-restart"
+                    >
+                      Заново
+                    </button>
+                  </div>
+                  <div class="btn-score__field-result">
+                    <p class="final-text"></p>
+                    <p class="error-rate"></p>
+                    <p class="correct"></p>
+                    <p class="passed"></p>
                   </div>
                 </div>
               </div>
-              <!-- buttons and score -->
-              <div class="tests__btn-score btn-score">
-                <div class="btn-score__body">
-                  <button class="btn-score__btn btn-score__btn--display--none" id="btn-prev">Назад</button>
-                  <button class="btn-score__btn" id="btn-next">Далее</button>
-                  <button class="btn-score__btn btn-score__btn--display--none" id="btn-result">Результат</button>
-                  <button class="btn-score__btn btn-score__btn--display--none" id="btn-restart">Заново</button>
-                </div>
-                <div class="btn-score__field-result">
-                  <p class="final-text"></p>
-                  <p class="error-rate"></p>
-                  <p class="correct"></p>
-                  <p class="passed"></p>
-                </div>
-              </div>
-    
             </div>
-          </div>
-
-        </main>
-        
+          </main>
+        </div>
+        <div id="anchor-for-exams"></div>
       </div>
-      <div id="anchor-for-exams"></div>
-      
     </div>
-  </div>
 
-  <a href="#top" class="arrow-top" id="arrow-top" title="В начало страницы">&#11165;</a>
+    <a href="#top" class="arrow-top" id="arrow-top" title="В начало страницы"
+      >&#11165;</a
+    >
 
-  <script type="module" src="js/module.js"></script>
-  
-</body>
+    <script type="module" src="js/module.js"></script>
+  </body>
 </html>

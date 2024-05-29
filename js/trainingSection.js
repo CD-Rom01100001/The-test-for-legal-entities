@@ -67,6 +67,7 @@ if (localStorage.getItem('best result array')) {
 //* формирует превьюшки html теги на странице */
 const createStagePreviewBlock = (stage, section, allQuest, lastRes, bestRes) => {
   const wrapPreviewBlockLink = document.createElement('a');
+  wrapPreviewBlockLink.setAttribute('class', 'wrap-link-preview-block')
   wrapPreviewBlockLink.setAttribute('href', `#anchor-for-exams`);
 
   const previewBlock = document.createElement('div');

@@ -6,6 +6,7 @@ const fieldTests = document.querySelector('#field-tests');
 const btnStartTest = document.querySelector('#button-start-exam');
 const fieldStartExam = document.querySelector('.field-start-exam');
 const fieldIndicatorsQuest = document.querySelector('#tests-block-indicator-answers');
+const wrapIndicatorsQuest = document.querySelector('.tests__wrap-indicator-body');
 const fieldNumQuest = document.querySelector('#num-quest-current');
 const fieldQuestionAnswer = document.querySelector('#field-question-answers');
 const questionText = document.querySelector('#questionText');
@@ -102,7 +103,7 @@ const setAnswerIndicators = () => {
 
     indicatorNumber.textContent = num;
     indicatorBody.append(indicatorNumber);
-    fieldIndicatorsQuest.append(indicatorBody);
+    wrapIndicatorsQuest.append(indicatorBody);
     num++;
   }
 }
@@ -520,7 +521,7 @@ const restartResults = () => {
   numQuest = 0; // номер вопросса
   indexQuest = 0; // индекс вопросса
   countCorrectAnswers = 0; // количество правельных ответов
-  fieldIndicatorsQuest.textContent = '';
+  wrapIndicatorsQuest.textContent = '';
   setAnswerIndicators();// формирует индикаторы ответов
   indicatorCollection = document.querySelectorAll('.exam__indicator-body');// помещаем индикатор в глобальную переменную
   currentIndicator(indexQuest);// стилизует индикатор в соответствии с выброным текущим вопросом
