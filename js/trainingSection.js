@@ -133,7 +133,7 @@ const previewCreation = () => {
         count == 140 ||
         count == 175 ||
         count == 210 ||
-        count == 244) {
+        count == 235) {
       if (notFirstIteration == true) {
         stageOut++;
         counts = {};

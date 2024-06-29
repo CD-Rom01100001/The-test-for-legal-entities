@@ -82,7 +82,6 @@ const generation10QuestionsFromAllSections = () => {
         questionSection.push(arrayQuestions[i][quest[j]]);
       }
     }
-
   }
 
   randomQuestions = shuffle(questionSection);
