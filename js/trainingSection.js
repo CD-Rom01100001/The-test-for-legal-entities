@@ -1,5 +1,5 @@
-import {arrayQuestions} from './questions.js';
-import {staffTrainingDescription} from './module.js';
+import { arrayQuestions } from './questions.js';
+import { staffTrainingDescription } from './module.js';
 
 const fieldTrainingMain = document.querySelector('#field-training');
 const trainingContentInner = document.querySelector('.training__content-inner');
@@ -128,23 +128,23 @@ const previewCreation = () => {
   for (let i = 0; i < allQuestions.length; i++) {
     sectionArray.push(allQuestions[i].answers[0].id)
     if (count == 35 ||
-        count == 70 ||
-        count == 105 ||
-        count == 140 ||
-        count == 175 ||
-        count == 210 ||
-        count == 235) {
+      count == 70 ||
+      count == 105 ||
+      count == 140 ||
+      count == 175 ||
+      count == 210 ||
+      count == 235) {
       if (notFirstIteration == true) {
         stageOut++;
         counts = {};
       }
       sectionArray.forEach(section => { counts[section] = (counts[section] || 0) + 1; })
       let totalNumQuestStage = 0;
-      for(let i in counts) {
+      for (let i in counts) {
         countsKeyValue += `&#8226; ${i} - ${counts[i]} <br>`;
         totalNumQuestStage += counts[i];
       }
-      createStagePreviewBlock(stageOut, countsKeyValue, totalNumQuestStage, lastResultArray[stageOut-1], bestResultArray[stageOut-1]);
+      createStagePreviewBlock(stageOut, countsKeyValue, totalNumQuestStage, lastResultArray[stageOut - 1], bestResultArray[stageOut - 1]);
       sectionArray = [];
       countsKeyValue = '';
       notFirstIteration = true;
@@ -160,7 +160,7 @@ const throughAllQuestions = (from, into) => {
       into.push(quest);
     });
   })
-} 
+}
 throughAllQuestions(arrayQuestions, allQuestions);
 previewCreation();
 
@@ -198,7 +198,7 @@ const includedPrewiew = (preview, numStage) => {
 //* стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
 const stylesNotStylesAnswers = () => {
   slyleResetAnswer();// сбрасывает стили ответов
-  if (indexQuestion <= arrayAnswer.length-1) {
+  if (indexQuestion <= arrayAnswer.length - 1) {
     trainingAnswersCollectionBody[arrayAnswer[indexQuestion].indexAnswer].classList.add('training-question-answers__body--active');
   } else {
     let xxx = {
@@ -219,7 +219,7 @@ const clickPrewiew = () => {
         const stageBlockTitle = preview.querySelector('#stage-block').innerHTML;// получает названия этапа
         const sectionBlockTitle = preview.querySelector('#section-block').innerHTML;// получает названия секций
         amountTextInPreview = sectionBlockTitle.split('-').length;
-        if(!preview.classList.contains('inactive-status')) {
+        if (!preview.classList.contains('inactive-status')) {
           startTraining(sectionBlockTitle, stageBlockTitle);
         }
         currentIndexPreview = index;
@@ -267,16 +267,16 @@ const shuffle = (newArr) => {
 //* стилизует индикатор выбраного вопроса
 const styleQuestionIndicator = () => {
   collectionIndicators.forEach((indicator, i) => {
-    if (i == currentNumAnswer-1) {
+    if (i == currentNumAnswer - 1) {
       indicator.classList.add('training__set-answer');
     } else console.log('error indicator style');
   })
-} 
+}
 
 //* стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
 const rightNotRightAnswersIndicators = () => {
   arrayAnswer.forEach((elem, i) => {
-    
+
     if (elem.answer == true) {
       collectionIndicators[i].classList.add('training__right-answer');
     } else if (elem.answer == false && elem.indexAnswer == 3) {
@@ -317,16 +317,16 @@ const navigatingQuestionsByindicator = () => {
 
       /* если обучение пройдено */
       if (/* result.textContent.length != 0 */resultField.style.display == 'flex') {
-        trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
+        trainingAnswersCollectionBody.forEach(elem => { elem.style.pointerEvents = 'none'; });// делает все ответы не активными
         showSelectedNotSelectedAnswers(i);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
       } else {
-        trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+        trainingAnswersCollectionBody.forEach(elem => { elem.style.pointerEvents = 'auto'; });// делает все ответы активными
       }
-      
+
 
       currentNumAnswer = indicator.firstElementChild.textContent;
       indexQuestion = i;
-      
+
       if (currentNumAnswer > 1) {
         btnPrev.classList.remove('btn-score__btn--display--none');
       } else btnPrev.classList.add('btn-score__btn--display--none');
@@ -337,7 +337,7 @@ const navigatingQuestionsByindicator = () => {
       } else {
         btnNext.classList.remove('btn-score__btn--display--none');
         btnResult.classList.add('btn-score__btn--display--none');
-      } 
+      }
 
       allIndicatorsActive();// если все индикаторы активны, то появляется кнопка РЕЗУЛЬТАТ
       removeButtonsAfterTraining();// если обучение пройдено, убирает кнопки
@@ -379,28 +379,28 @@ const allIndicatorsActive = () => {
 const fillsQuestAnswers = (quest) => {
   trainingQuestionText.textContent = currentQuestionsArray[quest].question;
   for (let i = 0; i < 3; i++) {
-    trainingAnswersCollection[i].textContent = currentQuestionsArray[quest].answers[i].value; 
-  }  
+    trainingAnswersCollection[i].textContent = currentQuestionsArray[quest].answers[i].value;
+  }
 }
 
 //* при нажатии на кнопку НАЗАД */
 const movePrevQuestion = () => {
   if (/* result.textContent.length != 0 */resultField.style.display == 'flex') {
-    trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
+    trainingAnswersCollectionBody.forEach(elem => { elem.style.pointerEvents = 'none'; });// делает все ответы не активными
   } else {
-    trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+    trainingAnswersCollectionBody.forEach(elem => { elem.style.pointerEvents = 'auto'; });// делает все ответы активными
   }
 
   if (currentNumAnswer > 1) {
     currentNumAnswer--;
     indexQuestion--;
   }
-  
+
   if (currentNumAnswer == 1) {
     btnPrev.classList.add('btn-score__btn--display--none');
   }
 
-  if (currentNumAnswer == currentQuestionsArray.length-1) {
+  if (currentNumAnswer == currentQuestionsArray.length - 1) {
     btnNext.classList.remove('btn-score__btn--display--none');
     btnResult.classList.add('btn-score__btn--display--none');
   }
@@ -417,9 +417,9 @@ const movePrevQuestion = () => {
 //* при нажатии на кнопку ДАЛЕЕ */
 const moveNextQuestion = () => {
   if (/* result.textContent.length != 0 */resultField.style.display == 'flex') {
-    trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
+    trainingAnswersCollectionBody.forEach(elem => { elem.style.pointerEvents = 'none'; });// делает все ответы не активными
   } else {
-    trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+    trainingAnswersCollectionBody.forEach(elem => { elem.style.pointerEvents = 'auto'; });// делает все ответы активными
   }
 
   /* прибавляет и показывает номер вопросса */
@@ -427,7 +427,7 @@ const moveNextQuestion = () => {
     currentNumAnswer++;
     indexQuestion++;
   }
-  
+
   if (currentNumAnswer == 2) {
     btnPrev.classList.remove('btn-score__btn--display--none');
   }
@@ -459,20 +459,20 @@ const deduceLastResult = () => {
 
 //* выводит результат лучшего прохождения теста */
 const deduceBestResult = () => {
-  console.log('подсчитывает прогресс обучения - '+calcLearningProgress());
+  console.log('подсчитывает прогресс обучения - ' + calcLearningProgress());
   let bestResDate = `${calcLearningProgress()} (${new Date().toLocaleDateString()})`;
-   
-  if(+calcLearningProgress().slice(0,-1) >= numBestResult) {
-    
+
+  if (+calcLearningProgress().slice(0, -1) >= numBestResult) {
+
     document.querySelectorAll('#best-result')[currentIndexPreview].textContent = `лучший результат: ${bestResDate}`;
     bestResultArray[currentIndexPreview] = bestResDate;// помещает в массив с последними результатами оценку пройденного этапа в соответствии с индексом превьюшки
     localStorage.setItem('best result array', JSON.stringify(bestResultArray));
     let numBest = '';
-    for(let elem of bestResDate.split('')) {
-      if(elem === '%') break;
+    for (let elem of bestResDate.split('')) {
+      if (elem === '%') break;
       numBest += elem;
     }
-    console.log('номер последнего, локального результата - '+numBest);
+    console.log('номер последнего, локального результата - ' + numBest);
     bestResultArrayNumber[currentIndexPreview] = +numBest;
     localStorage.setItem('best result array number', JSON.stringify(bestResultArrayNumber));
     console.log(numBestResult);
@@ -487,7 +487,7 @@ const moveResult = () => {
   btnResult.classList.add('btn-score__btn--display--none');
   btnPrev.classList.add('btn-score__btn--display--none');
   fieldQuestionAnswer.forEach(answer => answer.style.pointerEvents = 'none');// делает курсор активным во всем блоке
-  
+
   /* если меньше трех ошибок, то выведет сообщение, что все ОК */
   if (calcArrAnswerScore() <= 3) {
     finalReport(`Вы прошли! &#128578;`);
@@ -497,25 +497,26 @@ const moveResult = () => {
     /* что бы не вызывало ошибку после прохождения последнего этапа, поскольку код ниже срабатывает только для последующего этапа */
     if (currentIndexPreview <= 5) {
       console.log('work');
-      includedPrewiew(collectionPrewiews[currentIndexPreview+1], currentIndexPreview)
+      includedPrewiew(collectionPrewiews[currentIndexPreview + 1], currentIndexPreview)
 
-      locStorArrayOpenPrew.push(currentIndexPreview+1);// помещает индекс нажатого превью в массив locStorArrayOpenPrew
+      locStorArrayOpenPrew.push(currentIndexPreview + 1);// помещает индекс нажатого превью в массив locStorArrayOpenPrew
       localStorage.setItem('openPreview', JSON.stringify([... new Set(locStorArrayOpenPrew)]));// помещает в localStorage массив locStorArrayOpenPrew без повторяющихся значений(индеков)
-      
+      deduceLastResult();// выводит результат последнего прохождения теста
+      deduceBestResult();// выводит результат лучшего прохождения теста
     }
-  } 
+  }
   /* если больше трех ошибок, то выведет сообщение, что все NO */
   else {
     finalReport(`Вы не прошли! &#128543;`);
     // result.textContent = `Вы не прошли! Ваша оценка: ${calcArrAnswerScore()}`;
     rightNotRightAnswersIndicators();// стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
-    showSelectedNotSelectedAnswers(currentQuestionsArray.length-1);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
+    showSelectedNotSelectedAnswers(currentQuestionsArray.length - 1);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
 
     deduceLastResult();// выводит результат последнего прохождения теста
     deduceBestResult();// выводит результат лучшего прохождения теста
     return;
   }
-  
+
 }
 
 //* формирует финальный текст */
@@ -539,7 +540,7 @@ const showSelectedNotSelectedAnswers = (i) => {
     if (el.correct == true) {
       trainingAnswersCollectionBody[index].classList.add('training-question-answers__body--correct');
       trainingSelectedNotSelectedAnswer[index].textContent = `правильный ответ`;
-    } 
+    }
     if (el.correct == true && arrayAnswer[i].answer == true) {
       trainingAnswersCollectionBody[index].classList.add('training-question-answers__body--correct-select');
       trainingSelectedNotSelectedAnswer[index].textContent = `Ваш ответ`;
@@ -549,8 +550,8 @@ const showSelectedNotSelectedAnswers = (i) => {
       trainingAnswersCollectionBody[arrayAnswer[i].indexAnswer].classList.add('training-question-answers__body--incorrect-select');
       trainingSelectedNotSelectedAnswer[arrayAnswer[i].indexAnswer].textContent = `Ваш ответ`;
       console.log(index);
-    } 
-    
+    }
+
   })
 }
 
@@ -570,7 +571,7 @@ const openPrewiewOnSiteLoad = () => {
     let numLS = JSON.parse(localStorage.getItem('openPreview'));
     console.log(numLS);
     numLS.forEach(index => {
-      includedPrewiew(collectionPrewiews[index], index-1)
+      includedPrewiew(collectionPrewiews[index], index - 1)
     })
   }
 }
@@ -642,31 +643,31 @@ const calcArrAnswerScoreTrue = () => {
 //* в зависимости от того на какую превьюшку нажато, получает определенные вопросы и ПЕРЕМЕШИВАЕТ их */
 const questionsFromTo = (index) => {
   let arr = [];
-  
+
   switch (index) {
     case 0:
-      for (let i = 0; i < 35; i++) {arr.push(allQuestions[i])};
+      for (let i = 0; i < 35; i++) { arr.push(allQuestions[i]) };
       break;
     case 1:
-      for (let i = 35; i < 70; i++) {arr.push(allQuestions[i])};
+      for (let i = 35; i < 70; i++) { arr.push(allQuestions[i]) };
       break;
     case 2:
-      for (let i = 70; i < 105; i++) {arr.push(allQuestions[i])};
+      for (let i = 70; i < 105; i++) { arr.push(allQuestions[i]) };
       break;
     case 3:
-      for (let i = 105; i < 140; i++) {arr.push(allQuestions[i])};
+      for (let i = 105; i < 140; i++) { arr.push(allQuestions[i]) };
       break;
     case 4:
-      for (let i = 140; i < 175; i++) {arr.push(allQuestions[i])};
+      for (let i = 140; i < 175; i++) { arr.push(allQuestions[i]) };
       break;
     case 5:
-      for (let i = 175; i < 210; i++) {arr.push(allQuestions[i])};
+      for (let i = 175; i < 210; i++) { arr.push(allQuestions[i]) };
       break;
     case 6:
-      for (let i = 210; i < 244; i++) {arr.push(allQuestions[i])};
+      for (let i = 210; i < 244; i++) { arr.push(allQuestions[i]) };
       break;
   }
-  
+
   return shuffle(arr);
 }
 
@@ -703,12 +704,12 @@ const trainingTime = () => {
       min++;
       sec = 0;
     };
-    if (sec < 10) {trainingSec.textContent = `0${sec}`}
+    if (sec < 10) { trainingSec.textContent = `0${sec}` }
     else trainingSec.textContent = sec;
     if (min < 10) trainingMin.textContent = `0${min}`;
     else trainingMin.textContent = min;
 
-    
+
   }, 1000);
   /* при достижении 60 мин появляется предупреждение и обучение закрывается */
   setTimeout(() => {
@@ -747,7 +748,7 @@ const exitOfBlockTraining = () => {
       staffTrainingDescription.style.display = 'block';
       trainingBlock.style.display = 'none';
       restartResults();
-    } 
+    }
     return;
   }
   previewBlock.style.display = 'flex';
@@ -787,13 +788,13 @@ trainingAnswersCollectionBody.forEach((elem, index) => {
 
     styleSelectedAnswer(elem);// стилизует выбранный ответ
     recordedAnswer = currentQuestionsArray[indexQuestion].answers[index].correct;// устонавливает true или false
-    
+
     /* что бы нельзя было нажимать на уже выбранный ответ */
     if (elem.classList.contains('training-question-answers__body--active')) {
-      trainingAnswersCollectionBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+      trainingAnswersCollectionBody.forEach(elem => { elem.style.pointerEvents = 'auto'; });// делает все ответы активными
       elem.style.pointerEvents = 'none';// делает текущий элемент не активным
-    } 
-  
+    }
+
     /* при выборе другого ответа, предыдущий удаляется и присваивается текущий. Происходит с учетом текущего вопроса */
     let iii = {
       answer: recordedAnswer,
@@ -812,4 +813,4 @@ trainingAnswersCollectionBody.forEach((elem, index) => {
   })
 });// три кнопки ответа
 
-export {fieldTrainingMain, collectionPrewiews, previewBlock, trainingBlock, restartResults, openPrewiewOnSiteLoad, staffTrainingDescription};
+export { fieldTrainingMain, collectionPrewiews, previewBlock, trainingBlock, restartResults, openPrewiewOnSiteLoad, staffTrainingDescription };

@@ -267,7 +267,7 @@ const legalTraining80 = [
       },
       {
         id: 'Правовая подготовка',
-        value: '3. Устройство, предназначенное для выстрела из огнестрельного  ладкоствольного или бесствольного оружия, содержащее метаемое снаряжение травматического действия, не предназначенное для причинения смерти человеку.',
+        value: '3. Устройство, предназначенное для выстрела из огнестрельного гладкоствольного или бесствольного оружия, содержащее метаемое снаряжение травматического действия, не предназначенное для причинения смерти человеку.',
         correct: false,
       },
     ]
@@ -2441,7 +2441,7 @@ const firstAid50 = [
       },
     ]
   },
-   /* вопрос 3.27  2*/
+  /* вопрос 3.27  2*/
   {
     question: 'Что необходимо сделать при ожоговой ране?',
     answers: [
@@ -4949,11 +4949,11 @@ const firearmsTraining84 = [
 ]
 
 const arrayQuestions = [
-  legalTraining80, 
-  tacticalSpecialtyTraining10, 
-  firstAid50, 
-  useOfSpecialTools20, 
+  legalTraining80,
+  tacticalSpecialtyTraining10,
+  firstAid50,
+  useOfSpecialTools20,
   firearmsTraining84
 ];
 
-export {arrayQuestions, legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84};
+export { arrayQuestions, legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84 };
