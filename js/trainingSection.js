@@ -153,7 +153,7 @@ const previewCreation = () => {
     num++;
   }
 }
-//* помещает все 244 вопроса со всех секций в указаный массив */
+//* помещает все 235 вопроса со всех секций в указаный массив */
 const throughAllQuestions = (from, into) => {
   from.forEach((section) => {
     section.forEach((quest) => {
@@ -225,7 +225,14 @@ const clickPrewiew = () => {
         currentIndexPreview = index;
         currentQuestionsArray = questionsFromTo(index);// устонавливает массив из 35 вопроссов в соответствии с нажатой превьюшкой
         // console.log(`текущее превью ${currentIndexPreview}`);
-        // console.log(`currentQuestionsArray:\n${currentQuestionsArray}`);
+        console.log(currentQuestionsArray);
+        currentQuestionsArray.forEach((quest, i) => {
+          quest.answers.forEach((elem, ii) => {
+            if (elem.correct == true) {
+              console.log(i + 1 + ' - ' + (+ii + 1));
+            }
+          })
+        })
         blockIndicatorAnswers.innerHTML = '';// очищает блок с индикаторами, что-бы они не дублирывались
         setAnswerIndicators();// формирует индикаторы ответов
         collectionIndicators = document.querySelectorAll('.training__indicator-body');
@@ -498,12 +505,11 @@ const moveResult = () => {
     if (currentIndexPreview <= 5) {
       console.log('work');
       includedPrewiew(collectionPrewiews[currentIndexPreview + 1], currentIndexPreview)
-
       locStorArrayOpenPrew.push(currentIndexPreview + 1);// помещает индекс нажатого превью в массив locStorArrayOpenPrew
       localStorage.setItem('openPreview', JSON.stringify([... new Set(locStorArrayOpenPrew)]));// помещает в localStorage массив locStorArrayOpenPrew без повторяющихся значений(индеков)
-      deduceLastResult();// выводит результат последнего прохождения теста
-      deduceBestResult();// выводит результат лучшего прохождения теста
     }
+    deduceLastResult();// выводит результат последнего прохождения теста
+    deduceBestResult();// выводит результат лучшего прохождения теста
   }
   /* если больше трех ошибок, то выведет сообщение, что все NO */
   else {
@@ -664,7 +670,7 @@ const questionsFromTo = (index) => {
       for (let i = 175; i < 210; i++) { arr.push(allQuestions[i]) };
       break;
     case 6:
-      for (let i = 210; i < 244; i++) { arr.push(allQuestions[i]) };
+      for (let i = 210; i < 235; i++) { arr.push(allQuestions[i]) };
       break;
   }
 
@@ -686,8 +692,13 @@ const calcLearningProgress = () => {
   const totalNumQuestions = arrayAnswer.length;
   let finaScore = 0;
   arrayAnswer.forEach(quest => {
-    if (quest.answer == true) finaScore++;
+    if (quest.answer == true) {
+      finaScore++;
+    }
   })
+  console.log(totalNumQuestions);
+  console.log(finaScore);
+  console.log(`${Math.round(finaScore / totalNumQuestions * 100)}%`);
   return `${Math.round(finaScore / totalNumQuestions * 100)}%`;
 }
 
@@ -709,18 +720,27 @@ const trainingTime = () => {
     if (min < 10) trainingMin.textContent = `0${min}`;
     else trainingMin.textContent = min;
 
-
+    /* при достижении 60 мин появляется предупреждение и обучение закрывается */
+    if (min == 60) {
+      clearInterval(testTimeReportVar);
+      alert('Прохождение обучения заняло слишком много времени, процесс будет прерван');
+      min = 0;
+      sec = 0;
+      previewBlock.style.display = 'flex';
+      staffTrainingDescription.style.display = 'block';
+      trainingBlock.style.display = 'none';
+    }
   }, 1000);
   /* при достижении 60 мин появляется предупреждение и обучение закрывается */
-  setTimeout(() => {
-    clearInterval(testTimeReportVar);
-    alert('Прохождение обучения заняло слишком много времени, процесс будет прерван');
-    min = 0;
-    sec = 0;
-    previewBlock.style.display = 'flex';
-    staffTrainingDescription.style.display = 'block';
-    trainingBlock.style.display = 'none';
-  }, 3601000);
+  // setTimeout(() => {
+  //   clearInterval(testTimeReportVar);
+  //   alert('Прохождение обучения заняло слишком много времени, процесс будет прерван');
+  //   min = 0;
+  //   sec = 0;
+  //   previewBlock.style.display = 'flex';
+  //   staffTrainingDescription.style.display = 'block';
+  //   trainingBlock.style.display = 'none';
+  // }, /* 3601000 */10000);
 }
 
 //* закрывает блок с "превьюшками" и открывает блок "Обучение" */

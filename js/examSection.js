@@ -1,5 +1,5 @@
-import {arrayQuestions, legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84} from './questions.js';
-import {staffTrainingDescription} from './trainingSection.js';
+import { arrayQuestions, legalTraining80, tacticalSpecialtyTraining10, firstAid50, useOfSpecialTools20, firearmsTraining84 } from './questions.js';
+import { staffTrainingDescription } from './trainingSection.js';
 
 //* -------------------- CONSTANTS -------------------- */
 const fieldTests = document.querySelector('#field-tests');
@@ -44,9 +44,9 @@ let eventKey = false;// нужно, что-бы событие клавиату�
 const randomQuest = (num, num2) => {
   let newArr = Array(num).fill().map((e, i) => i)
   for (let i = newArr.length - 1; i > 0; i--) {
-     let j = Math.floor(Math.random() * (i + 1));
-     [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
-   }
+    let j = Math.floor(Math.random() * (i + 1));
+    [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+  }
   return newArr.splice(0, num2)
 }
 //* перемешивает массив */
@@ -128,10 +128,10 @@ const showQuestionNumber = () => {
 }
 //* отчет времени на прохождение теста */
 const testTimeReport = () => {
-  let min = 14;
-  let sec = 59;
-  reportMin.textContent = `15`;
-  reportSec.textContent = `00`;
+  let min = 0;
+  let sec = 5;
+  reportMin.textContent = `00`;
+  reportSec.textContent = `06`;
 
   timeReportVar = setInterval(() => {
     reportMin.textContent = `${min}`;
@@ -139,15 +139,20 @@ const testTimeReport = () => {
     if (min < 10) reportMin.textContent = `0${min}`;
     if (sec < 10) reportSec.textContent = `0${sec}`;
     sec--;
-    if (sec < 0) {
-      min--;
-      sec = 59;
+    // if (sec < 0) {
+    //   min--;
+    //   sec = 59;
+    // }
+    if (sec == 0 && min === 0) {
+      sec = 0
+      clearInterval(timeReportVar);
+      moveResult(); // показывает результат
     }
   }, 1000);
-  setTimeout(() => {
-    clearInterval(timeReportVar);
-    moveResult(); // показывает результат
-  }, 900000);
+  // setTimeout(() => {
+  //   clearInterval(timeReportVar);
+  //   moveResult(); // показывает результат
+  // }, 900000);
 }
 //* ---------------------------------------------------- */
 
@@ -182,8 +187,8 @@ const startExam = () => {
 
 //* стилизует индикатор выбраного вопроса */
 const styleQuestionIndicator = () => {
-  indicatorCollection.forEach((elem, i) => i == numQuest-1 && elem.classList.add('exam__set-answer'));
-} 
+  indicatorCollection.forEach((elem, i) => i == numQuest - 1 && elem.classList.add('exam__set-answer'));
+}
 
 //* если все ответы выбранны то появляется кнопка результат */
 const currentNumAnswers = () => {
@@ -203,7 +208,7 @@ const currentIndicator = (curInQuest) => {
 //* стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
 const rightNotRightAnswersIndicators = () => {
   arrayAnswer.forEach((elem, i) => {
-    
+
     if (elem.answer == true) {
       indicatorCollection[i].classList.add('exam__right-answer');
     } else if (elem.answer == false && elem.indexAnswer == 3) {
@@ -226,10 +231,10 @@ const navigatingQuestionsByindicator = () => {
 
     /* если обучение пройдено */
     if (fieldFinalScore.style.display === 'flex') {
-      collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
+      collectionAnswersBody.forEach(elem => { elem.style.pointerEvents = 'none'; });// делает все ответы не активными
       showSelectedNotSelectedAnswers(indI);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
     } else {
-      collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+      collectionAnswersBody.forEach(elem => { elem.style.pointerEvents = 'auto'; });// делает все ответы активными
     }
 
     numQuest = indicator.firstElementChild.textContent;// номер текущего вопроса
@@ -245,7 +250,7 @@ const navigatingQuestionsByindicator = () => {
     } else {
       btnNext.style.display = 'block';
       btnResult.style.display = 'none';
-    } 
+    }
 
     currentNumAnswers();// если все ответы выбранны то появляется кнопка результат
 
@@ -256,11 +261,11 @@ const navigatingQuestionsByindicator = () => {
       btnResult.style.display = 'none';
     }
 
-    fieldNumQuest.textContent = `${indI+1}/${indicatorCollection.length}`;// присваевает номер текущего вопроса
+    fieldNumQuest.textContent = `${indI + 1}/${indicatorCollection.length}`;// присваевает номер текущего вопроса
     currentIndicator(indexQuest);// стилизует индикатор
     fillsQAWithText(indexQuest);// присваиваем текст к названию секции, вопроссу и ответам
     stylesNotStylesAnswers();// стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
-    
+
 
     console.log('длинна массива с выбраными ответами: ' + indicatorCollection.length);
     console.log('индекс текущего вопросса: ' + indexQuest);
@@ -279,7 +284,7 @@ const navigationQuestionsByKeyboards = () => {
           moveNextQuestion();
           if (fieldFinalScore.style.display === 'flex') showSelectedNotSelectedAnswers(indexQuest);// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после завершения блока "Обучение"
         }
-      } 
+      }
       if (numQuest > 1) {
         if (keyName == "ArrowLeft") {
           movePrevQuestion();
@@ -303,7 +308,7 @@ const showSelectedNotSelectedAnswers = (i) => {
       collectionAnswersBody[index].classList.add('exam-question-answers__body--correct');
       trainingSelectedNotSelectedAnswer[index].textContent = `Правильный ответ`;
       console.log(`Правильный ответ ${el.value}`);
-    } 
+    }
     if (el.correct == true && arrayAnswer[i].answer == true) {
       collectionAnswersBody[index].classList.add('exam-question-answers__body--correct-select');
       trainingSelectedNotSelectedAnswer[index].textContent = `Ваш ответ`;
@@ -313,7 +318,7 @@ const showSelectedNotSelectedAnswers = (i) => {
       collectionAnswersBody[arrayAnswer[i].indexAnswer].classList.add('exam-question-answers__body--incorrect-select');
       trainingSelectedNotSelectedAnswer[arrayAnswer[i].indexAnswer].textContent = `Ваш ответ`;
       console.log(index);
-    } 
+    }
   })
 }
 
@@ -325,9 +330,9 @@ const removeSelectedNotSelectedText = () => {
 //* при нажатии на кнопку НАЗАД */
 const movePrevQuestion = () => {
   if (fieldFinalScore.style.display === 'flex') {
-    collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
+    collectionAnswersBody.forEach(elem => { elem.style.pointerEvents = 'none'; });// делает все ответы не активными
   } else {
-    collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+    collectionAnswersBody.forEach(elem => { elem.style.pointerEvents = 'auto'; });// делает все ответы активными
   }
 
   /* убавляет и показывает номер вопросса */
@@ -336,7 +341,7 @@ const movePrevQuestion = () => {
     numQuest--;
     fieldNumQuest.textContent = `${numQuest}/${randomQuestions.length}`;
     currentIndicator(indexQuest);// стилизует индикатор в соответствии с выброным текущим вопросом
-  } 
+  }
   /* убирает кнопку "назад" */
   if (numQuest == 1) {
     btnPrev.style.display = 'none';
@@ -364,9 +369,9 @@ const movePrevQuestion = () => {
 //* при нажатии на кнопку ДАЛЕЕ */
 const moveNextQuestion = () => {
   if (fieldFinalScore.style.display === 'flex') {
-    collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'none';});// делает все ответы не активными
+    collectionAnswersBody.forEach(elem => { elem.style.pointerEvents = 'none'; });// делает все ответы не активными
   } else {
-    collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});// делает все ответы активными
+    collectionAnswersBody.forEach(elem => { elem.style.pointerEvents = 'auto'; });// делает все ответы активными
   }
 
   /* прибавляет и показывает номер вопросса */
@@ -388,7 +393,7 @@ const moveNextQuestion = () => {
   }
   currentNumAnswers();// если все ответы выбранны то появляется кнопка результат
   removeButtonsAfterTraining()// если обучение пройдено, убирает кнопки
-  
+
   fillsQAWithText(indexQuest); // присвваеваем текст к названию секции, вопроссу и ответам
   scoreCalc(); // посчитывает количество правельных ответов
   currentIndicator(indexQuest);// стилизует индикатор в соответствии с выброным текущим вопросом
@@ -406,10 +411,10 @@ const moveNextQuestion = () => {
 
 //* посчитывает количество правельных ответов */
 const scoreCalc = () => {
-  if(recordedAnswer == true) {
+  if (recordedAnswer == true) {
     countCorrectAnswers++;
   }
-  else if (numQuest == randomQuestions.length+1) {
+  else if (numQuest == randomQuestions.length + 1) {
     return;
   }
   // console.log(recordedAnswer)
@@ -448,9 +453,9 @@ const removeButtonsAfterTraining = () => {
 //* стилизует выбранный ответ в вопросе, либо убирает стили если ответ не выбран
 const stylesNotStylesAnswers = () => {
   slyleResetAnswer();// сбрасывает стили ответов
-  if (indexQuest <= arrayAnswer.length-1) {
+  if (indexQuest <= arrayAnswer.length - 1) {
     collectionAnswersBody[arrayAnswer[indexQuest].indexAnswer].classList.add('question-answers__answers-body--active');
-  } 
+  }
   else {
     let xxx = {
       answer: false,
@@ -478,19 +483,19 @@ const moveResult = () => {
   clearInterval(timeReportVar);
   fieldQuestionAnswer.style.pointerEvents = 'none';
   /* делает все ответы не активными */
-  collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'none';});
+  collectionAnswersBody.forEach(elem => { elem.style.pointerEvents = 'none'; });
 
   /* если экзамен пройден */
   if (calcArrAnserScore() <= 1) {
     finalReport(`Вы прошли! &#128578;`);
     rightNotRightAnswersIndicators();// стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
-    showSelectedNotSelectedAnswers(randomQuestions.length-1)// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после
-  } 
+    showSelectedNotSelectedAnswers(randomQuestions.length - 1)// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после
+  }
   /* если экзамен не пройден */
   else {
     finalReport(`Вы не прошли! &#128543;`);
     rightNotRightAnswersIndicators();// стилизует индикаторы в конце обучения на правельные(зеленый), не правельные(красный)
-    showSelectedNotSelectedAnswers(randomQuestions.length-1)// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после
+    showSelectedNotSelectedAnswers(randomQuestions.length - 1)// стилизует и показывает где правельный ответ и какой ответ выбрал пользователь после
     return;
   }
 }
@@ -501,7 +506,7 @@ const finalReport = (text) => {
   document.querySelector('.final-text').innerHTML = text;
   document.querySelector('.error-rate').textContent = `Ошибок: ${calcArrAnserScore()}`;
   document.querySelector('.correct').textContent = `Правельных ответов: ${calcArrAnserScoreTrue()}`;
-  document.querySelector('.passed').textContent = `Пройдено: ${(randomQuestions.length-calcArrAnserScore())*10}%`;
+  document.querySelector('.passed').textContent = `Пройдено: ${(randomQuestions.length - calcArrAnserScore()) * 10}%`;
 }
 
 //* сбрасывает все результаты */
@@ -515,7 +520,7 @@ const restartResults = () => {
   fieldQuestionAnswer.style.pointerEvents = 'auto';
   fieldQuestionAnswer.style.opacity = '1';
   /* делает все ответы активными */
-  collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});
+  collectionAnswersBody.forEach(elem => { elem.style.pointerEvents = 'auto'; });
   arrayAnswer = [];
   numQuest = 0; // номер вопросса
   indexQuest = 0; // индекс вопросса
@@ -538,7 +543,7 @@ const restartResults = () => {
 
 //*---------------------- EVENTS ---------------------- */
 window.addEventListener('load', generation10QuestionsFromAllSections);
-window.addEventListener('load', ()=>fillsQAWithText(indexQuest));
+window.addEventListener('load', () => fillsQAWithText(indexQuest));
 window.addEventListener('load', startQuestNum);
 btnStartTest.addEventListener('click', startExam);
 btnPrev.addEventListener('click', movePrevQuestion);
@@ -549,15 +554,15 @@ collectionAnswersBody.forEach((elem, index) => {
     styleQuestionIndicator();// стилизует индикатор выбраного вопроса
     styleSelectedAnswer(elem);
     recordedAnswer = randomQuestions[indexQuest].answers[index].correct;
-    
+
     /* что бы нельзя было нажимать на уже выбранный ответ */
     if (elem.classList.contains('question-answers__answers-body--active')) {
       /* делает все ответы активными */
-      collectionAnswersBody.forEach(elem => {elem.style.pointerEvents = 'auto';});
+      collectionAnswersBody.forEach(elem => { elem.style.pointerEvents = 'auto'; });
       /* делает текущий элемент не активным */
       elem.style.pointerEvents = 'none';
-    } 
-  
+    }
+
     /* при выборе другого ответа, предыдущий удаляется и присваивается текущий. Происходит с учетом текущего вопроса */
     let iii = {
       answer: recordedAnswer,
@@ -578,7 +583,7 @@ collectionAnswersBody.forEach((elem, index) => {
 
     console.log('arrayAnswer:');
     console.log(arrayAnswer);
-    
+
   })
 });// три кнопки ответа
 
@@ -586,4 +591,4 @@ btnResult.addEventListener('click', moveResult);
 btnRestart.addEventListener('click', restartResults);
 //* --------------------------------------------------- */
 
-export {fieldTests, fieldStartExam, timeReportVar, restartResults, fieldFinalScore};
+export { fieldTests, fieldStartExam, timeReportVar, restartResults, fieldFinalScore };
